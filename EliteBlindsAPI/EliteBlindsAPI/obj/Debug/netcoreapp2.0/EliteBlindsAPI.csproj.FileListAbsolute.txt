@@ -1,0 +1,11 @@
+c:\users\suresh.kanniyappan\source\repos\EliteBlindsAPI\EliteBlindsAPI\bin\Debug\netcoreapp2.0\EliteBlindsAPI.deps.json
+c:\users\suresh.kanniyappan\source\repos\EliteBlindsAPI\EliteBlindsAPI\bin\Debug\netcoreapp2.0\EliteBlindsAPI.runtimeconfig.json
+c:\users\suresh.kanniyappan\source\repos\EliteBlindsAPI\EliteBlindsAPI\bin\Debug\netcoreapp2.0\EliteBlindsAPI.runtimeconfig.dev.json
+c:\users\suresh.kanniyappan\source\repos\EliteBlindsAPI\EliteBlindsAPI\bin\Debug\netcoreapp2.0\EliteBlindsAPI.dll
+c:\users\suresh.kanniyappan\source\repos\EliteBlindsAPI\EliteBlindsAPI\bin\Debug\netcoreapp2.0\EliteBlindsAPI.pdb
+c:\users\suresh.kanniyappan\source\repos\EliteBlindsAPI\EliteBlindsAPI\obj\Debug\netcoreapp2.0\EliteBlindsAPI.csprojResolveAssemblyReference.cache
+c:\users\suresh.kanniyappan\source\repos\EliteBlindsAPI\EliteBlindsAPI\obj\Debug\netcoreapp2.0\EliteBlindsAPI.csproj.CoreCompileInputs.cache
+c:\users\suresh.kanniyappan\source\repos\EliteBlindsAPI\EliteBlindsAPI\obj\Debug\netcoreapp2.0\EliteBlindsAPI.AssemblyInfoInputs.cache
+c:\users\suresh.kanniyappan\source\repos\EliteBlindsAPI\EliteBlindsAPI\obj\Debug\netcoreapp2.0\EliteBlindsAPI.AssemblyInfo.cs
+c:\users\suresh.kanniyappan\source\repos\EliteBlindsAPI\EliteBlindsAPI\obj\Debug\netcoreapp2.0\EliteBlindsAPI.dll
+c:\users\suresh.kanniyappan\source\repos\EliteBlindsAPI\EliteBlindsAPI\obj\Debug\netcoreapp2.0\EliteBlindsAPI.pdb
