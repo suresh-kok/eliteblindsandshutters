@@ -44,7 +44,7 @@ namespace EliteBlindsAPI.Business
         /// </summary>
         /// <param name="exError">Out exception object</param>
         /// <returns>List of type T</returns>
-        public abstract List<T> Select(out Exception exError);
+        public abstract List<T> SelectAll(out Exception exError);
 
         /// <summary>
         /// Default create method for type T
@@ -60,7 +60,7 @@ namespace EliteBlindsAPI.Business
         /// <param name="ID">ID of instance to read</param>
         /// <param name="exError">Out exception object</param>
         /// <returns>Instance of type T</returns>
-        public abstract T Read(int ID, out Exception exError);
+        public abstract T Select(int ID, out Exception exError);
 
         /// <summary>
         /// Default update method for type T

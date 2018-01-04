@@ -15,6 +15,6 @@ namespace EliteBlindsAPI.Controllers
         {
             return "Customer";
         }
-        
+
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using EliteBlindsAPI.Business;
 
 namespace EliteBlindsAPI.Controllers
 {
@@ -11,6 +12,7 @@ namespace EliteBlindsAPI.Controllers
     [Route("api/Order")]
     public class OrderController : Controller
     {
+        private IEliteBusiness BusinessObj = new EliteBusiness();
         // GET: api/Order
         [HttpGet]
         public IEnumerable<string> Get()
@@ -22,7 +24,7 @@ namespace EliteBlindsAPI.Controllers
         [HttpGet("{id}", Name = "Get")]
         public string Get(int id)
         {
-            return "value";
+            return BusinessObj.GetCustomer(id).ToString();
         }
         
         // POST: api/Order

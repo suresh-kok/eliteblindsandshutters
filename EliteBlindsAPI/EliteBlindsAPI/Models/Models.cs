@@ -108,6 +108,8 @@ namespace EliteBlindsAPI.Models
 
     }
 
+
+
     public class Order
     {
         private int _OrderID;
@@ -116,6 +118,22 @@ namespace EliteBlindsAPI.Models
         {
             get { return _OrderID; }
             set { _OrderID = value; }
+        }
+
+        private string _OrderNumber;
+
+        public string OrderNumber
+        {
+            get { return _OrderNumber; }
+            set { _OrderNumber = value; }
+        }
+
+        private int _CustomerID;
+
+        public int CustomerID
+        {
+            get { return _CustomerID; }
+            set { _CustomerID = value; }
         }
 
         private bool _IsNew;
@@ -173,7 +191,6 @@ namespace EliteBlindsAPI.Models
             get { return _OrderStatus; }
             set { _OrderStatus = value; }
         }
-
 
         private DateTime _OrderDate;
 
@@ -237,14 +254,6 @@ namespace EliteBlindsAPI.Models
         {
             get { return _OrderM2; }
             set { _OrderM2 = value; }
-        }
-
-        private int _Boxes;
-
-        public int Boxes
-        {
-            get { return _Boxes; }
-            set { _Boxes = value; }
         }
 
     }
@@ -363,7 +372,6 @@ namespace EliteBlindsAPI.Models
             set { _Notes = value; }
         }
 
-
         private int _ControlID;
 
         public int ControlID
@@ -430,6 +438,42 @@ namespace EliteBlindsAPI.Models
 
     }
 
+    public class UtilityOrder
+    {
+        private int _UtilityOrderID;
+
+        public int UtilityOrderID
+        {
+            get { return _UtilityOrderID; }
+            set { _UtilityOrderID = value; }
+        }
+
+        private int _CustomerID;
+
+        public int CustomerID
+        {
+            get { return _CustomerID; }
+            set { _CustomerID = value; }
+        }
+
+        private int _OrderType;
+
+        public int OrderType
+        {
+            get { return _OrderType; }
+            set { _OrderType = value; }
+        }
+
+        private int _Boxes;
+
+        public int Boxes
+        {
+            get { return _Boxes; }
+            set { _Boxes = value; }
+        }
+
+    }
+
     public class Fabric
     {
         private int _FabricID;
@@ -438,6 +482,14 @@ namespace EliteBlindsAPI.Models
         {
             get { return _FabricID; }
             set { _FabricID = value; }
+        }
+
+        private int _UtilityOrderID;
+
+        public int UtilityOrderID
+        {
+            get { return _UtilityOrderID; }
+            set { _UtilityOrderID = value; }
         }
 
         private int _FabricType;
@@ -474,6 +526,123 @@ namespace EliteBlindsAPI.Models
         {
             get { return _RollerBlindsID; }
             set { _RollerBlindsID = value; }
+        }
+
+        private int _UtilityOrderID;
+
+        public int UtilityOrderID
+        {
+            get { return _UtilityOrderID; }
+            set { _UtilityOrderID = value; }
+        }
+
+        private int _RollerBlindTypeID;
+
+        public int RollerBlindTypeID
+        {
+            get { return _RollerBlindTypeID; }
+            set { _RollerBlindTypeID = value; }
+        }
+
+    }
+
+    public class Valance
+    {
+        private int _ValanceID;
+
+        public int ValanceID
+        {
+            get { return _ValanceID; }
+            set { _ValanceID = value; }
+        }
+
+        private int _UtilityOrderID;
+
+        public int UtilityOrderID
+        {
+            get { return _UtilityOrderID; }
+            set { _UtilityOrderID = value; }
+        }
+
+        private int _MaterialID;
+
+        public int MaterialID
+        {
+            get { return _MaterialID; }
+            set { _MaterialID = value; }
+        }
+
+        private int _ColorID;
+
+        public int ColorID
+        {
+            get { return _ColorID; }
+            set { _ColorID = value; }
+        }
+
+        private string _Size;
+
+        public string Size
+        {
+            get { return _Size; }
+            set { _Size = value; }
+        }
+
+    }
+
+    public class BottomRail
+    {
+        private int _BottomRailID;
+
+        public int BottomRailID
+        {
+            get { return _BottomRailID; }
+            set { _BottomRailID = value; }
+        }
+
+        private int _UtilityOrderID;
+
+        public int UtilityOrderID
+        {
+            get { return _UtilityOrderID; }
+            set { _UtilityOrderID = value; }
+        }
+
+        private int _MaterialID;
+
+        public int MaterialID
+        {
+            get { return _MaterialID; }
+            set { _MaterialID = value; }
+        }
+
+        private int _ColorID;
+
+        public int ColorID
+        {
+            get { return _ColorID; }
+            set { _ColorID = value; }
+        }
+
+        private string _Size;
+
+        public string Size
+        {
+            get { return _Size; }
+            set { _Size = value; }
+        }
+
+    }
+
+    public class RollerBlindType
+    {
+
+        private int _RollerBlindTypeID;
+
+        public int RollerBlindTypeID
+        {
+            get { return _RollerBlindTypeID; }
+            set { _RollerBlindTypeID = value; }
         }
 
         private string _Description;
@@ -523,79 +692,6 @@ namespace EliteBlindsAPI.Models
             get { return _MOQ; }
             set { _MOQ = value; }
         }
-
-    }
-
-    public class Valance
-    {
-        private int _ValanceID;
-
-        public int ValanceID
-        {
-            get { return _ValanceID; }
-            set { _ValanceID = value; }
-        }
-
-        private int _MaterialID;
-
-        public int MaterialID
-        {
-            get { return _MaterialID; }
-            set { _MaterialID = value; }
-        }
-
-        private int _ColorID;
-
-        public int ColorID
-        {
-            get { return _ColorID; }
-            set { _ColorID = value; }
-        }
-
-        private string _Size;
-
-        public string Size
-        {
-            get { return _Size; }
-            set { _Size = value; }
-        }
-
-    }
-
-    public class BottomRail
-    {
-        private int _BottomRailID;
-
-        public int BottomRailID
-        {
-            get { return _BottomRailID; }
-            set { _BottomRailID = value; }
-        }
-
-        private int _MaterialID;
-
-        public int MaterialID
-        {
-            get { return _MaterialID; }
-            set { _MaterialID = value; }
-        }
-
-        private int _ColorID;
-
-        public int ColorID
-        {
-            get { return _ColorID; }
-            set { _ColorID = value; }
-        }
-
-        private string _Size;
-
-        public string Size
-        {
-            get { return _Size; }
-            set { _Size = value; }
-        }
-
     }
 
     public class SlatStyle
@@ -614,6 +710,14 @@ namespace EliteBlindsAPI.Models
         {
             get { return _SlatStyleDesc; }
             set { _SlatStyleDesc = value; }
+        }
+
+        private string _For;
+
+        public string For
+        {
+            get { return _For; }
+            set { _For = value; }
         }
 
     }
@@ -636,6 +740,14 @@ namespace EliteBlindsAPI.Models
             set { _CordStyleDesc = value; }
         }
 
+        private string _For;
+
+        public string For
+        {
+            get { return _For; }
+            set { _For = value; }
+        }
+
     }
 
     public class Control
@@ -654,6 +766,14 @@ namespace EliteBlindsAPI.Models
         {
             get { return _ControlDesc; }
             set { _ControlDesc = value; }
+        }
+
+        private string _For;
+
+        public string For
+        {
+            get { return _For; }
+            set { _For = value; }
         }
 
     }
@@ -676,24 +796,67 @@ namespace EliteBlindsAPI.Models
             set { _MaterialDesc = value; }
         }
 
+        private string _For;
+
+        public string For
+        {
+            get { return _For; }
+            set { _For = value; }
+        }
+
     }
 
     public class Colors
     {
-        private int _ColorID;
+        private int _ColorsID;
 
-        public int ColorID
+        public int ColorsID
         {
-            get { return _ColorID; }
-            set { _ColorID = value; }
+            get { return _ColorsID; }
+            set { _ColorsID = value; }
         }
 
-        private string _ColorDesc;
+        private string _ColorsDesc;
 
-        public string ColorDesc
+        public string ColorsDesc
         {
-            get { return _ColorDesc; }
-            set { _ColorDesc = value; }
+            get { return _ColorsDesc; }
+            set { _ColorsDesc = value; }
+        }
+
+        private string _For;
+
+        public string For
+        {
+            get { return _For; }
+            set { _For = value; }
+        }
+
+    }
+    public class Size
+    {
+        private int _SizeID;
+
+        public int SizeID
+        {
+            get { return _SizeID; }
+            set { _SizeID = value; }
+        }
+
+        private string _SizeDesc;
+
+        public string SizeDesc
+        {
+            get { return _SizeDesc; }
+            set { _SizeDesc = value; }
+        }
+
+        private string _For;
+
+        public string For
+        {
+            get { return _For; }
+            set { _For = value; }
         }
 
     }
