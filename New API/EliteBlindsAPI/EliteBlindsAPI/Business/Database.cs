@@ -2671,7 +2671,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT SlatStyleID, SlatStyleDesc, For FROM SlatStyle Where SlatStyleID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT SlatStyleID, SlatStyleDesc, `For` FROM SlatStyle Where SlatStyleID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2713,7 +2713,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT SlatStyleID, SlatStyleDesc, For FROM SlatStyle", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT SlatStyleID, SlatStyleDesc, `For` FROM SlatStyle", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2753,7 +2753,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT SlatStyleID, SlatStyleDesc, For FROM SlatStyle WHERE For = " + For, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT SlatStyleID, SlatStyleDesc, `For` FROM SlatStyle WHERE `For` = '" + For + "'", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2792,7 +2792,7 @@ namespace EliteBlindsAPI.Business
 
                 string query = "UPDATE SlatStyle SET " +
                     "SlatStyleDesc = @SlatStyleDesc" +
-                    "For = @For" +
+                    "`For` = @For" +
                     "WHERE SlatStyleID = @SlatStyleID";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
@@ -2835,7 +2835,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO CordStyle (CordStyleDesc, For) " +
+                string query = "INSERT INTO CordStyle (CordStyleDesc, `For`) " +
                            "VALUES (@CordStyleDesc, @For) ";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
@@ -2912,7 +2912,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT CordStyleID, CordStyleDesc, For FROM CordStyle Where CordStyleID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT CordStyleID, CordStyleDesc, `For` FROM CordStyle Where CordStyleID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2954,7 +2954,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT CordStyleID, CordStyleDesc, For FROM CordStyle", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT CordStyleID, CordStyleDesc, `For` FROM CordStyle", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2994,7 +2994,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT CordStyleID, CordStyleDesc, For FROM CordStyle WHERE For = " + For, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT CordStyleID, CordStyleDesc, `For` FROM CordStyle WHERE `For` = '" + For + "'", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3034,7 +3034,7 @@ namespace EliteBlindsAPI.Business
 
                 string query = "UPDATE CordStyle SET " +
                     "CordStyleDesc = @CordStyleDesc" +
-                    "For = @For" +
+                    "`For` = @For" +
                     "WHERE CordStyleID = @CordStyleID";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
@@ -3077,7 +3077,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO Control (ControlDesc, For) " +
+                string query = "INSERT INTO Control (ControlDesc, `For`) " +
                            "VALUES (@ControlDesc, @For) ";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
@@ -3154,7 +3154,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT ControlID, ControlDesc, For FROM Control Where ControlID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT ControlID, ControlDesc, `For` FROM Control Where ControlID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3196,7 +3196,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT ControlID, ControlDesc, For FROM Control", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT ControlID, ControlDesc, `For` FROM Control", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3236,7 +3236,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT ControlID, ControlDesc, For FROM Control WHERE For = " + For, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT ControlID, ControlDesc, `For` FROM Control WHERE `For` = '" + For + "'", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3275,7 +3275,7 @@ namespace EliteBlindsAPI.Business
 
                 string query = "UPDATE Control SET " +
                     "ControlDesc = @ControlDesc" +
-                    "For = @For" +
+                    "`For` = @For" +
                     "WHERE ControlID = @ControlID";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
@@ -3318,7 +3318,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO Material (MaterialDesc, For) " +
+                string query = "INSERT INTO Material (MaterialDesc, `For`) " +
                            "VALUES (@MaterialDesc, @For) ";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
@@ -3395,7 +3395,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT MaterialID, MaterialDesc, For FROM Material Where MaterialID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT MaterialID, MaterialDesc, `For` FROM Material Where MaterialID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3437,7 +3437,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT MaterialID, MaterialDesc, For FROM Material", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT MaterialID, MaterialDesc, `For` FROM Material", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3477,7 +3477,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT MaterialID, MaterialDesc, For FROM Material WHERE For = " + For, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT MaterialID, MaterialDesc, `For` FROM Material WHERE `For` = '" + For + "'", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3517,7 +3517,7 @@ namespace EliteBlindsAPI.Business
 
                 string query = "UPDATE Material SET " +
                     "MaterialDesc = @MaterialDesc" +
-                    "For = @For" +
+                    "`For` = @For" +
                     "WHERE MaterialID = @MaterialID";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
@@ -3560,7 +3560,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO Colors (ColorsDesc, For) " +
+                string query = "INSERT INTO Colors (ColorsDesc, `For`) " +
                            "VALUES (@ColorsDesc, @For) ";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
@@ -3637,7 +3637,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT ColorsID, ColorsDesc, For FROM Colors Where ColorsID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT ColorsID, ColorsDesc, `For` FROM Colors Where ColorsID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3679,7 +3679,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT ColorsID, ColorsDesc, For FROM Colors", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT ColorsID, ColorsDesc, `For` FROM Colors", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3719,7 +3719,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT ColorsID, ColorsDesc, For FROM Colors WHERE For = " + For, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT ColorsID, ColorsDesc, `For` FROM Colors WHERE `For` = '" + For + "'", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3759,7 +3759,7 @@ namespace EliteBlindsAPI.Business
 
                 string query = "UPDATE Colors SET " +
                     "ColorsDesc = @ColorsDesc" +
-                    "For = @For" +
+                    "`For` = @For" +
                     "WHERE ColorsID = @ColorsID";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
@@ -3802,7 +3802,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO Size (SizeDesc, For) " +
+                string query = "INSERT INTO Size (SizeDesc, `For`) " +
                            "VALUES (@SizeDesc, @For) ";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
@@ -3879,7 +3879,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT SizeID, SizeDesc, For FROM Size Where SizeID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT SizeID, SizeDesc, `For` FROM Size Where SizeID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3921,7 +3921,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT SizeID, SizeDesc, For FROM Size", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT SizeID, SizeDesc, `For` FROM Size", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3961,7 +3961,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT SizeID, SizeDesc, For FROM Size WHERE For = " + For, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT SizeID, SizeDesc, `For` FROM Size WHERE `For` = '" + For + "'", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -4001,7 +4001,7 @@ namespace EliteBlindsAPI.Business
 
                 string query = "UPDATE Size SET " +
                     "SizeDesc = @SizeDesc" +
-                    "For = @For" +
+                    "`For` = @For" +
                     "WHERE SizeID = @SizeID";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))

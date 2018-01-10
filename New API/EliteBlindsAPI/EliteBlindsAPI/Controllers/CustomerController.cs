@@ -10,9 +10,11 @@ using System.Web.Script.Serialization;
 
 namespace EliteBlindsAPI.Controllers
 {
+    [RoutePrefix("api/Customer")]
     public class CustomerController : ApiController
     {
         private Business.IBusiness BusinessObj = new Business.Business();
+        [HttpGet]
         public string GetCustomer()
         {
             var json = new JavaScriptSerializer().Serialize(BusinessObj.GetCustomers());
@@ -141,8 +143,8 @@ namespace EliteBlindsAPI.Controllers
         {
             BusinessObj.DeleteBottomRail(BottomRailID);
         }
-
-        public string GetColors(string For)
+        [Route("GetColors/{For}")]
+        public string GetColors([FromUri]string For)
         {
             var json = new JavaScriptSerializer().Serialize(BusinessObj.GetColors(For));
             return json; ;
