@@ -166,9 +166,9 @@ namespace EliteBlindsAPI.Controllers
             return json; ;
         }
 
-        public string GetControl(string For)
+        public string GetSize(string For)
         {
-            var json = new JavaScriptSerializer().Serialize(BusinessObj.GetControl(For));
+            var json = new JavaScriptSerializer().Serialize(BusinessObj.GetSize(For));
             return json; ;
         }
 

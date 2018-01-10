@@ -290,10 +290,16 @@ namespace EliteBlindsAPI.Business
             return EliteBusinessObj.GetSlatStyle();
         }
 
+        public List<Size> GetSize()
+        {
+            return EliteBusinessObj.GetSize();
+        }
+
         public List<BlindType> GetBlindType()
         {
             return EliteBusinessObj.GetBlindType();
         }
+
         public List<Colors> GetColors(string For)
         {
             return EliteBusinessObj.GetColors(For);
@@ -318,7 +324,12 @@ namespace EliteBlindsAPI.Business
         {
             return EliteBusinessObj.GetSlatStyle(For);
         }
-        
+
+        public List<Size> GetSize(string For)
+        {
+            return EliteBusinessObj.GetSize(For);
+        }
+
 
         public void SendMail(string to, string body, string subject, params MailAttachment[] attachments)
         {

@@ -110,7 +110,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,IsActive,TotalOrders FROM Customer Where CustomerID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,IsActive FROM Customer Where CustomerID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -131,8 +131,7 @@ namespace EliteBlindsAPI.Business
                                 City = reader.GetString("City"),
                                 Country = reader.GetString("Country"),
                                 Pincode = reader.GetString("Pincode"),
-                                IsActive = reader.GetBoolean("IsActive"),
-                                TotalOrders = reader.GetInt32("TotalOrders")
+                                IsActive = reader.GetBoolean("IsActive")
                             };
                         }
                     }
@@ -164,7 +163,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,IsActive,TotalOrders FROM Customer ", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,IsActive FROM Customer ", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -184,8 +183,7 @@ namespace EliteBlindsAPI.Business
                                 City = reader.GetString("City"),
                                 Country = reader.GetString("Country"),
                                 Pincode = reader.GetString("Pincode"),
-                                IsActive = reader.GetBoolean("IsActive"),
-                                TotalOrders = reader.GetInt32("TotalOrders")
+                                IsActive = reader.GetBoolean("IsActive")
                             });
                     }
                 }
@@ -216,7 +214,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,IsActive,TotalOrders FROM Customer WHERE CustomerID IN (@CustomerIDs)", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,IsActive FROM Customer WHERE CustomerID IN (@CustomerIDs)", (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@CustomerIDs", MySqlDbType.VarString).Value = string.Join(",",IDs.ToArray());
 
@@ -238,8 +236,7 @@ namespace EliteBlindsAPI.Business
                                 City = reader.GetString("City"),
                                 Country = reader.GetString("Country"),
                                 Pincode = reader.GetString("Pincode"),
-                                IsActive = reader.GetBoolean("IsActive"),
-                                TotalOrders = reader.GetInt32("TotalOrders")
+                                IsActive = reader.GetBoolean("IsActive")
                             });
                     }
                 }
@@ -333,7 +330,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT Count(1) FROM Customer WHERE Email = " + Email + " AND Password = " + Password, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT Count(1) FROM Customer WHERE Email = '" + Email + "' AND Password = '" + Password + "'", (MySqlConnection)this.Connection))
                 {
                     int Rows = Convert.ToInt32(command.ExecuteScalar());
                     returnValue = Rows > 0 ? true : false;
@@ -2335,7 +2332,6 @@ namespace EliteBlindsAPI.Business
     }
     public class BottomRail_Mapper : IDataMapper<BottomRail>
     {
-
         public override bool Create(BottomRail instance, out Exception exError)
         {
             exError = null;
@@ -3023,6 +3019,7 @@ namespace EliteBlindsAPI.Business
 
             return returnValue;
         }
+
         public override bool Update(CordStyle instance, out Exception exError)
         {
             exError = null;
@@ -3769,6 +3766,248 @@ namespace EliteBlindsAPI.Business
                 {
                     command.Parameters.Add("@ColorsDesc", MySqlDbType.VarString).Value = instance.ColorsDesc;
                     command.Parameters.Add("@ColorsID", MySqlDbType.Int32).Value = instance.ColorsID;
+                    command.Parameters.Add("@For", MySqlDbType.VarString).Value = instance.For;
+
+                    int RetVal = command.ExecuteNonQuery();
+
+                    if (RetVal <= 0)
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+                return true;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return true;
+        }
+    }
+    public class Size_Mapper : IDataMapper<Size>
+    {
+        public override bool Create(Size instance, out Exception exError)
+        {
+            exError = null;
+            try
+            {
+                if (this.Connection == null)
+                {
+                    throw new Exception("Unable to Connect to Database");
+                }
+                else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+                string query = "INSERT INTO Size (SizeDesc, For) " +
+                           "VALUES (@SizeDesc, @For) ";
+
+                using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
+                {
+                    command.Parameters.Add("@SizeDesc", MySqlDbType.VarString).Value = instance.SizeDesc;
+                    command.Parameters.Add("@For", MySqlDbType.VarString).Value = instance.For;
+
+                    int RetVal = command.ExecuteNonQuery();
+
+                    if (RetVal <= 0)
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+                return true;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return true;
+        }
+
+        public override bool Delete(int ID, out Exception exError)
+        {
+            exError = null;
+
+            try
+            {
+                if (this.Connection == null)
+                {
+                    throw new Exception("Unable to Connect to Database");
+                }
+                else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM Size WHERE ColorID = " + ID, (MySqlConnection)this.Connection))
+                {
+                    int rows = command.ExecuteNonQuery();
+                    if (rows <= 0)
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+                return false;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+            return true;
+        }
+
+        public override Size Select(int ID, out Exception exError)
+        {
+            Size returnValue = new Size();
+            exError = null;
+
+            try
+            {
+                if (this.Connection == null)
+                {
+                    throw new Exception("Unable to Connect to Database");
+                }
+                else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("SELECT SizeID, SizeDesc, For FROM Size Where SizeID = " + ID, (MySqlConnection)this.Connection))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows && reader.Read())
+                        {
+                            returnValue = new Size()
+                            {
+                                SizeID = reader.GetInt32("SizeID"),
+                                SizeDesc = reader.GetString("SizeDesc"),
+                                For = reader.GetString("For")
+                            };
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+            return returnValue;
+        }
+
+        public override List<Size> SelectAll(out Exception exError)
+        {
+            List<Size> returnValue = new List<Size>();
+            exError = null;
+
+            try
+            {
+                if (this.Connection == null)
+                {
+                    throw new Exception("Unable to Connect to Database");
+                }
+                else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("SELECT SizeID, SizeDesc, For FROM Size", (MySqlConnection)this.Connection))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                            returnValue.Add(new Size()
+                            {
+                                SizeID = reader.GetInt32("SizeID"),
+                                SizeDesc = reader.GetString("SizeDesc"),
+                                For = reader.GetString("For")
+                            });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+            return returnValue;
+        }
+
+        public List<Size> SelectFor(string For, out Exception exError)
+        {
+            List<Size> returnValue = new List<Size>();
+            exError = null;
+
+            try
+            {
+                if (this.Connection == null)
+                {
+                    throw new Exception("Unable to Connect to Database");
+                }
+                else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("SELECT SizeID, SizeDesc, For FROM Size WHERE For = " + For, (MySqlConnection)this.Connection))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                            returnValue.Add(new Size()
+                            {
+                                SizeID = reader.GetInt32("SizeID"),
+                                SizeDesc = reader.GetString("SizeDesc"),
+                                For = reader.GetString("For")
+                            });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+            return returnValue;
+        }
+
+        public override bool Update(Size instance, out Exception exError)
+        {
+            exError = null;
+            try
+            {
+                if (this.Connection == null)
+                {
+                    throw new Exception("Unable to Connect to Database");
+                }
+                else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+                string query = "UPDATE Size SET " +
+                    "SizeDesc = @SizeDesc" +
+                    "For = @For" +
+                    "WHERE SizeID = @SizeID";
+
+                using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
+                {
+                    command.Parameters.Add("@SizeDesc", MySqlDbType.VarString).Value = instance.SizeDesc;
+                    command.Parameters.Add("@SizeID", MySqlDbType.Int32).Value = instance.SizeID;
                     command.Parameters.Add("@For", MySqlDbType.VarString).Value = instance.For;
 
                     int RetVal = command.ExecuteNonQuery();

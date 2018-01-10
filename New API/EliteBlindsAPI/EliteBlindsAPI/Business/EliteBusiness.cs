@@ -23,6 +23,7 @@ namespace EliteBlindsAPI.Business
         private Material_Mapper MaterialDB;
         private Colors_Mapper ColorsDB;
         private BlindType_Mapper BlindTypeDB;
+        private Size_Mapper SizeDB;
         private Exception CustomException;
         public EliteBusiness()
         {
@@ -41,6 +42,7 @@ namespace EliteBlindsAPI.Business
             MaterialDB = new Material_Mapper();
             ColorsDB = new Colors_Mapper();
             BlindTypeDB = new BlindType_Mapper();
+            SizeDB = new Size_Mapper();
             CustomException = new Exception();
         }
 
@@ -169,6 +171,11 @@ namespace EliteBlindsAPI.Business
             return SlatStyleDB.SelectAll(out CustomException);
         }
 
+        public List<Size> GetSize()
+        {
+            return SizeDB.SelectAll(out CustomException);
+        }
+
         public List<Colors> GetColors(string For)
         {
             return ColorsDB.SelectFor(For, out CustomException);
@@ -192,6 +199,11 @@ namespace EliteBlindsAPI.Business
         public List<SlatStyle> GetSlatStyle(string For)
         {
             return SlatStyleDB.SelectFor(For, out CustomException);
+        }
+
+        public List<Size> GetSize(string For)
+        {
+            return SizeDB.SelectFor(For, out CustomException);
         }
 
         public List<BlindType> GetBlindType()

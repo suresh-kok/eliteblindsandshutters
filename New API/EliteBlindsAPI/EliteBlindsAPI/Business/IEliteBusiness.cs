@@ -65,10 +65,12 @@ namespace EliteBlindsAPI.Business
         List<Control> GetControl();
         List<Material> GetMaterial();
         List<BlindType> GetBlindType();
+        List<Size> GetSize();
         List<Colors> GetColors(string For);
         List<SlatStyle> GetSlatStyle(string For);
         List<CordStyle> GetCordStyle(string For);
         List<Control> GetControl(string For);
         List<Material> GetMaterial(string For);
+        List<Size> GetSize(string For);
     }
 }
