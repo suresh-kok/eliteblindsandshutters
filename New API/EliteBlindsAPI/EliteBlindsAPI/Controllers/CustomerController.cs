@@ -143,31 +143,36 @@ namespace EliteBlindsAPI.Controllers
         {
             BusinessObj.DeleteBottomRail(BottomRailID);
         }
+
         [Route("GetColors/{For}")]
-        public string GetColors([FromUri]string For)
+        public string GetColors(string For)
         {
             var json = new JavaScriptSerializer().Serialize(BusinessObj.GetColors(For));
             return json; ;
         }
 
+        [Route("GetMaterial/{For}")]
         public string GetMaterial(string For)
         {
             var json = new JavaScriptSerializer().Serialize(BusinessObj.GetMaterial(For));
             return json; ;
         }
 
+        [Route("GetCordStyle/{For}")]
         public string GetCordStyle(string For)
         {
             var json = new JavaScriptSerializer().Serialize(BusinessObj.GetCordStyle(For));
             return json; ;
         }
 
+        [Route("GetSlatStyle/{For}")]
         public string GetSlatStyle(string For)
         {
             var json = new JavaScriptSerializer().Serialize(BusinessObj.GetSlatStyle(For));
             return json; ;
         }
 
+        [Route("GetSize/{For}")]
         public string GetSize(string For)
         {
             var json = new JavaScriptSerializer().Serialize(BusinessObj.GetSize(For));
