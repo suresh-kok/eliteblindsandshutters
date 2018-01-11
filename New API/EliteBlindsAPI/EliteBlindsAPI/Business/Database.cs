@@ -349,6 +349,105 @@ namespace EliteBlindsAPI.Business
             return returnValue;
         }
 
+        public bool ResetPassword(string Email, string Password, out Exception exError)
+        {
+            bool returnValue = false;
+            exError = null;
+
+            try
+            {
+                if (this.Connection == null)
+                {
+                    throw new Exception("Unable to Connect to Database");
+                }
+                else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("UPDATE Customer SET Password = '" + Password + "' WHERE Email = '" + Email + "' AND IsActive = 0 ", (MySqlConnection)this.Connection))
+                {
+                    int Rows = Convert.ToInt32(command.ExecuteScalar());
+                    returnValue = Rows > 0 ? true : false;
+                }
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+                return false;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+            return returnValue;
+        }
+
+        public bool ForgotPassword(string Email, out Exception exError)
+        {
+            bool returnValue = false;
+            exError = null;
+
+            try
+            {
+                if (this.Connection == null)
+                {
+                    throw new Exception("Unable to Connect to Database");
+                }
+                else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("UPDATE Customer SET IsActive = 0 WHERE Email = '" + Email + "'", (MySqlConnection)this.Connection))
+                {
+                    int Rows = Convert.ToInt32(command.ExecuteScalar());
+                    returnValue = Rows > 0 ? true : false;
+                }
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+                return false;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+            return returnValue;
+        }
+
+        public bool UserCheck(string Email, out Exception exError)
+        {
+            bool returnValue = false;
+            exError = null;
+
+            try
+            {
+                if (this.Connection == null)
+                {
+                    throw new Exception("Unable to Connect to Database");
+                }
+                else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("SELECT Count(1) FROM Customer WHERE Email = '" + Email + "'", (MySqlConnection)this.Connection))
+                {
+                    int Rows = Convert.ToInt32(command.ExecuteScalar());
+                    returnValue = Rows > 0 ? true : false;
+                }
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+                return false;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+            return returnValue;
+        }
+
         public bool SetUserActive(int ID, out Exception exError)
         {
             bool returnValue = false;

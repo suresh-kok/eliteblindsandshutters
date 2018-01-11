@@ -10,6 +10,8 @@ namespace EliteBlindsAPI.Business
     {
         bool LoginCheck(string Email, string Password);
         bool SetUserActive(int ID);
+        bool ForgotPassword(string Email);
+        bool ResetPassword(string Email,string Password);
         Customer GetCustomer(int ID);
         List<Customer> GetCustomers();
         void SaveCustomer(Customer CustData);

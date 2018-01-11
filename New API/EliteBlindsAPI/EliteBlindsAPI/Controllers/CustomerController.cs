@@ -43,6 +43,16 @@ namespace EliteBlindsAPI.Controllers
             return BusinessObj.LoginCheck(Email, Password);
         }
 
+        public void ForgotPassowrd([FromBody]string Email)
+        {
+            BusinessObj.ForgotPassword(Email);
+        }
+
+        public void ResetPassword([FromBody]string Email, [FromBody]string Password)
+        {
+            BusinessObj.ResetPassword(Email,Password);
+        }
+
         public bool ActivateCustomer(int CustId)
         {
             return BusinessObj.SetUserActive(CustId);

@@ -20,6 +20,17 @@ namespace EliteBlindsAPI.Business
             return EliteBusinessObj.LoginCheck(Email, Password);
         }
 
+        public bool ForgotPassword(string Email)
+        {
+            SendMail(Email, "Please Reset the Password using the below link. <br/>" + ConfigurationManager.AppSettings["WebLink"].ToString()+"/api/Coustomer/ResetPassword","Password Reset");
+            return EliteBusinessObj.ForgotPassword(Email);
+        }
+
+        public bool ResetPassword(string Email, string Password)
+        {
+            return EliteBusinessObj.ResetPassword(Email, Password);
+        }
+
         public bool SetUserActive(int ID)
         {
             return EliteBusinessObj.SetUserActive(ID);
@@ -49,6 +60,7 @@ namespace EliteBlindsAPI.Business
         {
             return EliteBusinessObj.GetCustomerUtilityOrders(CustomerID);
         }
+
         public Tuple<List<Order>, List<UtilityOrder>> GetAllCustomerOrders(int ID)
         {
             var listOrder = EliteBusinessObj.GetCustomerOrders(ID);
@@ -56,16 +68,24 @@ namespace EliteBlindsAPI.Business
 
             return Tuple.Create(listOrder, listUtilityOrder);
         }
+
         public void SaveCustomer(Customer CustData)
         {
-            if (CustData.CustomerID > 0)
+            if (!EliteBusinessObj.UserCheck(CustData.Email))
             {
-                EliteBusinessObj.UpdateCustomer(CustData);
+                if (CustData.CustomerID > 0)
+                {
+                    EliteBusinessObj.UpdateCustomer(CustData);
+                }
+                else
+                {
+                    EliteBusinessObj.SaveCustomer(CustData);
+                    SendMail(CustData.Email, "Please click the below link to Activate User. <br/>" + ConfigurationManager.AppSettings["WebLink"] + "/api/Customer/ActivateCustomer/" + CustData.CustomerID, "User Activation");
+                }
             }
             else
             {
-                EliteBusinessObj.SaveCustomer(CustData);
-                SendMail(CustData.Email, "Please click the below link to Activate User. <br/>" + ConfigurationManager.AppSettings["WebLink"] + "/ActivateCustomer/" + CustData.CustomerID, "User Activation");
+                throw new Exception("User with same Email existing already");
             }
         }
 
@@ -102,6 +122,7 @@ namespace EliteBlindsAPI.Business
             {
                 EliteBusinessObj.SaveOrder(OrderData);
             }
+            SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), "New Order Has been Created", "New Order");
         }
 
         public void SaveUtilityOrder(UtilityOrder OrderData)
@@ -114,16 +135,19 @@ namespace EliteBlindsAPI.Business
             {
                 EliteBusinessObj.SaveUtilityOrder(OrderData);
             }
+            SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), "New Utility Order Has been Created", "New Utility Order");
         }
 
         public void DeleteOrder(int ID)
         {
             EliteBusinessObj.DeleteOrder(ID);
+            SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), "Order Has been Deleted", "Order Deleted");
         }
 
         public void DeleteUtilityOrder(int ID)
         {
             EliteBusinessObj.DeleteUtilityOrder(ID);
+            SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), "Utility Order Has been Deleted", "Utility Order Deleted");
         }
 
         public List<UtilityOrder> GetUtilityOrders(int ID)
@@ -202,7 +226,7 @@ namespace EliteBlindsAPI.Business
         {
             return EliteBusinessObj.GetValance(ID);
         }
-
+        
         public List<Valance> GetValance()
         {
             return EliteBusinessObj.GetValance();
@@ -329,7 +353,6 @@ namespace EliteBlindsAPI.Business
         {
             return EliteBusinessObj.GetSize(For);
         }
-
 
         public void SendMail(string to, string body, string subject, params MailAttachment[] attachments)
         {

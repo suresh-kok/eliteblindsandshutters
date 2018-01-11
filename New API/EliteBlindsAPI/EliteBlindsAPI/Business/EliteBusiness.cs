@@ -51,6 +51,19 @@ namespace EliteBlindsAPI.Business
         {
             return CustDB.LoginCheck(Email, Password, out CustomException);
         }
+        public bool ForgotPassword(string Email)
+        {
+            return CustDB.ForgotPassword(Email, out CustomException);
+        }
+        public bool ResetPassword(string Email, string Password)
+        {
+            return CustDB.ResetPassword(Email, Password, out CustomException);
+        }
+
+        public bool UserCheck(string Email)
+        {
+            return CustDB.UserCheck(Email, out CustomException);
+        }
 
         public bool SetUserActive(int ID)
         {
