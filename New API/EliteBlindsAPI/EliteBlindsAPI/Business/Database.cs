@@ -11,7 +11,7 @@ namespace EliteBlindsAPI.Business
 {
     public class Customer_Mapper : IDataMapper<Models.Customer>
     {
-        public override bool Create(Customer instance, out Exception exError)
+        public override Customer Create(Customer instance, out Exception exError)
         {
             exError = null;
             try
@@ -24,7 +24,8 @@ namespace EliteBlindsAPI.Business
                     this.Connection.Open();
 
                 string query = "INSERT INTO Customer (FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,IsActive) " +
-                           "VALUES (@FirstName, @MiddleName,@Lastname, @Email, @Password, @DOB, @Gender,@Mobile,@Address,@City,@Country,@Pincode,0) ";
+                           "VALUES (@FirstName, @MiddleName,@Lastname, @Email, @Password, @DOB, @Gender,@Mobile,@Address,@City,@Country,@Pincode,0); " +
+                           "SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
@@ -41,24 +42,28 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@Country", MySqlDbType.VarString).Value = instance.Country;
                     command.Parameters.Add("@Pincode", MySqlDbType.VarString).Value = instance.Pincode;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(RetVal, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
 
         public override bool Delete(int ID, out Exception exError)
@@ -216,7 +221,7 @@ namespace EliteBlindsAPI.Business
 
                 using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,IsActive FROM Customer WHERE CustomerID IN (@CustomerIDs)", (MySqlConnection)this.Connection))
                 {
-                    command.Parameters.Add("@CustomerIDs", MySqlDbType.VarString).Value = string.Join(",",IDs.ToArray());
+                    command.Parameters.Add("@CustomerIDs", MySqlDbType.VarString).Value = string.Join(",", IDs.ToArray());
 
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -253,7 +258,7 @@ namespace EliteBlindsAPI.Business
             return returnValue;
         }
 
-        public override bool Update(Customer instance, out Exception exError)
+        public override Customer Update(Customer instance, out Exception exError)
         {
             exError = null;
             try
@@ -278,7 +283,7 @@ namespace EliteBlindsAPI.Business
                     "City = @City," +
                     "Country = @Country," +
                     "Pincode = @Pincode," +
-                    "WHERE CustomerID = @CustomerID";
+                    "WHERE CustomerID = @CustomerID ";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
@@ -296,24 +301,28 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@Pincode", MySqlDbType.VarString).Value = instance.Pincode;
                     command.Parameters.Add("@CustomerID", MySqlDbType.Int32).Value = instance.CustomerID;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(instance.CustomerID, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
 
         public bool LoginCheck(string Email, string Password, out Exception exError)
@@ -462,7 +471,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("UPDATE Customer SET IsActive = 1 WHERE CustomerID = " + ID , (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("UPDATE Customer SET IsActive = 1 WHERE CustomerID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int Rows = Convert.ToInt32(command.ExecuteScalar());
                     returnValue = Rows > 0 ? true : false;
@@ -484,7 +493,7 @@ namespace EliteBlindsAPI.Business
 
     public class Order_Mapper : IDataMapper<Order>
     {
-        public override bool Create(Order instance, out Exception exError)
+        public override Order Create(Order instance, out Exception exError)
         {
             exError = null;
             try
@@ -497,7 +506,8 @@ namespace EliteBlindsAPI.Business
                     this.Connection.Open();
 
                 string query = "INSERT INTO Order (CustomerID, IsNew,Fault,Evidence, Company, Reference, OrderType,OrderStatus,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,OrderM2) " +
-                           "VALUES (@CustomerID, @IsNew, @Fault,@Evidence, @Company, @Reference, @OrderType, @OrderStatus, @OrderDate, @NumbOfBlinds, @ConsignNoteNum, @CompleteDate, @DeliveryDate, @DepartureDate, @ArrivalDate, @OrderM2) ";
+                           "VALUES (@CustomerID, @IsNew, @Fault,@Evidence, @Company, @Reference, @OrderType, @OrderStatus, @OrderDate, @NumbOfBlinds, @ConsignNoteNum, @CompleteDate, @DeliveryDate, @DepartureDate, @ArrivalDate, @OrderM2); " +
+                           "SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
@@ -518,24 +528,33 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@ArrivalDate", MySqlDbType.DateTime).Value = instance.ArrivalDate;
                     command.Parameters.Add("@OrderM2", MySqlDbType.Double).Value = instance.OrderM2;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        query = "Update Order SET OrderNumber = @OrderNumber WHERE OrderID = " + RetVal;
+                        using (MySqlCommand command1 = new MySqlCommand(query, (MySqlConnection)this.Connection))
+                        {
+                            command1.ExecuteScalar();
+                        }
+                        Exception custException = new Exception();
+                        return Select(RetVal, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
 
         public override bool Delete(int ID, out Exception exError)
@@ -683,7 +702,7 @@ namespace EliteBlindsAPI.Business
             return returnValue;
         }
 
-        public override bool Update(Order instance, out Exception exError)
+        public override Order Update(Order instance, out Exception exError)
         {
             exError = null;
             try
@@ -733,24 +752,28 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@ArrivalDate", MySqlDbType.DateTime).Value = instance.ArrivalDate;
                     command.Parameters.Add("@OrderM2", MySqlDbType.Double).Value = instance.OrderM2;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(instance.OrderID, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
 
         public List<Order> SelectedID(List<int> IDs, out Exception exError)
@@ -864,7 +887,7 @@ namespace EliteBlindsAPI.Business
     }
     public class OrderDetail_Mapper : IDataMapper<OrderDetail>
     {
-        public override bool Create(OrderDetail instance, out Exception exError)
+        public override OrderDetail Create(OrderDetail instance, out Exception exError)
         {
             exError = null;
             try
@@ -877,7 +900,8 @@ namespace EliteBlindsAPI.Business
                     this.Connection.Open();
 
                 string query = "INSERT INTO OrderDetail (OrderID, Width,Height, SplPelmetWidth, WidthMadeBy, HeightMadeBy, QualityCheckedBy,SlatStyleID,CordStyleID,ReturnRequired,MountType,SquareMeter,ControlID,ControlStyle,OpeningStyle,PelmetStyle,ColorID,MaterialID,Roll,ReadyMadeSize,Notes) " +
-                           "VALUES (@OrderID, @Width,@Height, @SplPelmetWidth, @WidthMadeBy, @HeightMadeBy, @QualityCheckedBy,@SlatStyleID,@CordStyleID,@ReturnRequired,@MountType,@SquareMeter,@ControlID,@ControlStyle,@OpeningStyle,@PelmetStyle,@ColorID,@MaterialID,@Roll,@ReadyMadeSize,@Notes) ";
+                           "VALUES (@OrderID, @Width,@Height, @SplPelmetWidth, @WidthMadeBy, @HeightMadeBy, @QualityCheckedBy,@SlatStyleID,@CordStyleID,@ReturnRequired,@MountType,@SquareMeter,@ControlID,@ControlStyle,@OpeningStyle,@PelmetStyle,@ColorID,@MaterialID,@Roll,@ReadyMadeSize,@Notes); " +
+                            "SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
@@ -903,24 +927,28 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@ReadyMadeSize", MySqlDbType.Double).Value = instance.ReadyMadeSize;
                     command.Parameters.Add("@Notes", MySqlDbType.VarString).Value = instance.Notes;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(RetVal, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
 
         public override bool Delete(int ID, out Exception exError)
@@ -1092,7 +1120,7 @@ namespace EliteBlindsAPI.Business
 
                 using (MySqlCommand command = new MySqlCommand("SELECT OrderDetailID, OrderID, Width,Height, SplPelmetWidth, WidthMadeBy, HeightMadeBy, QualityCheckedBy,SlatStyleID,CordStyleID,ReturnRequired,MountType,SquareMeter,ControlID,ControlStyle,OpeningStyle,PelmetStyle,ColorID,MaterialID,Roll,ReadyMadeSize,Notes FROM OrderDetail WHERE OrderDetailID IN (@OrderDetailID)", (MySqlConnection)this.Connection))
                 {
-                    command.Parameters.Add("@OrderDetailIDs", MySqlDbType.VarString).Value = string.Join(",",IDs.ToArray());
+                    command.Parameters.Add("@OrderDetailIDs", MySqlDbType.VarString).Value = string.Join(",", IDs.ToArray());
 
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -1136,7 +1164,7 @@ namespace EliteBlindsAPI.Business
             return returnValue;
         }
 
-        public override bool Update(OrderDetail instance, out Exception exError)
+        public override OrderDetail Update(OrderDetail instance, out Exception exError)
         {
             exError = null;
             try
@@ -1197,29 +1225,33 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@Notes", MySqlDbType.VarString).Value = instance.Notes;
                     command.Parameters.Add("@OrderDetailID", MySqlDbType.Int32).Value = instance.OrderDetailID;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(instance.OrderDetailID, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
     }
     public class UtilityOrder_Mapper : IDataMapper<UtilityOrder>
     {
-        public override bool Create(UtilityOrder instance, out Exception exError)
+        public override UtilityOrder Create(UtilityOrder instance, out Exception exError)
         {
             exError = null;
             try
@@ -1232,7 +1264,8 @@ namespace EliteBlindsAPI.Business
                     this.Connection.Open();
 
                 string query = "INSERT INTO UtilityOrder (CustomerID, OrderType, Boxes) " +
-                           "VALUES (@CustomerID, @OrderType, @Boxes) ";
+                           "VALUES (@CustomerID, @OrderType, @Boxes); " +
+                            "SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
@@ -1240,24 +1273,28 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@OrderType", MySqlDbType.Int32).Value = instance.OrderType;
                     command.Parameters.Add("@Boxes", MySqlDbType.Int32).Value = instance.Boxes;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(RetVal, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
 
         public override bool Delete(int ID, out Exception exError)
@@ -1420,7 +1457,7 @@ namespace EliteBlindsAPI.Business
             return returnValue;
         }
 
-        public override bool Update(UtilityOrder instance, out Exception exError)
+        public override UtilityOrder Update(UtilityOrder instance, out Exception exError)
         {
             exError = null;
             try
@@ -1445,29 +1482,33 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@Boxes", MySqlDbType.Int32).Value = instance.Boxes;
                     command.Parameters.Add("@UtilityOrderID", MySqlDbType.Int32).Value = instance.UtilityOrderID;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(instance.UtilityOrderID, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
     }
     public class Fabric_Mapper : IDataMapper<Fabric>
     {
-        public override bool Create(Fabric instance, out Exception exError)
+        public override Fabric Create(Fabric instance, out Exception exError)
         {
             exError = null;
             try
@@ -1480,7 +1521,9 @@ namespace EliteBlindsAPI.Business
                     this.Connection.Open();
 
                 string query = "INSERT INTO Fabric (FabricType, ColorID, FabricSize) " +
-                           "VALUES (@FabricType, @ColorID, @FabricSize) ";
+                           "VALUES (@FabricType, @ColorID, @FabricSize); " +
+                            "SELECT LAST_INSERT_ID();";
+
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
@@ -1488,24 +1531,28 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@ColorID", MySqlDbType.Int32).Value = instance.ColorID;
                     command.Parameters.Add("@FabricSize", MySqlDbType.Int32).Value = instance.FabricSize;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(RetVal, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
 
         public override bool Delete(int ID, out Exception exError)
@@ -1628,7 +1675,7 @@ namespace EliteBlindsAPI.Business
             return returnValue;
         }
 
-        public List<Fabric> SelectAll(int ID,out Exception exError)
+        public List<Fabric> SelectAll(int ID, out Exception exError)
         {
             List<Fabric> returnValue = new List<Fabric>();
             exError = null;
@@ -1670,7 +1717,7 @@ namespace EliteBlindsAPI.Business
             return returnValue;
         }
 
-        public override bool Update(Fabric instance, out Exception exError)
+        public override Fabric Update(Fabric instance, out Exception exError)
         {
             exError = null;
             try
@@ -1695,29 +1742,33 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@FabricSize", MySqlDbType.Int32).Value = instance.FabricSize;
                     command.Parameters.Add("@FabricID", MySqlDbType.Int32).Value = instance.FabricID;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(instance.FabricID, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
     }
     public class RollerBlindType_Mapper : IDataMapper<RollerBlindType>
     {
-        public override bool Create(RollerBlindType instance, out Exception exError)
+        public override RollerBlindType Create(RollerBlindType instance, out Exception exError)
         {
             exError = null;
             try
@@ -1730,8 +1781,9 @@ namespace EliteBlindsAPI.Business
                     this.Connection.Open();
 
                 string query = "INSERT INTO RollerBlinds (Description, Profile, RollerColor, DLXCODE, PCSCTN, MOQ) " +
-                           "VALUES (@Description, @Profile, @RollerColor, @DLXCODE, @PCSCTN, @MOQ) ";
-
+                           "VALUES (@Description, @Profile, @RollerColor, @DLXCODE, @PCSCTN, @MOQ); " +
+                            "SELECT LAST_INSERT_ID();";
+                
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@Description", MySqlDbType.VarString).Value = instance.Description;
@@ -1741,24 +1793,28 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@PCSCTN", MySqlDbType.VarString).Value = instance.PCSCTN;
                     command.Parameters.Add("@MOQ", MySqlDbType.DateTime).Value = instance.MOQ;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(RetVal, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
 
         public override bool Delete(int ID, out Exception exError)
@@ -1886,7 +1942,7 @@ namespace EliteBlindsAPI.Business
             return returnValue;
         }
 
-        public override bool Update(RollerBlindType instance, out Exception exError)
+        public override RollerBlindType Update(RollerBlindType instance, out Exception exError)
         {
             exError = null;
             try
@@ -1917,29 +1973,33 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@MOQ", MySqlDbType.VarString).Value = instance.MOQ;
                     command.Parameters.Add("@RollerBlindTypeID", MySqlDbType.Int32).Value = instance.RollerBlindTypeID;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(instance.RollerBlindTypeID, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
     }
     public class RollerBlinds_Mapper : IDataMapper<RollerBlinds>
     {
-        public override bool Create(RollerBlinds instance, out Exception exError)
+        public override RollerBlinds Create(RollerBlinds instance, out Exception exError)
         {
             exError = null;
             try
@@ -1952,31 +2012,36 @@ namespace EliteBlindsAPI.Business
                     this.Connection.Open();
 
                 string query = "INSERT INTO RollerBlinds (UtilityOrderID, RollerBlindTypeID) " +
-                           "VALUES (@UtilityOrderID, @RollerBlindTypeID) ";
+                           "VALUES (@UtilityOrderID, @RollerBlindTypeID); " +
+                            "SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@UtilityOrderID", MySqlDbType.VarString).Value = instance.UtilityOrderID;
                     command.Parameters.Add("@RollerBlindTypeID", MySqlDbType.VarString).Value = instance.RollerBlindTypeID;
-                    
-                    int RetVal = command.ExecuteNonQuery();
+
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(RetVal, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
 
         public override bool Delete(int ID, out Exception exError)
@@ -2136,7 +2201,7 @@ namespace EliteBlindsAPI.Business
             return returnValue;
         }
 
-        public override bool Update(RollerBlinds instance, out Exception exError)
+        public override RollerBlinds Update(RollerBlinds instance, out Exception exError)
         {
             exError = null;
             try
@@ -2159,29 +2224,33 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@RollerBlindTypeID", MySqlDbType.VarString).Value = instance.RollerBlindTypeID;
                     command.Parameters.Add("@RollerBlindsID", MySqlDbType.Int32).Value = instance.RollerBlindsID;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(instance.RollerBlindsID, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
     }
     public class Valance_Mapper : IDataMapper<Valance>
     {
-        public override bool Create(Valance instance, out Exception exError)
+        public override Valance Create(Valance instance, out Exception exError)
         {
             exError = null;
             try
@@ -2194,7 +2263,8 @@ namespace EliteBlindsAPI.Business
                     this.Connection.Open();
 
                 string query = "INSERT INTO Valance (MaterialID, ColorID, Size) " +
-                           "VALUES (@MaterialID, @ColorID, @Size) ";
+                           "VALUES (@MaterialID, @ColorID, @Size); " +
+                            "SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
@@ -2202,24 +2272,28 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@ColorID", MySqlDbType.Int32).Value = instance.ColorID;
                     command.Parameters.Add("@Size", MySqlDbType.VarString).Value = instance.Size;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(RetVal, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
 
         public override bool Delete(int ID, out Exception exError)
@@ -2384,7 +2458,7 @@ namespace EliteBlindsAPI.Business
             return returnValue;
         }
 
-        public override bool Update(Valance instance, out Exception exError)
+        public override Valance Update(Valance instance, out Exception exError)
         {
             exError = null;
             try
@@ -2409,29 +2483,33 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@Size", MySqlDbType.VarString).Value = instance.Size;
                     command.Parameters.Add("@ValanceID", MySqlDbType.Int32).Value = instance.ValanceID;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(instance.ValanceID, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
     }
     public class BottomRail_Mapper : IDataMapper<BottomRail>
     {
-        public override bool Create(BottomRail instance, out Exception exError)
+        public override BottomRail Create(BottomRail instance, out Exception exError)
         {
             exError = null;
             try
@@ -2444,7 +2522,8 @@ namespace EliteBlindsAPI.Business
                     this.Connection.Open();
 
                 string query = "INSERT INTO BottomRail (MaterialID, ColorID, Size) " +
-                           "VALUES (@MaterialID, @ColorID, @Size) ";
+                           "VALUES (@MaterialID, @ColorID, @Size); "+
+                            "SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
@@ -2452,24 +2531,28 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@ColorID", MySqlDbType.Int32).Value = instance.ColorID;
                     command.Parameters.Add("@Size", MySqlDbType.VarString).Value = instance.Size;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(RetVal, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
 
         public override bool Delete(int ID, out Exception exError)
@@ -2634,7 +2717,7 @@ namespace EliteBlindsAPI.Business
             return returnValue;
         }
 
-        public override bool Update(BottomRail instance, out Exception exError)
+        public override BottomRail Update(BottomRail instance, out Exception exError)
         {
             exError = null;
             try
@@ -2659,29 +2742,33 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@Size", MySqlDbType.VarString).Value = instance.Size;
                     command.Parameters.Add("@BottomRailID", MySqlDbType.Int32).Value = instance.BottomRailID;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(instance.BottomRailID, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
     }
     public class SlatStyle_Mapper : IDataMapper<SlatStyle>
     {
-        public override bool Create(SlatStyle instance, out Exception exError)
+        public override SlatStyle Create(SlatStyle instance, out Exception exError)
         {
             exError = null;
             try
@@ -2694,31 +2781,36 @@ namespace EliteBlindsAPI.Business
                     this.Connection.Open();
 
                 string query = "INSERT INTO SlatStyle (SlatStyleDesc,For) " +
-                           "VALUES (@SlatStyleDesc,@For) ";
+                           "VALUES (@SlatStyleDesc,@For); " +
+                            "SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@SlatStyleDesc", MySqlDbType.VarString).Value = instance.SlatStyleDesc;
                     command.Parameters.Add("@For", MySqlDbType.VarString).Value = instance.For;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(RetVal, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
 
         public override bool Delete(int ID, out Exception exError)
@@ -2877,7 +2969,7 @@ namespace EliteBlindsAPI.Business
 
             return returnValue;
         }
-        public override bool Update(SlatStyle instance, out Exception exError)
+        public override SlatStyle Update(SlatStyle instance, out Exception exError)
         {
             exError = null;
             try
@@ -2900,29 +2992,33 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@SlatStyleID", MySqlDbType.Int32).Value = instance.SlatStyleID;
                     command.Parameters.Add("@For", MySqlDbType.VarString).Value = instance.For;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(instance.SlatStyleID, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
     }
     public class CordStyle_Mapper : IDataMapper<CordStyle>
     {
-        public override bool Create(CordStyle instance, out Exception exError)
+        public override CordStyle Create(CordStyle instance, out Exception exError)
         {
             exError = null;
             try
@@ -2935,31 +3031,36 @@ namespace EliteBlindsAPI.Business
                     this.Connection.Open();
 
                 string query = "INSERT INTO CordStyle (CordStyleDesc, `For`) " +
-                           "VALUES (@CordStyleDesc, @For) ";
+                           "VALUES (@CordStyleDesc, @For); "+
+                            "SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@CordStyleDesc", MySqlDbType.VarString).Value = instance.CordStyleDesc;
                     command.Parameters.Add("@For", MySqlDbType.VarString).Value = instance.For;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(RetVal, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
 
         public override bool Delete(int ID, out Exception exError)
@@ -3119,7 +3220,7 @@ namespace EliteBlindsAPI.Business
             return returnValue;
         }
 
-        public override bool Update(CordStyle instance, out Exception exError)
+        public override CordStyle Update(CordStyle instance, out Exception exError)
         {
             exError = null;
             try
@@ -3141,30 +3242,34 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@CordStyleDesc", MySqlDbType.VarString).Value = instance.CordStyleDesc;
                     command.Parameters.Add("@CordStyleID", MySqlDbType.Int32).Value = instance.CordStyleID;
                     command.Parameters.Add("@For", MySqlDbType.VarString).Value = instance.For;
-                    
-                    int RetVal = command.ExecuteNonQuery();
+
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(instance.CordStyleID, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
     }
     public class Control_Mapper : IDataMapper<Control>
     {
-        public override bool Create(Control instance, out Exception exError)
+        public override Control Create(Control instance, out Exception exError)
         {
             exError = null;
             try
@@ -3177,31 +3282,36 @@ namespace EliteBlindsAPI.Business
                     this.Connection.Open();
 
                 string query = "INSERT INTO Control (ControlDesc, `For`) " +
-                           "VALUES (@ControlDesc, @For) ";
+                           "VALUES (@ControlDesc, @For); "+
+                            "SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@ControlDesc", MySqlDbType.VarString).Value = instance.ControlDesc;
                     command.Parameters.Add("@For", MySqlDbType.VarString).Value = instance.For;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(RetVal, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
 
         public override bool Delete(int ID, out Exception exError)
@@ -3360,7 +3470,7 @@ namespace EliteBlindsAPI.Business
 
             return returnValue;
         }
-        public override bool Update(Control instance, out Exception exError)
+        public override Control Update(Control instance, out Exception exError)
         {
             exError = null;
             try
@@ -3383,29 +3493,33 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@ControlID", MySqlDbType.Int32).Value = instance.ControlID;
                     command.Parameters.Add("@For", MySqlDbType.VarString).Value = instance.For;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(instance.ControlID, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
     }
     public class Material_Mapper : IDataMapper<Material>
     {
-        public override bool Create(Material instance, out Exception exError)
+        public override Material Create(Material instance, out Exception exError)
         {
             exError = null;
             try
@@ -3418,31 +3532,36 @@ namespace EliteBlindsAPI.Business
                     this.Connection.Open();
 
                 string query = "INSERT INTO Material (MaterialDesc, `For`) " +
-                           "VALUES (@MaterialDesc, @For) ";
+                           "VALUES (@MaterialDesc, @For); "+
+                            "SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@MaterialDesc", MySqlDbType.VarString).Value = instance.MaterialDesc;
                     command.Parameters.Add("@For", MySqlDbType.VarString).Value = instance.For;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(RetVal, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
 
         public override bool Delete(int ID, out Exception exError)
@@ -3602,7 +3721,7 @@ namespace EliteBlindsAPI.Business
             return returnValue;
         }
 
-        public override bool Update(Material instance, out Exception exError)
+        public override Material Update(Material instance, out Exception exError)
         {
             exError = null;
             try
@@ -3625,29 +3744,33 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@MaterialID", MySqlDbType.Int32).Value = instance.MaterialID;
                     command.Parameters.Add("@For", MySqlDbType.VarString).Value = instance.For;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(instance.MaterialID, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
     }
     public class Colors_Mapper : IDataMapper<Colors>
     {
-        public override bool Create(Colors instance, out Exception exError)
+        public override Colors Create(Colors instance, out Exception exError)
         {
             exError = null;
             try
@@ -3660,31 +3783,36 @@ namespace EliteBlindsAPI.Business
                     this.Connection.Open();
 
                 string query = "INSERT INTO Colors (ColorsDesc, `For`) " +
-                           "VALUES (@ColorsDesc, @For) ";
-
+                           "VALUES (@ColorsDesc, @For); "+
+                            "SELECT LAST_INSERT_ID();";
+                
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@ColorsDesc", MySqlDbType.VarString).Value = instance.ColorsDesc;
                     command.Parameters.Add("@For", MySqlDbType.VarString).Value = instance.For;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(RetVal, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
 
         public override bool Delete(int ID, out Exception exError)
@@ -3844,7 +3972,7 @@ namespace EliteBlindsAPI.Business
             return returnValue;
         }
 
-        public override bool Update(Colors instance, out Exception exError)
+        public override Colors Update(Colors instance, out Exception exError)
         {
             exError = null;
             try
@@ -3867,29 +3995,33 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@ColorsID", MySqlDbType.Int32).Value = instance.ColorsID;
                     command.Parameters.Add("@For", MySqlDbType.VarString).Value = instance.For;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(instance.ColorsID, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
     }
     public class Size_Mapper : IDataMapper<Size>
     {
-        public override bool Create(Size instance, out Exception exError)
+        public override Size Create(Size instance, out Exception exError)
         {
             exError = null;
             try
@@ -3902,31 +4034,36 @@ namespace EliteBlindsAPI.Business
                     this.Connection.Open();
 
                 string query = "INSERT INTO Size (SizeDesc, `For`) " +
-                           "VALUES (@SizeDesc, @For) ";
+                           "VALUES (@SizeDesc, @For); "+
+                            "SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@SizeDesc", MySqlDbType.VarString).Value = instance.SizeDesc;
                     command.Parameters.Add("@For", MySqlDbType.VarString).Value = instance.For;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(RetVal, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
 
         public override bool Delete(int ID, out Exception exError)
@@ -4086,7 +4223,7 @@ namespace EliteBlindsAPI.Business
             return returnValue;
         }
 
-        public override bool Update(Size instance, out Exception exError)
+        public override Size Update(Size instance, out Exception exError)
         {
             exError = null;
             try
@@ -4109,29 +4246,33 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@SizeID", MySqlDbType.Int32).Value = instance.SizeID;
                     command.Parameters.Add("@For", MySqlDbType.VarString).Value = instance.For;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(instance.SizeID, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
     }
     public class BlindType_Mapper : IDataMapper<BlindType>
     {
-        public override bool Create(BlindType instance, out Exception exError)
+        public override BlindType Create(BlindType instance, out Exception exError)
         {
             exError = null;
             try
@@ -4144,31 +4285,36 @@ namespace EliteBlindsAPI.Business
                     this.Connection.Open();
 
                 string query = "INSERT INTO BlindType (BlindTypeDesc, Val) " +
-                           "VALUES (@BlindTypeDesc, @Val) ";
+                           "VALUES (@BlindTypeDesc, @Val); " +
+                            "SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@BlindTypeDesc", MySqlDbType.VarString).Value = instance.BlindTypeDesc;
                     command.Parameters.Add("@Val", MySqlDbType.Int32).Value = instance.Val;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(RetVal, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
 
         public override bool Delete(int ID, out Exception exError)
@@ -4288,7 +4434,7 @@ namespace EliteBlindsAPI.Business
             return returnValue;
         }
 
-        public override bool Update(BlindType instance, out Exception exError)
+        public override BlindType Update(BlindType instance, out Exception exError)
         {
             exError = null;
             try
@@ -4311,24 +4457,28 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@BlindTypeID", MySqlDbType.Int32).Value = instance.BlindTypeID;
                     command.Parameters.Add("@Val", MySqlDbType.Int32).Value = instance.Val;
 
-                    int RetVal = command.ExecuteNonQuery();
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
                     if (RetVal <= 0)
                     {
-                        return false;
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(instance.BlindTypeID, out custException);
                     }
                 }
             }
             catch (Exception ex)
             {
                 exError = ex;
-                return true;
+                throw ex;
             }
             finally
             {
                 Connection.Close();
             }
-            return true;
         }
     }
 }

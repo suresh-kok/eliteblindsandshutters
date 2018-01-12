@@ -14,16 +14,16 @@ namespace EliteBlindsAPI.Business
         bool ResetPassword(string Email, string Password);
         Customer GetCustomer(int CustomerID);
         List<Customer> GetCustomers();
-        bool SaveCustomer(Customer CustData);
-        bool UpdateCustomer(Customer CustData);
+        Customer SaveCustomer(Customer CustData);
+        Customer UpdateCustomer(Customer CustData);
         bool DeleteCustomer(int CustomerID);
         bool SetUserActive(int ID);
 
         Order GetOrder(int OrderID);
-        bool SaveOrder(Order OrderData);
-        bool UpdateOrder(Order OrderData);
-        bool SaveOrderDetail(OrderDetail OrderDetailData);
-        bool UpdateOrderDetail(OrderDetail OrderDetailData);
+        Order SaveOrder(Order OrderData);
+        Order UpdateOrder(Order OrderData);
+        OrderDetail SaveOrderDetail(OrderDetail OrderDetailData);
+        OrderDetail UpdateOrderDetail(OrderDetail OrderDetailData);
         List<Order> GetCustomerOrders(int CustomerID);
         OrderDetail GetOrderDetail(int OrderDetailID);
         List<OrderDetail> GetOrderDetails();
@@ -31,35 +31,35 @@ namespace EliteBlindsAPI.Business
         bool DeleteOrder(int OrderID);
 
         UtilityOrder GetUtilityOrder(int UtilityOrderID);
-        bool SaveUtilityOrder(UtilityOrder UtilityOrderData);
-        bool UpdateUtilityOrder(UtilityOrder UtilityOrderData);
+        UtilityOrder SaveUtilityOrder(UtilityOrder UtilityOrderData);
+        UtilityOrder UpdateUtilityOrder(UtilityOrder UtilityOrderData);
         List<UtilityOrder> GetCustomerUtilityOrders(int CustomerID);
         bool DeleteUtilityOrder(int UtilityOrderID);
 
         Fabric GetFabric(int FabricID);
-        bool SaveFabric(Fabric FabricData);
-        bool UpdateFabric(Fabric FabricData);
+        Fabric SaveFabric(Fabric FabricData);
+        Fabric UpdateFabric(Fabric FabricData);
         bool DeleteFabric(int FabricID);
         List<Fabric> GetFabric();
         List<Fabric> GetFabrics(int UtilityOrderID);
 
         RollerBlinds GetRollerBlind(int RollerBlindsID);
-        bool SaveRollerBlinds(RollerBlinds RollerBlindsData);
-        bool UpdateRollerBlinds(RollerBlinds RollerBlindsData);
+        RollerBlinds SaveRollerBlinds(RollerBlinds RollerBlindsData);
+        RollerBlinds UpdateRollerBlinds(RollerBlinds RollerBlindsData);
         bool DeleteRollerBlinds(int RollerBlindsID);
         List<RollerBlinds> GetRollerBlinds();
         List<RollerBlinds> GetRollerBlinds(int UtilityOrderID);
 
         Valance GetValance(int ValanceID);
-        bool SaveValance(Valance ValanceData);
-        bool UpdateValance(Valance ValanceData);
+        Valance SaveValance(Valance ValanceData);
+        Valance UpdateValance(Valance ValanceData);
         bool DeleteValance(int ValanceID);
         List<Valance> GetValance();
         List<Valance> GetValances(int UtilityOrderID);
 
         BottomRail GetBottomRail(int BottomRailID);
-        bool SaveBottomRail(BottomRail BottomRailData);
-        bool UpdateBottomRail(BottomRail BottomRailData);
+        BottomRail SaveBottomRail(BottomRail BottomRailData);
+        BottomRail UpdateBottomRail(BottomRail BottomRailData);
         bool DeleteBottomRail(int BottomRailID);
         List<BottomRail> GetBottomRail();
         List<BottomRail> GetBottomRails(int UtilityOrderID);

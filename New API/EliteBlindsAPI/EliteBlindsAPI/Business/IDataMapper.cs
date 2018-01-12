@@ -52,7 +52,7 @@ namespace EliteBlindsAPI.Business
         /// <param name="instance">The instance to create</param>
         /// <param name="exError">Out exception object</param>
         /// <returns>Boolean success/failure</returns>
-        public abstract bool Create(T instance, out Exception exError);
+        public abstract T Create(T instance, out Exception exError);
 
         /// <summary>
         /// Default read method for type T 
@@ -68,7 +68,7 @@ namespace EliteBlindsAPI.Business
         /// <param name="instance">Object of instance to update</param>
         /// <param name="exError">Out exception object</param>
         /// <returns>Instance of type T</returns>
-        public abstract bool Update(T instance, out Exception exError);
+        public abstract T Update(T instance, out Exception exError);
 
         /// <summary>
         /// Default delete method for type T 

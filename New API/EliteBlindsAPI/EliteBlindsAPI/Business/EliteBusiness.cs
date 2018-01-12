@@ -70,12 +70,12 @@ namespace EliteBlindsAPI.Business
             return CustDB.SetUserActive(ID, out CustomException);
         }
 
-        public bool SaveCustomer(Customer CustData)
+        public Customer SaveCustomer(Customer CustData)
         {
             return CustDB.Create(CustData, out CustomException);
         }
 
-        public bool UpdateCustomer(Customer CustData)
+        public Customer UpdateCustomer(Customer CustData)
         {
             return CustDB.Update(CustData, out CustomException);
         }
@@ -269,71 +269,71 @@ namespace EliteBlindsAPI.Business
             return ValanceDB.SelectAll(UtilityOrderID, out CustomException);
         }
 
-        public bool SaveOrder(Order OrderData)
+        public Order SaveOrder(Order OrderData)
         {
             return OrderDB.Create(OrderData, out CustomException);
         }
 
-        public bool UpdateOrder(Order OrderData)
+        public Order UpdateOrder(Order OrderData)
         {
             return OrderDB.Update(OrderData, out CustomException);
         }
 
-        public bool SaveOrderDetail(OrderDetail OrderDetailData)
+        public OrderDetail SaveOrderDetail(OrderDetail OrderDetailData)
         {
             return OrderDetailDB.Create(OrderDetailData, out CustomException);
         }
-        public bool UpdateOrderDetail(OrderDetail OrderDetailData)
+        public OrderDetail UpdateOrderDetail(OrderDetail OrderDetailData)
         {
             return OrderDetailDB.Update(OrderDetailData, out CustomException);
         }
 
-        public bool SaveUtilityOrder(UtilityOrder UtilityOrderData)
+        public UtilityOrder SaveUtilityOrder(UtilityOrder UtilityOrderData)
         {
             return UtilityOrderDB.Create(UtilityOrderData, out CustomException);
         }
 
-        public bool UpdateUtilityOrder(UtilityOrder UtilityOrderData)
+        public UtilityOrder UpdateUtilityOrder(UtilityOrder UtilityOrderData)
         {
             return UtilityOrderDB.Update(UtilityOrderData, out CustomException);
         }
 
-        public bool SaveFabric(Fabric FabricData)
+        public Fabric SaveFabric(Fabric FabricData)
         {
             return FabricDB.Create(FabricData, out CustomException);
         }
 
-        public bool SaveRollerBlinds(RollerBlinds RollerBlindsData)
+        public RollerBlinds SaveRollerBlinds(RollerBlinds RollerBlindsData)
         {
             return RollerBlindsDB.Create(RollerBlindsData, out CustomException);
         }
 
-        public bool SaveValance(Valance ValanceData)
+        public Valance SaveValance(Valance ValanceData)
         {
             return ValanceDB.Create(ValanceData, out CustomException);
         }
 
-        public bool SaveBottomRail(BottomRail BottomRailData)
+        public BottomRail SaveBottomRail(BottomRail BottomRailData)
         {
             return BottomRailDB.Create(BottomRailData, out CustomException);
         }
 
-        public bool UpdateFabric(Fabric FabricData)
+        public Fabric UpdateFabric(Fabric FabricData)
         {
             return FabricDB.Update(FabricData, out CustomException);
         }
 
-        public bool UpdateRollerBlinds(RollerBlinds RollerBlindsData)
+        public RollerBlinds UpdateRollerBlinds(RollerBlinds RollerBlindsData)
         {
             return RollerBlindsDB.Update(RollerBlindsData, out CustomException);
         }
 
-        public bool UpdateValance(Valance ValanceData)
+        public Valance UpdateValance(Valance ValanceData)
         {
             return ValanceDB.Update(ValanceData, out CustomException);
         }
 
-        public bool UpdateBottomRail(BottomRail BottomRailData)
+        public BottomRail UpdateBottomRail(BottomRail BottomRailData)
         {
             return BottomRailDB.Update(BottomRailData, out CustomException);
         }

@@ -27,10 +27,10 @@ namespace EliteBlindsAPI.Controllers
             return json;
         }
 
-        public void PostCustomer([FromBody]string value)
+        public string PostCustomer([FromBody]string value)
         {
             var custObj = new JavaScriptSerializer().Deserialize(value, typeof(Customer));
-            BusinessObj.SaveCustomer((Customer)custObj);
+            return new JavaScriptSerializer().Serialize(BusinessObj.SaveCustomer((Customer)custObj));
         }
 
         public void DeleteCustomer(int CustId)
@@ -88,22 +88,22 @@ namespace EliteBlindsAPI.Controllers
             return json;
         }
 
-        public void PostOrder([FromBody]string value)
+        public string PostOrder([FromBody]string value)
         {
             var orderObj = new JavaScriptSerializer().Deserialize(value, typeof(Order));
-            BusinessObj.SaveOrder((Order)orderObj);
+            return new JavaScriptSerializer().Serialize(BusinessObj.SaveOrder((Order)orderObj));
         }
 
-        public void PostOrderDetails([FromBody]string value)
+        public string PostOrderDetails([FromBody]string value)
         {
             var orderDetailsObj = new JavaScriptSerializer().Deserialize(value, typeof(OrderDetail));
-            BusinessObj.SaveOrderDetail((OrderDetail)orderDetailsObj);
+            return new JavaScriptSerializer().Serialize(BusinessObj.SaveOrderDetail((OrderDetail)orderDetailsObj));
         }
 
-        public void PostUtilityOrder([FromBody]string value)
+        public string PostUtilityOrder([FromBody]string value)
         {
             var utilityOrderObj = new JavaScriptSerializer().Deserialize(value, typeof(UtilityOrder));
-            BusinessObj.SaveUtilityOrder((UtilityOrder)utilityOrderObj);
+            return new JavaScriptSerializer().Serialize(BusinessObj.SaveUtilityOrder((UtilityOrder)utilityOrderObj));
         }
 
         public void DeleteOrder(int OrderID)
@@ -116,10 +116,10 @@ namespace EliteBlindsAPI.Controllers
             BusinessObj.DeleteUtilityOrder(UtilityOrderID);
         }
 
-        public void PostFabric([FromBody]string value)
+        public string PostFabric([FromBody]string value)
         {
             var FabricObj = new JavaScriptSerializer().Deserialize(value, typeof(Fabric));
-            BusinessObj.SaveFabric((Fabric)FabricObj);
+            return new JavaScriptSerializer().Serialize(BusinessObj.SaveFabric((Fabric)FabricObj));
         }
 
         public void DeleteFabric(int FabricID)
@@ -127,10 +127,10 @@ namespace EliteBlindsAPI.Controllers
             BusinessObj.DeleteFabric(FabricID);
         }
 
-        public void PostValance([FromBody]string value)
+        public string PostValance([FromBody]string value)
         {
             var ValanceObj = new JavaScriptSerializer().Deserialize(value, typeof(Valance));
-            BusinessObj.SaveValance((Valance)ValanceObj);
+            return new JavaScriptSerializer().Serialize(BusinessObj.SaveValance((Valance)ValanceObj));
         }
 
         public void DeleteValance(int ValanceID)
@@ -138,10 +138,10 @@ namespace EliteBlindsAPI.Controllers
             BusinessObj.DeleteValance(ValanceID);
         }
 
-        public void PostRollerBlinds([FromBody]string value)
+        public string PostRollerBlinds([FromBody]string value)
         {
             var RollerBlindsObj = new JavaScriptSerializer().Deserialize(value, typeof(RollerBlinds));
-            BusinessObj.SaveRollerBlinds((RollerBlinds)RollerBlindsObj);
+            return new JavaScriptSerializer().Serialize(BusinessObj.SaveRollerBlinds((RollerBlinds)RollerBlindsObj));
         }
 
         public void DeleteRollerBlinds(int RollerBlindsID)
@@ -149,10 +149,10 @@ namespace EliteBlindsAPI.Controllers
             BusinessObj.DeleteRollerBlinds(RollerBlindsID);
         }
 
-        public void PostBottomRail([FromBody]string value)
+        public string PostBottomRail([FromBody]string value)
         {
             var BottomRailObj = new JavaScriptSerializer().Deserialize(value, typeof(BottomRail));
-            BusinessObj.SaveBottomRail((BottomRail)BottomRailObj);
+            return new JavaScriptSerializer().Serialize(BusinessObj.SaveBottomRail((BottomRail)BottomRailObj));
         }
 
         public void DeleteBottomRail(int BottomRailID)

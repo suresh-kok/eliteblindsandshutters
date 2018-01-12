@@ -14,11 +14,11 @@ namespace EliteBlindsAPI.Business
         bool ResetPassword(string Email,string Password);
         Customer GetCustomer(int ID);
         List<Customer> GetCustomers();
-        void SaveCustomer(Customer CustData);
+        Customer SaveCustomer(Customer CustData);
         void DeleteCustomer(int ID);
-        void SaveOrder(Order OrderData);
-        void SaveOrderDetail(OrderDetail OrderDetailData);
-        void SaveUtilityOrder(UtilityOrder OrderData);
+        Order SaveOrder(Order OrderData);
+        OrderDetail SaveOrderDetail(OrderDetail OrderDetailData);
+        UtilityOrder SaveUtilityOrder(UtilityOrder OrderData);
         void DeleteOrder(int ID);
         void DeleteUtilityOrder(int ID);
         Order GetOrder(int ID);
@@ -30,16 +30,16 @@ namespace EliteBlindsAPI.Business
 
         OrderDetail GetOrderDetail(int ID);
         Fabric GetFabric(int ID);
-        void SaveFabric(Fabric FabricData);
+        Fabric SaveFabric(Fabric FabricData);
         void DeleteFabric(int ID);
         RollerBlinds GetRollerBlind(int ID);
-        void SaveRollerBlinds(RollerBlinds RollerBlindsData);
+        RollerBlinds SaveRollerBlinds(RollerBlinds RollerBlindsData);
         void DeleteRollerBlinds(int ID);
         Valance GetValance(int ID);
-        void SaveValance(Valance ValanceData);
+        Valance SaveValance(Valance ValanceData);
         void DeleteValance(int ID);
         BottomRail GetBottomRail(int ID);
-        void SaveBottomRail(BottomRail BottomRailData);
+        BottomRail SaveBottomRail(BottomRail BottomRailData);
         void DeleteBottomRail(int ID);
         List<OrderDetail> GetOrderDetails(int ID);
         List<Colors> GetColors();

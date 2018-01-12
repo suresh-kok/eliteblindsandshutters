@@ -69,18 +69,19 @@ namespace EliteBlindsAPI.Business
             return Tuple.Create(listOrder, listUtilityOrder);
         }
 
-        public void SaveCustomer(Customer CustData)
+        public Customer SaveCustomer(Customer CustData)
         {
             if (!EliteBusinessObj.UserCheck(CustData.Email))
             {
                 if (CustData.CustomerID > 0)
                 {
-                    EliteBusinessObj.UpdateCustomer(CustData);
+                    return EliteBusinessObj.UpdateCustomer(CustData);
                 }
                 else
                 {
-                    EliteBusinessObj.SaveCustomer(CustData);
-                    SendMail(CustData.Email, "Please click the below link to Activate User. <br/>" + ConfigurationManager.AppSettings["WebLink"] + "/api/Customer/ActivateCustomer/" + CustData.CustomerID, "User Activation");
+                    Customer Cust = EliteBusinessObj.SaveCustomer(CustData);
+                    SendMail(CustData.Email, "Please click the below link to Activate User. <br/>" + ConfigurationManager.AppSettings["WebLink"] + "/api/Customer/ActivateCustomer/" + Cust.CustomerID, "User Activation");
+                    return Cust;
                 }
             }
             else
@@ -112,41 +113,45 @@ namespace EliteBlindsAPI.Business
             return EliteBusinessObj.GetUtilityOrder(ID);
         }
 
-        public void SaveOrder(Order OrderData)
+        public Order SaveOrder(Order OrderData)
         {
+            Order OrderObj = new Order();
             if (OrderData.OrderID > 0)
             {
-                EliteBusinessObj.UpdateOrder(OrderData);
+                OrderObj = EliteBusinessObj.UpdateOrder(OrderData);
+                SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), "New Order Has been Created", "New Order");
             }
             else
             {
-                EliteBusinessObj.SaveOrder(OrderData);
+                OrderObj = EliteBusinessObj.SaveOrder(OrderData);
             }
-            SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), "New Order Has been Created", "New Order");
+            return OrderObj;
         }
-        public void SaveOrderDetail(OrderDetail OrderDetailData)
+        public OrderDetail SaveOrderDetail(OrderDetail OrderDetailData)
         {
             if (OrderDetailData.OrderID > 0)
             {
-                EliteBusinessObj.UpdateOrderDetail(OrderDetailData);
+                return EliteBusinessObj.UpdateOrderDetail(OrderDetailData);
             }
             else
             {
-                EliteBusinessObj.SaveOrderDetail(OrderDetailData);
+                return EliteBusinessObj.SaveOrderDetail(OrderDetailData);
             }
         }
 
-        public void SaveUtilityOrder(UtilityOrder OrderData)
+        public UtilityOrder SaveUtilityOrder(UtilityOrder OrderData)
         {
+            UtilityOrder UtilityObj = new UtilityOrder();
             if (OrderData.UtilityOrderID > 0)
             {
-                EliteBusinessObj.UpdateUtilityOrder(OrderData);
+                UtilityObj = EliteBusinessObj.UpdateUtilityOrder(OrderData);
+                SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), "New Utility Order Has been Created", "New Utility Order");
             }
             else
             {
-                EliteBusinessObj.SaveUtilityOrder(OrderData);
+                UtilityObj = EliteBusinessObj.SaveUtilityOrder(OrderData);
             }
-            SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), "New Utility Order Has been Created", "New Utility Order");
+            return UtilityObj;
         }
 
         public void DeleteOrder(int ID)
@@ -184,15 +189,15 @@ namespace EliteBlindsAPI.Business
             return EliteBusinessObj.GetFabrics(ID);
         }
 
-        public void SaveFabric(Fabric FabricData)
+        public Fabric SaveFabric(Fabric FabricData)
         {
             if (FabricData.FabricID > 0)
             {
-                EliteBusinessObj.UpdateFabric(FabricData);
+                return EliteBusinessObj.UpdateFabric(FabricData);
             }
             else
             {
-                EliteBusinessObj.SaveFabric(FabricData);
+                return EliteBusinessObj.SaveFabric(FabricData);
             }
         }
 
@@ -216,15 +221,15 @@ namespace EliteBlindsAPI.Business
             return EliteBusinessObj.GetRollerBlinds(ID);
         }
 
-        public void SaveRollerBlinds(RollerBlinds RollerBlindsData)
+        public RollerBlinds SaveRollerBlinds(RollerBlinds RollerBlindsData)
         {
             if (RollerBlindsData.RollerBlindsID > 0)
             {
-                EliteBusinessObj.UpdateRollerBlinds(RollerBlindsData);
+                return EliteBusinessObj.UpdateRollerBlinds(RollerBlindsData);
             }
             else
             {
-                EliteBusinessObj.SaveRollerBlinds(RollerBlindsData);
+                return EliteBusinessObj.SaveRollerBlinds(RollerBlindsData);
             }
         }
 
@@ -248,15 +253,15 @@ namespace EliteBlindsAPI.Business
             return EliteBusinessObj.GetValances(ID);
         }
 
-        public void SaveValance(Valance ValanceData)
+        public Valance SaveValance(Valance ValanceData)
         {
             if (ValanceData.ValanceID > 0)
             {
-                EliteBusinessObj.UpdateValance(ValanceData);
+                return EliteBusinessObj.UpdateValance(ValanceData);
             }
             else
             {
-                EliteBusinessObj.SaveValance(ValanceData);
+                return EliteBusinessObj.SaveValance(ValanceData);
             }
         }
 
@@ -280,15 +285,15 @@ namespace EliteBlindsAPI.Business
             return EliteBusinessObj.GetBottomRails(ID);
         }
 
-        public void SaveBottomRail(BottomRail BottomRailData)
+        public BottomRail SaveBottomRail(BottomRail BottomRailData)
         {
             if (BottomRailData.BottomRailID > 0)
             {
-                EliteBusinessObj.UpdateBottomRail(BottomRailData);
+                return EliteBusinessObj.UpdateBottomRail(BottomRailData);
             }
             else
             {
-                EliteBusinessObj.SaveBottomRail(BottomRailData);
+                return EliteBusinessObj.SaveBottomRail(BottomRailData);
             }
         }
 
