@@ -279,6 +279,15 @@ namespace EliteBlindsAPI.Business
             return OrderDB.Update(OrderData, out CustomException);
         }
 
+        public bool SaveOrderDetail(OrderDetail OrderDetailData)
+        {
+            return OrderDetailDB.Create(OrderDetailData, out CustomException);
+        }
+        public bool UpdateOrderDetail(OrderDetail OrderDetailData)
+        {
+            return OrderDetailDB.Update(OrderDetailData, out CustomException);
+        }
+
         public bool SaveUtilityOrder(UtilityOrder UtilityOrderData)
         {
             return UtilityOrderDB.Create(UtilityOrderData, out CustomException);

@@ -94,6 +94,12 @@ namespace EliteBlindsAPI.Controllers
             BusinessObj.SaveOrder((Order)orderObj);
         }
 
+        public void PostOrderDetails([FromBody]string value)
+        {
+            var orderDetailsObj = new JavaScriptSerializer().Deserialize(value, typeof(OrderDetail));
+            BusinessObj.SaveOrderDetail((OrderDetail)orderDetailsObj);
+        }
+
         public void PostUtilityOrder([FromBody]string value)
         {
             var utilityOrderObj = new JavaScriptSerializer().Deserialize(value, typeof(UtilityOrder));

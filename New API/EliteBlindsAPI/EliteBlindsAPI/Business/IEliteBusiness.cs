@@ -22,6 +22,8 @@ namespace EliteBlindsAPI.Business
         Order GetOrder(int OrderID);
         bool SaveOrder(Order OrderData);
         bool UpdateOrder(Order OrderData);
+        bool SaveOrderDetail(OrderDetail OrderDetailData);
+        bool UpdateOrderDetail(OrderDetail OrderDetailData);
         List<Order> GetCustomerOrders(int CustomerID);
         OrderDetail GetOrderDetail(int OrderDetailID);
         List<OrderDetail> GetOrderDetails();

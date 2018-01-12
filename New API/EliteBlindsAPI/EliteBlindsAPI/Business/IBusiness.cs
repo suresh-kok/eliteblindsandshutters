@@ -17,6 +17,7 @@ namespace EliteBlindsAPI.Business
         void SaveCustomer(Customer CustData);
         void DeleteCustomer(int ID);
         void SaveOrder(Order OrderData);
+        void SaveOrderDetail(OrderDetail OrderDetailData);
         void SaveUtilityOrder(UtilityOrder OrderData);
         void DeleteOrder(int ID);
         void DeleteUtilityOrder(int ID);

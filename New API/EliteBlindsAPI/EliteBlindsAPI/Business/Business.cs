@@ -124,6 +124,17 @@ namespace EliteBlindsAPI.Business
             }
             SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), "New Order Has been Created", "New Order");
         }
+        public void SaveOrderDetail(OrderDetail OrderDetailData)
+        {
+            if (OrderDetailData.OrderID > 0)
+            {
+                EliteBusinessObj.UpdateOrderDetail(OrderDetailData);
+            }
+            else
+            {
+                EliteBusinessObj.SaveOrderDetail(OrderDetailData);
+            }
+        }
 
         public void SaveUtilityOrder(UtilityOrder OrderData)
         {
