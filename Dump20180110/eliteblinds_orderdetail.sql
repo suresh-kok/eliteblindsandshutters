@@ -38,7 +38,6 @@ CREATE TABLE `orderdetail` (
   `ReturnRequired` tinyint(4) DEFAULT NULL,
   `MountType` tinyint(4) DEFAULT NULL,
   `SquareMeter` double DEFAULT NULL,
-  `Notes` varchar(9000) DEFAULT NULL,
   `ControlID` int(11) DEFAULT NULL,
   `ControlStyle` int(11) DEFAULT NULL,
   `OpeningStyle` int(11) DEFAULT NULL,

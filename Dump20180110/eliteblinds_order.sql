@@ -43,6 +43,7 @@ CREATE TABLE `order` (
   `DepartureDate` datetime DEFAULT NULL,
   `ArrivalDate` datetime DEFAULT NULL,
   `OrderM2` double DEFAULT NULL,
+  `Notes` varchar(9000) DEFAULT NULL,
   PRIMARY KEY (`OrderID`),
   KEY `fk_Order_CustomerID_idx` (`CustomerID`),
   CONSTRAINT `fk_Order_CustomerID` FOREIGN KEY (`CustomerID`) REFERENCES `customer` (`customerID`) ON DELETE NO ACTION ON UPDATE NO ACTION
