@@ -248,6 +248,15 @@ namespace EliteBlindsAPI.Models
             set { _ArrivalDate = value; }
         }
 
+        private string _Notes;
+
+        public string Notes
+        {
+            get { return _Notes; }
+            set { _Notes = value; }
+        }
+
+
         private double _OrderM2;
 
         public double OrderM2
@@ -362,14 +371,6 @@ namespace EliteBlindsAPI.Models
         {
             get { return _SquareMeter; }
             set { _SquareMeter = value; }
-        }
-
-        private string _Notes;
-
-        public string Notes
-        {
-            get { return _Notes; }
-            set { _Notes = value; }
         }
 
         private int _ControlID;

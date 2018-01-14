@@ -17,7 +17,7 @@ namespace EliteBlindsAPI.Business
         Customer SaveCustomer(Customer CustData);
         void DeleteCustomer(int ID);
         Order SaveOrder(Order OrderData);
-        OrderDetail SaveOrderDetail(OrderDetail OrderDetailData);
+        List<OrderDetail> SaveOrderDetails(List<OrderDetail> OrderDetailData);
         UtilityOrder SaveUtilityOrder(UtilityOrder OrderData);
         void DeleteOrder(int ID);
         void DeleteUtilityOrder(int ID);
@@ -30,18 +30,19 @@ namespace EliteBlindsAPI.Business
 
         OrderDetail GetOrderDetail(int ID);
         Fabric GetFabric(int ID);
-        Fabric SaveFabric(Fabric FabricData);
+        List<Fabric> SaveFabric(List<Fabric> FabricData);
         void DeleteFabric(int ID);
         RollerBlinds GetRollerBlind(int ID);
-        RollerBlinds SaveRollerBlinds(RollerBlinds RollerBlindsData);
+        List<RollerBlinds> SaveRollerBlinds(List<RollerBlinds> RollerBlindsData);
         void DeleteRollerBlinds(int ID);
         Valance GetValance(int ID);
-        Valance SaveValance(Valance ValanceData);
+        List<Valance> SaveValance(List<Valance> ValanceData);
         void DeleteValance(int ID);
         BottomRail GetBottomRail(int ID);
-        BottomRail SaveBottomRail(BottomRail BottomRailData);
+        List<BottomRail> SaveBottomRail(List<BottomRail> BottomRailData);
         void DeleteBottomRail(int ID);
         List<OrderDetail> GetOrderDetails(int ID);
+        List<OrderDetail> GetOrderDetails(List<int> IDs);
         List<Colors> GetColors();
         List<SlatStyle> GetSlatStyle();
         List<CordStyle> GetCordStyle();

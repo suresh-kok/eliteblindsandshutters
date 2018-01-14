@@ -70,6 +70,12 @@ namespace EliteBlindsAPI.Controllers
             return json;
         }
 
+        public string GetCustOrderDetail(int CustID)
+        {
+            var json = new JavaScriptSerializer().Serialize(BusinessObj.GetOrderDetails((BusinessObj.GetCustOrders(CustID)).Select(a => a.OrderID).ToList()));
+            return json;
+        }
+
         public string GetUtilityOrders(int CustId)
         {
             var json = new JavaScriptSerializer().Serialize(BusinessObj.GetUtilityOrders(CustId));
@@ -96,8 +102,8 @@ namespace EliteBlindsAPI.Controllers
 
         public string PostOrderDetails([FromBody]string value)
         {
-            var orderDetailsObj = new JavaScriptSerializer().Deserialize(value, typeof(OrderDetail));
-            return new JavaScriptSerializer().Serialize(BusinessObj.SaveOrderDetail((OrderDetail)orderDetailsObj));
+            var orderDetailsObj = new JavaScriptSerializer().Deserialize(value, typeof(List<OrderDetail>));
+            return new JavaScriptSerializer().Serialize(BusinessObj.SaveOrderDetails((List<OrderDetail>)orderDetailsObj));
         }
 
         public string PostUtilityOrder([FromBody]string value)
@@ -118,8 +124,8 @@ namespace EliteBlindsAPI.Controllers
 
         public string PostFabric([FromBody]string value)
         {
-            var FabricObj = new JavaScriptSerializer().Deserialize(value, typeof(Fabric));
-            return new JavaScriptSerializer().Serialize(BusinessObj.SaveFabric((Fabric)FabricObj));
+            var FabricObj = new JavaScriptSerializer().Deserialize(value, typeof(List<Fabric>));
+            return new JavaScriptSerializer().Serialize(BusinessObj.SaveFabric((List <Fabric>)FabricObj));
         }
 
         public void DeleteFabric(int FabricID)
@@ -129,8 +135,8 @@ namespace EliteBlindsAPI.Controllers
 
         public string PostValance([FromBody]string value)
         {
-            var ValanceObj = new JavaScriptSerializer().Deserialize(value, typeof(Valance));
-            return new JavaScriptSerializer().Serialize(BusinessObj.SaveValance((Valance)ValanceObj));
+            var ValanceObj = new JavaScriptSerializer().Deserialize(value, typeof(List<Valance>));
+            return new JavaScriptSerializer().Serialize(BusinessObj.SaveValance((List<Valance>)ValanceObj));
         }
 
         public void DeleteValance(int ValanceID)
@@ -140,8 +146,8 @@ namespace EliteBlindsAPI.Controllers
 
         public string PostRollerBlinds([FromBody]string value)
         {
-            var RollerBlindsObj = new JavaScriptSerializer().Deserialize(value, typeof(RollerBlinds));
-            return new JavaScriptSerializer().Serialize(BusinessObj.SaveRollerBlinds((RollerBlinds)RollerBlindsObj));
+            var RollerBlindsObj = new JavaScriptSerializer().Deserialize(value, typeof(List<RollerBlinds>));
+            return new JavaScriptSerializer().Serialize(BusinessObj.SaveRollerBlinds((List<RollerBlinds>)RollerBlindsObj));
         }
 
         public void DeleteRollerBlinds(int RollerBlindsID)
@@ -151,8 +157,8 @@ namespace EliteBlindsAPI.Controllers
 
         public string PostBottomRail([FromBody]string value)
         {
-            var BottomRailObj = new JavaScriptSerializer().Deserialize(value, typeof(BottomRail));
-            return new JavaScriptSerializer().Serialize(BusinessObj.SaveBottomRail((BottomRail)BottomRailObj));
+            var BottomRailObj = new JavaScriptSerializer().Deserialize(value, typeof(List<BottomRail>));
+            return new JavaScriptSerializer().Serialize(BusinessObj.SaveBottomRail((List<BottomRail>)BottomRailObj));
         }
 
         public void DeleteBottomRail(int BottomRailID)

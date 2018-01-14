@@ -28,6 +28,7 @@ namespace EliteBlindsAPI.Business
         OrderDetail GetOrderDetail(int OrderDetailID);
         List<OrderDetail> GetOrderDetails();
         List<OrderDetail> GetOrderDetails(int OrderID);
+        List<OrderDetail> GetOrderDetails(List<int> OrderIDs);
         bool DeleteOrder(int OrderID);
 
         UtilityOrder GetUtilityOrder(int UtilityOrderID);

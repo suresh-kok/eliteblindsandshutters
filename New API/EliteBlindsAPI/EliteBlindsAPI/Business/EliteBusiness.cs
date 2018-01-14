@@ -117,6 +117,11 @@ namespace EliteBlindsAPI.Business
             return OrderDetailDB.SelectAll(out CustomException);
         }
 
+        public List<OrderDetail> GetOrderDetails(List<int> OrderIDs)
+        {
+            return OrderDetailDB.SelectedOrderID(OrderIDs, out CustomException);
+        }
+
         public List<Order> GetCustomerOrders(int CustomerID)
         {
             return OrderDB.SelectAll(out CustomException);

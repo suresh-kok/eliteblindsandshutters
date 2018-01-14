@@ -108,6 +108,11 @@ namespace EliteBlindsAPI.Business
             return EliteBusinessObj.GetOrderDetails(ID);
         }
 
+        public List<OrderDetail> GetOrderDetails(List<int> IDs)
+        {
+            return EliteBusinessObj.GetOrderDetails(IDs);
+        }
+
         public UtilityOrder GetUtilityOrder(int ID)
         {
             return EliteBusinessObj.GetUtilityOrder(ID);
@@ -127,16 +132,22 @@ namespace EliteBlindsAPI.Business
             }
             return OrderObj;
         }
-        public OrderDetail SaveOrderDetail(OrderDetail OrderDetailData)
+
+        public List<OrderDetail> SaveOrderDetails(List<OrderDetail> OrderDetailData)
         {
-            if (OrderDetailData.OrderID > 0)
+            List<OrderDetail> RetList = new List<OrderDetail>();
+            foreach (var orderDetails in OrderDetailData)
             {
-                return EliteBusinessObj.UpdateOrderDetail(OrderDetailData);
+                if (orderDetails.OrderID > 0)
+                {
+                    RetList.Add(EliteBusinessObj.UpdateOrderDetail(orderDetails));
+                }
+                else
+                {
+                    RetList.Add(EliteBusinessObj.SaveOrderDetail(orderDetails));
+                }
             }
-            else
-            {
-                return EliteBusinessObj.SaveOrderDetail(OrderDetailData);
-            }
+            return RetList;
         }
 
         public UtilityOrder SaveUtilityOrder(UtilityOrder OrderData)
@@ -189,16 +200,21 @@ namespace EliteBlindsAPI.Business
             return EliteBusinessObj.GetFabrics(ID);
         }
 
-        public Fabric SaveFabric(Fabric FabricData)
+        public List<Fabric> SaveFabric(List<Fabric> FabricData)
         {
-            if (FabricData.FabricID > 0)
+            List<Fabric> RetList = new List<Fabric>();
+            foreach (var Fabrics in FabricData)
             {
-                return EliteBusinessObj.UpdateFabric(FabricData);
+                if (Fabrics.FabricID > 0)
+                {
+                    RetList.Add(EliteBusinessObj.UpdateFabric(Fabrics));
+                }
+                else
+                {
+                    RetList.Add(EliteBusinessObj.SaveFabric(Fabrics));
+                }
             }
-            else
-            {
-                return EliteBusinessObj.SaveFabric(FabricData);
-            }
+            return RetList;
         }
 
         public void DeleteFabric(int ID)
@@ -221,16 +237,21 @@ namespace EliteBlindsAPI.Business
             return EliteBusinessObj.GetRollerBlinds(ID);
         }
 
-        public RollerBlinds SaveRollerBlinds(RollerBlinds RollerBlindsData)
+        public List<RollerBlinds> SaveRollerBlinds(List<RollerBlinds> RollerBlindsData)
         {
-            if (RollerBlindsData.RollerBlindsID > 0)
+            List<RollerBlinds> RetList = new List<RollerBlinds>();
+            foreach (var RollerBlind in RollerBlindsData)
             {
-                return EliteBusinessObj.UpdateRollerBlinds(RollerBlindsData);
+                if (RollerBlind.RollerBlindsID > 0)
+                {
+                    RetList.Add(EliteBusinessObj.UpdateRollerBlinds(RollerBlind));
+                }
+                else
+                {
+                    RetList.Add(EliteBusinessObj.SaveRollerBlinds(RollerBlind));
+                }
             }
-            else
-            {
-                return EliteBusinessObj.SaveRollerBlinds(RollerBlindsData);
-            }
+            return RetList;
         }
 
         public void DeleteRollerBlinds(int ID)
@@ -253,16 +274,21 @@ namespace EliteBlindsAPI.Business
             return EliteBusinessObj.GetValances(ID);
         }
 
-        public Valance SaveValance(Valance ValanceData)
+        public List<Valance> SaveValance(List<Valance> ValanceData)
         {
-            if (ValanceData.ValanceID > 0)
+            List<Valance> RetList = new List<Valance>();
+            foreach (var Valance in ValanceData)
             {
-                return EliteBusinessObj.UpdateValance(ValanceData);
+                if (Valance.ValanceID > 0)
+                {
+                    RetList.Add(EliteBusinessObj.UpdateValance(Valance));
+                }
+                else
+                {
+                    RetList.Add(EliteBusinessObj.SaveValance(Valance));
+                }
             }
-            else
-            {
-                return EliteBusinessObj.SaveValance(ValanceData);
-            }
+            return RetList;
         }
 
         public void DeleteValance(int ID)
@@ -285,16 +311,21 @@ namespace EliteBlindsAPI.Business
             return EliteBusinessObj.GetBottomRails(ID);
         }
 
-        public BottomRail SaveBottomRail(BottomRail BottomRailData)
+        public List<BottomRail> SaveBottomRail(List<BottomRail> BottomRailData)
         {
-            if (BottomRailData.BottomRailID > 0)
+            List<BottomRail> RetList = new List<BottomRail>();
+            foreach (var BottomRail in BottomRailData)
             {
-                return EliteBusinessObj.UpdateBottomRail(BottomRailData);
+                if (BottomRail.BottomRailID > 0)
+                {
+                    RetList.Add(EliteBusinessObj.UpdateBottomRail(BottomRail));
+                }
+                else
+                {
+                    RetList.Add(EliteBusinessObj.SaveBottomRail(BottomRail));
+                }
             }
-            else
-            {
-                return EliteBusinessObj.SaveBottomRail(BottomRailData);
-            }
+            return RetList;
         }
 
         public void DeleteBottomRail(int ID)
