@@ -1,0 +1,168 @@
+<!-- <h4>Place your order</h4> -->
+<div *ngIf="!OrderConfirmed">
+<ul class="nav nav-tabs">
+        <li class="nav-item">
+                <a class="nav-link active" #basic [class.disabled]="enableCheckOut" id="basicTab" data-toggle="tab" href="#basic">Basic Information</a>
+              </li>
+        <li class="nav-item">
+          <a class="nav-link active" #home [class.disabled]="enableCheckOut" id="homeTab" data-toggle="tab" href="#home">Add Items</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" #details [class.disabled]="enableCheckOut" id="orderDetailsTab" data-toggle="tab" href="#orderDetails">Order Details</a>
+        </li>
+        <li class="nav-item"  [class.active]="enableCheckOut" >
+                <a #extra class="nav-link" id="extraTab" data-toggle="tab" href="#extraDetails">Extra Information</a>
+              </li>
+        
+</ul>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade" id="basic">
+<order-type [order]="1" (notify)='onNotify($event)'></order-type>
+    </div>
+<div class="tab-pane fade" id="home">
+        <form>
+                <fieldset>
+                  <legend>Add Items to your order</legend>
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label for="makeWidth">Make Width</label>
+                    <input type="text" class="form-control" [(ngModel)]="orderItem.Width" name="makeWidth" id="makeWidth" placeholder="Make Width">
+                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                  </div>
+                  <div class="form-group">
+                    <label for="makeHeight">Make Height</label>
+                    <input type="text" class="form-control" name="makeHeight" [(ngModel)]="orderItem.Height" id="makeHeight" placeholder="Make Height">
+                  </div>
+                  <div class="form-group">
+                        <label for="pelmetWidth">Special Pelmet Width</label>
+                        <input type="text" class="form-control" [(ngModel)]="orderItem.SplPelmetWidth" name="pelmetWidth" id="pelmetWidth" placeholder="Pelmet Width">
+                  </div>
+                  <div class="form-group">
+                            <label for="widthMade">Width Made By</label>
+                            <input type="text" class="form-control" name="widthMade" [(ngModel)]="orderItem.WidthMadeBy" id="widthMade" placeholder="Width Made By">
+                 </div>
+                 <div class="form-group">
+                                <label for="heightMade">Height Made By</label>
+                                <input type="text" class="form-control" name="heightMade" [(ngModel)]="orderItem.HeightMadeBy" id="heightMade" placeholder="Height Made By">
+                 </div>
+                 </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group">
+                                    <label for="qualityCheck">Height Made By</label>
+                                    <input type="text" class="form-control" name="qualityCheck" [(ngModel)]="orderItem.QualityCheckedBy" id="qualityCheck" placeholder="Height Made By">
+                    </div>
+                    <div class="form-group">
+                    <label for="slatStyle">Slat Style</label>
+                    <select class="form-control" name="slatStyle" (change)="onSlatChange()" [(ngModel)]="orderItem.SlatStyleID" id="slatStyle">
+                        <option selected value="0">Select Slat Style</option>
+                    <option  *ngFor="let slat of slatStyles" value="{{slat.SlatStyleID}}">{{slat.SlatStyleDesc}}</option>
+                      <!-- <option>White basswd(50mm)</option>
+                      <option>White basswd(63mm)</option>
+                      <option>Crema basswd(50mm)</option>
+                      <option>Nutmeg basswd(50mm)</option>
+                      <option>Cinnamon basswd(50mm)</option>
+                      <option>Rayco arctic snow(50mm)</option>
+                      <option>Dark walnut</option>
+                      <option>Medium cedar(45mm)</option> -->
+                    </select>
+                    </div>
+                  <div class="form-group">
+                        <label for="cordStyle">Cord Style</label>
+                        <select class="form-control" name="cordStyle" (change)="onCordChange()" [(ngModel)]="orderItem.CordStyleID" id="cordStyle">
+                                <option selected value="0">Select Cord Style</option>
+                         <option *ngFor="let cord of cordStyles" value="{{cord.CordStyleID}}">{{cord.CordStyleDesc}}</option>
+                             <!-- <option>All Left</option>
+                          <option>All Right</option>
+                          <option>Tilt/Pull</option>
+                          <option>Pull/Tilt</option>  -->
+                          
+                        </select>
+                      </div>
+                  <div class="form-group">
+                    <label for="returnRequired">Return Required</label>
+                    <select   name="returnRequired" (change)="onReturnChange()" [(ngModel)]="orderItem.ReturnRequired" class="form-control" id="returnRequired">
+                      <option value="true">Yes</option>
+                      <option value="false">No</option>
+                      
+                    </select>
+                  </div>
+                  <div class="form-group">
+                        <label for="mount">Mount</label>
+                        <select (change)="onMountChange()"  name="mount" [(ngModel)]="orderItem.MountType" class="form-control" id="mount">
+                          <option value="true">In</option>
+                          <option value="false">Out</option>
+                          
+                        </select>
+                    </div>
+                  <button  (click)="AddItem()" class="btn btn-primary">Add Item</button>
+                  <button  (click)="Proceed()" class="btn btn-primary">View Order</button>
+                </div>
+                </fieldset>
+             
+            <!-- </div> -->
+        </form>
+</div>
+<div class="tab-pane fade" id="orderDetails">
+        <div class="row">
+                <div class="col-lg-offset-10 col-md-offset-10">
+                    <button (click)="OrderConfirm()" class="btn btn-secondary">Confirm Order</button>
+                </div>
+            </div>
+<div class="row">
+<table class="table table-responsive table-condensed table-hover">
+<thead>
+    <tr class="table-info">
+        <th>Slat Style</th>
+        <th>Cord Style</th>
+        <th>Make Width</th>
+        <th>Special Pelmet Width</th>
+        <th>Mount</th>
+        <th>Return Required</th>
+        <th>Make Height</th>
+        <th>Ready Made Size</th>
+        <th>Width Made By</th>
+        <th>Height Made By</th>
+        <th>Quality Check By</th>
+        <th>Square Meter</th>
+        <th>Delete</th>
+    </tr>
+</thead>
+<tbody>
+    <tr *ngFor="let item of OrderDetails">
+        <td>{{item.slatStyleText}}</td>
+        <td>{{item.cordStyleText}}</td>
+        <td>{{item.Width}}</td>
+        <td>{{item.SplPelmetWidth}}</td>
+        <td>{{item.MountTypeText}}</td>
+        <td>{{item.ReturnRequiredText}}</td>
+        <td>{{item.Height}}</td>
+        <td>{{item.ReadyMadeSize}}</td>
+        <td>{{item.WidthMadeBy}}</td>
+        <td>{{item.HeightMadeBy}}</td>
+        <td>{{item.QualityCheckedBy}}</td>
+        <td>{{item.SquareMeter}}</td>
+        <td><a (click)="Delete(item)">Delete</a></td>
+
+    </tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="tab-pane fade" id="extraDetails">
+    <div class="row">
+      <div class="form-group">
+            <label for="info">Extra Information</label>
+            <textarea class="form-control" name="info" [(ngModel)]="OrderInitiation.Notes" id="info" placeholder=""></textarea>
+      </div>
+      <div class="form-group">
+            <button class="btn btn-primary" (click)="SaveOrder()">Submit Order</button>
+      </div>
+    </div>
+</div>
+</div>
+</div>
+<div *ngIf="OrderConfirmed">
+    <order-list [orderDetails]="OrderDetails" [orderInitiate]="OrderInitiation"></order-list>
+</div>
+

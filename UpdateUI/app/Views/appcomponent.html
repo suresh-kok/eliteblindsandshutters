@@ -1,0 +1,65 @@
+
+    <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                   
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" 
+                            data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="navbar-brand" style="padding:0px !important" rel="home"  title="">
+                            <!-- ELITE <br/>BLINDS & SHUTTERS -->
+                            <img class="img" routerLink="Home" src="app/assets/images/logo.jpg" alt="ELITE BLINDS & SHUTTERS">
+                            <!-- <div class="position-sticky">
+                                <nav class="menu-bar">
+                                    <ul class="nav navbar-nav">
+                                      
+                                      <li><a  routerLink="/Order">Order</a></li><br/>
+                                      <li><a (click)="LogOut()">LogOut</a></li>
+                                     <li><a routerLink="/Login">Login</a></li>
+                                    </ul>
+                                </nav>
+                                  </div> -->
+                                  <div class="dropdown btn-group" style="width:100%;">
+                                        <a class="btn menu-icon dropdown-toggle" routerLinkActive="menu-icon-active" data-toggle="dropdown" >
+                                          Order Management <span class="caret" style="margin-left:.2em;"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                          <li><a routerLink="/VenetianOrder">Venetian Order</a></li>
+                                          <li><a routerLink="/RollerOrder">Roller Order</a></li>
+                                          <li><a href="#">Oversea Order</a></li>
+                                        </ul>
+                                      </div>
+
+                                <div class="dropdown btn-group" style="width:100%;">
+                                        <a class="btn menu-icon dropdown-toggle" (click)="LogOut()" routerLinkActive="menu-icon-active" data-toggle="dropdown" >
+                                          LogOut 
+                                        </a>
+                                      </div>
+                                  <!-- <a class="menu-icon" routerLinkActive="menu-icon-active" (click)="LogOut()">LogOut</a> -->
+                            </div>
+                    <!-- <a class="menu-icon" routerLink="/Order">Order</a> -->
+                </div>
+                <!-- <div id="navbar" class="collapse navbar-collapse" >
+                        <ul class="nav navbar-nav">
+                          
+                          <li><a  routerLink="/Order">Order</a></li>
+                          <li><a (click)="LogOut()">LogOut</a></li>
+                           <li><a routerLink="/Login">Login</a></li> 
+                        </ul>
+                      </div> -->
+            </nav>
+            <div class="container" style="padding-left: 9em;">
+                 <router-outlet></router-outlet>
+                </div>
+            <div class="footer navbar-fixed-bottom">
+                <p class="pull-left">ELITE BLINDS & SHUTTERS © 2015</p>
+            <p class="pull-right" style="margin-right:3em;">
+            <i class="fa fa-2x fa-facebook"></i>
+            <i class="fa fa-2x fa-twitter"></i>  
+            <i class="fa fa-2x fa-instagram"></i>    
+            </p>
+            </div>
+  

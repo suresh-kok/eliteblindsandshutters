@@ -1,0 +1,53 @@
+<div class="row">
+<div class="col-lg-6 col-md-6">
+    <form>
+        <!-- <fieldset>Order Type</fieldset> -->
+        <div class="form-group">
+                <label for="order">Return Required</label>
+                <select   name="order" (change)="orderChange()" [(ngModel)]="newOrder.IsNew" class="form-control" id="order">
+                  <option value="true">New Order</option>
+                  <option value="false">Remake Order</option>
+                </select>
+              </div>
+              <div *ngIf="IsRemake">
+                    <div class="form-group">
+                            <label for="originalOrder">Original order number</label>
+                            <input type="text" class="form-control" [(ngModel)]="newOrder.OldOrderNumber" name="originalOrder" id="originalOrder" placeholder="Original Order">
+                            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                          </div>
+                          <div class="form-group">
+                                <label for="fault">Whose Fault</label>
+                                <select   name="fault" [(ngModel)]="newOrder.Fault" class="form-control" id="fault">
+                                  <option value="1">Factory</option>
+                                  <option value="0">Customer</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                    <label for="evidence">Do you have photo evidence ready ?</label>
+                                    <select   name="evidence" [(ngModel)]="newOrder.Evidence" class="form-control" id="evidence">
+                                      <option value="true">Yes</option>
+                                      <option value="false">No</option>
+                                    </select>
+                                  </div>
+              </div>
+    </form>
+</div>
+<div class="col-lg-6 col-md-6">
+    <form>
+            <div class="form-group">
+                    <label for="company">Company</label>
+                    <input type="text" class="form-control" [(ngModel)]="newOrder.Company" name="company" id="company" placeholder="Company">
+                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                  </div>
+
+                  <div class="form-group">
+                        <label for="reference">Reference</label>
+                        <input type="text" class="form-control" [(ngModel)]="newOrder.Reference" name="reference" id="reference" placeholder="Reference">
+                        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                      </div>   
+                      <div class="form-group">
+                      <button  (click)="ProceedData()" class="btn btn-primary">Proceed</button>
+                    </div>   
+    </form>
+</div>
+</div>
