@@ -1,0 +1,188 @@
+c:\users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\obj\Debug\EliteBlindsAPI.csprojResolveAssemblyReference.cache
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\ApplicationInsights.config
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\csc.exe
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\vbc.exe
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\VBCSCompiler.exe
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\EliteBlindsAPI.dll.config
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\EliteBlindsAPI.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\EliteBlindsAPI.pdb
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\EntityFramework.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\EntityFramework.SqlServer.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.Web.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.ApplicationInsights.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\MySql.Data.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\MySql.Data.Entity.EF6.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\Newtonsoft.Json.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\System.Net.Http.Formatting.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\System.Web.Http.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\System.Web.Http.WebHost.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\EntityFramework.xml
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\EntityFramework.SqlServer.xml
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.Web.xml
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.ApplicationInsights.xml
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\Newtonsoft.Json.xml
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\System.Net.Http.Formatting.xml
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\System.Web.Http.xml
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\bin\System.Web.Http.WebHost.xml
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\obj\Debug\EliteBlindsAPI.dll
+C:\Users\skanniyappan\documents\visual studio 2015\Projects\EliteBlindsAPI\EliteBlindsAPI\obj\Debug\EliteBlindsAPI.pdb
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\ApplicationInsights.config
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\csc.exe
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\vbc.exe
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\VBCSCompiler.exe
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\EliteBlindsAPI.dll.config
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\EliteBlindsAPI.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\EliteBlindsAPI.pdb
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\EntityFramework.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\EntityFramework.SqlServer.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.Web.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.ApplicationInsights.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\MySql.Data.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\MySql.Data.Entity.EF6.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\Newtonsoft.Json.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\System.Net.Http.Formatting.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\System.Web.Http.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\System.Web.Http.WebHost.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\EntityFramework.xml
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\EntityFramework.SqlServer.xml
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.Web.xml
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.ApplicationInsights.xml
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\Newtonsoft.Json.xml
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\System.Net.Http.Formatting.xml
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\System.Web.Http.xml
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\bin\System.Web.Http.WebHost.xml
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\obj\Debug\EliteBlindsAPI.csprojResolveAssemblyReference.cache
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\obj\Debug\EliteBlindsAPI.dll
+C:\Users\skanniyappan\Documents\GitHub\eliteblindsandshutters\New API\EliteBlindsAPI\EliteBlindsAPI\obj\Debug\EliteBlindsAPI.pdb
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\obj\Debug\EliteBlindsAPI.csprojResolveAssemblyReference.cache
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\obj\Debug\EliteBlindsAPI.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\obj\Debug\EliteBlindsAPI.pdb
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\ApplicationInsights.config
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\csc.exe
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\System.Collections.Immutable.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\System.Reflection.Metadata.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\vbc.exe
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\VBCSCompiler.exe
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\VBCSCompiler.exe.config
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\EliteBlindsAPI.dll.config
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\EliteBlindsAPI.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\EliteBlindsAPI.pdb
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\EntityFramework.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\EntityFramework.SqlServer.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.Agent.Intercept.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.DependencyCollector.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.Web.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.WindowsServer.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.ApplicationInsights.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\MySql.Data.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\MySql.Data.Entity.EF6.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Newtonsoft.Json.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\System.Net.Http.Formatting.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\System.Web.Http.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\System.Web.Http.WebHost.dll
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\EntityFramework.xml
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\EntityFramework.SqlServer.xml
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.DependencyCollector.xml
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.Web.xml
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.WindowsServer.xml
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.ApplicationInsights.xml
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Newtonsoft.Json.xml
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\System.Net.Http.Formatting.xml
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\System.Web.Http.xml
+C:\FreeLancing\GitConnected\eliteblindsandshutters-\New API\EliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\System.Web.Http.WebHost.xml
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\ApplicationInsights.config
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\csc.exe
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\vbc.exe
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\VBCSCompiler.exe
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\EliteBlindsAPI.dll.config
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\EliteBlindsAPI.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\EliteBlindsAPI.pdb
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\EntityFramework.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\EntityFramework.SqlServer.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.Web.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.ApplicationInsights.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\MySql.Data.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\MySql.Data.Entity.EF6.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Newtonsoft.Json.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\System.Net.Http.Formatting.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\System.Web.Http.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\System.Web.Http.WebHost.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\EntityFramework.xml
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\EntityFramework.SqlServer.xml
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.Web.xml
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.ApplicationInsights.xml
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\Newtonsoft.Json.xml
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\System.Net.Http.Formatting.xml
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\System.Web.Http.xml
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\bin\System.Web.Http.WebHost.xml
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\obj\Debug\EliteBlindsAPI.csprojResolveAssemblyReference.cache
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\obj\Debug\EliteBlindsAPI.dll
+C:\Users\skanniyappan\Downloads\UPdatedEliteBlindsAPI\EliteBlindsAPI\EliteBlindsAPI\obj\Debug\EliteBlindsAPI.pdb
