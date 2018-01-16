@@ -7,7 +7,7 @@ export class OrderInitiation{
     Evidence:any=true;
     Company:any;
     Reference:any;
-    OrderType:string;
+    OrderType:any;
     OrderStatus:any;
     OrderDate:any;
     NumbOfBlinds:any;

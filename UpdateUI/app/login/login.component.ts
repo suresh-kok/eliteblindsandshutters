@@ -111,8 +111,9 @@ showModal:boolean=false;
       this.service.login(this.user).subscribe( data => {
         debugger;
         if(data){
-            this.user.CustomerId=data;
-        localStorage.setItem("user", JSON.stringify(this.user));
+            // let
+            // this.user.CustomerId=data;
+        localStorage.setItem("user", data);
         this.route.navigate(['Home']); 
     }else{
         this.errorMsg = 'Failed to login';

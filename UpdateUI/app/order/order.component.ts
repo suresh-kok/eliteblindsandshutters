@@ -20,7 +20,7 @@ export class OrderComponent{
     OrderInitiation:OrderInitiation;
     public slatStyles;
     public cordStyles;
-    OrderConfirmed:bool:false;
+    OrderConfirmed:boolean=false;
 
     constructor(private service:AuthenticationService,element: ElementRef
     ,private orderService:OrderMiscService){
@@ -113,16 +113,16 @@ export class OrderComponent{
       SaveOrder(){
           let orderId:any=0;
           debugger;
-          this.OrderInitiation.CustomerId=this.service.GetCustomerId();
-          this.OrderInitiation.orderType=1;
+          this.OrderInitiation.CustomerID=this.service.GetCustomerId();
+          this.OrderInitiation.OrderType=1;
           this.OrderInitiation.OrderDate=new Date();
           this.OrderInitiation.OrderStatus="Order Received";
         this.orderService.SaveOrderInitiation(this.OrderInitiation).subscribe(
          data=>{
              debugger;
              if(data){
-
-                 var orderData=JSON.parse(data);
+                // let orderData:any;
+                let orderData:any=JSON.parse(data);
                  if(orderData.OrderID!=0)
                  {
                      this.OrderInitiation.OrderID=orderData.OrderID;
@@ -143,7 +143,7 @@ export class OrderComponent{
                  }
                 //  orderId=orderData.OrderID;
              }
-         }
+         },
          err=>console.error(err)
         );
      

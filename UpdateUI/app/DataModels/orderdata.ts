@@ -7,7 +7,9 @@ export class OrderData{
     HeightMadeBy:any;
     QualityCheckedBy:any;
     SlatStyleID:any=0;
+    slatStyleText:any;
     CordStyleID:any=0;
+    cordStyleText:any;
     ReturnRequired:any=false;
     ReturnRequiredText:any="No";
     MountType:any=false;

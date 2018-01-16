@@ -91,8 +91,9 @@ var LoginComponent = /** @class */ (function () {
         this.service.login(this.user).subscribe(function (data) {
             debugger;
             if (data) {
-                _this.user.CustomerId = data;
-                localStorage.setItem("user", JSON.stringify(_this.user));
+                // let
+                // this.user.CustomerId=data;
+                localStorage.setItem("user", data);
                 _this.route.navigate(['Home']);
             }
             else {

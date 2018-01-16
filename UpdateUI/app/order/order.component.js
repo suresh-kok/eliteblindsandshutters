@@ -20,6 +20,7 @@ var OrderComponent = /** @class */ (function () {
         this.orderService = orderService;
         this.OrderDetails = [];
         this.enableCheckOut = false;
+        this.OrderConfirmed = false;
         this.orderItem = new orderdata_1.OrderData();
         this.OrderInitiation = new orderInitiationData_1.OrderInitiation();
     }
@@ -99,13 +100,14 @@ var OrderComponent = /** @class */ (function () {
         var _this = this;
         var orderId = 0;
         debugger;
-        this.OrderInitiation.CustomerId = this.service.GetCustomerId();
-        this.OrderInitiation.orderType = 1;
+        this.OrderInitiation.CustomerID = this.service.GetCustomerId();
+        this.OrderInitiation.OrderType = 1;
         this.OrderInitiation.OrderDate = new Date();
         this.OrderInitiation.OrderStatus = "Order Received";
         this.orderService.SaveOrderInitiation(this.OrderInitiation).subscribe(function (data) {
             debugger;
             if (data) {
+                // let orderData:any;
                 var orderData = JSON.parse(data);
                 if (orderData.OrderID != 0) {
                     _this.OrderInitiation.OrderID = orderData.OrderID;
