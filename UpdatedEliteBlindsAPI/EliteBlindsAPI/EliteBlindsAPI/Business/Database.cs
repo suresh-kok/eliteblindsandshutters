@@ -23,8 +23,8 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO Customer (FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,IsActive) " +
-                           "VALUES (@FirstName, @MiddleName,@Lastname, @Email, @Password, @DOB, @Gender,@Mobile,@Address,@City,@Country,@Pincode,0); " +
+                string query = "INSERT INTO Customer (FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,RoleID,IsActive) " +
+                           "VALUES (@FirstName, @MiddleName,@Lastname, @Email, @Password, @DOB, @Gender,@Mobile,@Address,@City,@Country,@Pincode,@RoleID,0); " +
                            "SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
@@ -41,6 +41,7 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@City", MySqlDbType.VarString).Value = instance.City;
                     command.Parameters.Add("@Country", MySqlDbType.VarString).Value = instance.Country;
                     command.Parameters.Add("@Pincode", MySqlDbType.VarString).Value = instance.Pincode;
+                    command.Parameters.Add("@RoleID", MySqlDbType.Int32).Value = instance.RoleID;
 
                     int RetVal = Convert.ToInt32(command.ExecuteScalar());
 
@@ -115,7 +116,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,IsActive FROM Customer Where CustomerID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,RoleID,IsActive FROM Customer Where CustomerID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -136,7 +137,8 @@ namespace EliteBlindsAPI.Business
                                 City = reader.SafeGetString("City"),
                                 Country = reader.SafeGetString("Country"),
                                 Pincode = reader.SafeGetString("Pincode"),
-                                IsActive = reader.GetBoolean("IsActive")
+                                IsActive = reader.GetBoolean("IsActive"),
+                                RoleID = reader.GetInt32("RoleID")
                             };
                         }
                     }
@@ -168,7 +170,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,IsActive FROM Customer ", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,RoleID,IsActive FROM Customer ", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -188,7 +190,8 @@ namespace EliteBlindsAPI.Business
                                 City = reader.SafeGetString("City"),
                                 Country = reader.SafeGetString("Country"),
                                 Pincode = reader.SafeGetString("Pincode"),
-                                IsActive = reader.GetBoolean("IsActive")
+                                IsActive = reader.GetBoolean("IsActive"),
+                                RoleID = reader.GetInt32("RoleID")
                             });
                     }
                 }
@@ -219,7 +222,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,IsActive FROM Customer WHERE CustomerID IN (@CustomerIDs)", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,RoleID,IsActive FROM Customer WHERE CustomerID IN (@CustomerIDs)", (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@CustomerIDs", MySqlDbType.VarString).Value = string.Join(",", IDs.ToArray());
 
@@ -241,7 +244,8 @@ namespace EliteBlindsAPI.Business
                                 City = reader.SafeGetString("City"),
                                 Country = reader.SafeGetString("Country"),
                                 Pincode = reader.SafeGetString("Pincode"),
-                                IsActive = reader.GetBoolean("IsActive")
+                                IsActive = reader.GetBoolean("IsActive"),
+                                RoleID = reader.GetInt32("RoleID")
                             });
                     }
                 }
@@ -282,7 +286,8 @@ namespace EliteBlindsAPI.Business
                     "Address = @Address," +
                     "City = @City," +
                     "Country = @Country," +
-                    "Pincode = @Pincode " +
+                    "Pincode = @Pincode, " +
+                    "RoleID = @RoleID " +
                     "WHERE CustomerID = @CustomerID ";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
@@ -299,6 +304,7 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@City", MySqlDbType.VarString).Value = instance.City;
                     command.Parameters.Add("@Country", MySqlDbType.VarString).Value = instance.Country;
                     command.Parameters.Add("@Pincode", MySqlDbType.VarString).Value = instance.Pincode;
+                    command.Parameters.Add("@RoleID", MySqlDbType.Int32).Value = instance.RoleID;
                     command.Parameters.Add("@CustomerID", MySqlDbType.Int32).Value = instance.CustomerID;
 
                     int RetVal = Convert.ToInt32(command.ExecuteScalar());
@@ -339,7 +345,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,IsActive FROM Customer WHERE Email = '" + Email + "' AND Password = '" + Password + "'", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,RoleID,IsActive FROM Customer WHERE Email = '" + Email + "' AND Password = '" + Password + "'", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -360,7 +366,8 @@ namespace EliteBlindsAPI.Business
                                 City = reader.SafeGetString("City"),
                                 Country = reader.SafeGetString("Country"),
                                 Pincode = reader.SafeGetString("Pincode"),
-                                IsActive = reader.GetBoolean("IsActive")
+                                IsActive = reader.GetBoolean("IsActive"),
+                                RoleID = reader.GetInt32("RoleID")
                             };
                         }
                     }

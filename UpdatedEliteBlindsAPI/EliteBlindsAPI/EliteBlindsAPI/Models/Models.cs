@@ -23,6 +23,7 @@ namespace EliteBlindsAPI.Models
         private string _Password;
         private string _ConfirmPassword;
         private int _TotalOrders;
+        private int _RoleID;
         public List<Order> _Orders;
         
         public int CustomerID
@@ -104,6 +105,11 @@ namespace EliteBlindsAPI.Models
         {
             get { return _TotalOrders; }
             set { _TotalOrders = value; }
+        }
+        public int RoleID
+        {
+            get { return _RoleID; }
+            set { _RoleID = value; }
         }
 
     }

@@ -48,7 +48,7 @@ namespace EliteBlindsAPI.Business
 
         public List<Order> GetCustOrders(int CustId, string FilterBy, string SearchCriteria, string OrderBy)
         {
-            if (CustId == 1)
+            if (GetCustomer(CustId).RoleID == 1)
             {
                 return EliteBusinessObj.GetAllOrders();
             }
@@ -65,7 +65,7 @@ namespace EliteBlindsAPI.Business
 
         public List<UtilityOrder> GetCustomerUtilityOrders(int CustId, string FilterBy, string SearchCriteria, string OrderBy)
         {
-            if (CustId == 1)
+            if (GetCustomer(CustId).RoleID == 1)
             {
                 return EliteBusinessObj.GetAllUtilityOrders();
             }
