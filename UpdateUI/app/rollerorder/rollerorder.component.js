@@ -10,15 +10,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var auth_service_1 = require("../../app/services/auth.service");
 var RollerOrderComponent = /** @class */ (function () {
-    function RollerOrderComponent() {
+    function RollerOrderComponent(service) {
+        this.service = service;
     }
+    RollerOrderComponent.prototype.ngOnInit = function () {
+        this.service.checkCredentials();
+    };
     RollerOrderComponent = __decorate([
         core_1.Component({
             selector: 'roller-order',
             templateUrl: 'app/rollerorder/rollerorder.html'
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [auth_service_1.AuthenticationService])
     ], RollerOrderComponent);
     return RollerOrderComponent;
 }());

@@ -37,7 +37,7 @@ showModal:boolean=false;
               )
     {
         this.user=new User();
-        this.LoadCountries();
+        // this.LoadCountries();
     }
            ngOnInit(){
            

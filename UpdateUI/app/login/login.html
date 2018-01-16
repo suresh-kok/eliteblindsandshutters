@@ -7,19 +7,19 @@
                 </div>
         <div class="lb-header">
           <a href="#" class="active" (click)="ShowLogin()" id="login-box-link">Login</a>
-          <a (click)="SignUp()" id="signup-box-link" >Sign Up</a>
+          <!-- <a (click)="SignUp()" id="signup-box-link" >Sign Up</a> -->
         </div>
-        <div class="social-login">
+        <!-- <div class="social-login">
           <a href="#">
             <i class="fa fa-facebook fa-lg"></i>
             Login in with facebook
           </a>
-          <!-- <div class="g-signin2" (data-onsuccess)="onSignIn"></div> -->
+        
           <a (click)="GoogleSignIn()" id="glogin">
             <i class="fa fa-google-plus fa-lg"></i>
             log in with Google
           </a>
-        </div>
+        </div> -->
         <form class="email-login" *ngIf="!showSignUp">
           <div class="u-form-group">
             <input type="email" name="email" required  [(ngModel)]="user.Email" placeholder="Email"/>

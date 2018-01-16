@@ -7,7 +7,10 @@ import {OrderData}from '../DataModels/orderdata';
 })
 export class RollerOrderComponent{
 
-    constructor(){
+    constructor(private service:AuthenticationService){
 
+    }
+    ngOnInit(){
+        this.service.checkCredentials();
     }
 }

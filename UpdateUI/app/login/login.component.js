@@ -30,7 +30,7 @@ var LoginComponent = /** @class */ (function () {
         this.regionLoaded = false;
         this.showModal = false;
         this.user = new auth_service_1.User();
-        this.LoadCountries();
+        // this.LoadCountries();
     }
     LoginComponent.prototype.ngOnInit = function () {
     };
