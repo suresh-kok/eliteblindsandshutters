@@ -124,21 +124,21 @@ namespace EliteBlindsAPI.Business
                         {
                             returnValue = new Customer()
                             {
-                                CustomerID = reader.GetInt32("CustomerID"),
+                                CustomerID = reader.SafeGetInt32("CustomerID"),
                                 FirstName = reader.SafeGetString("FirstName"),
                                 MiddleName = reader.SafeGetString("MiddleName"),
                                 LastName = reader.SafeGetString("Lastname"),
                                 Email = reader.SafeGetString("Email"),
                                 Password = reader.SafeGetString("Password"),
-                                DOB = reader.GetDateTime("DOB"),
-                                Gender = reader.GetBoolean("Gender"),
+                                DOB = reader.SafeGetDateTime("DOB"),
+                                Gender = reader.SafeGetBoolean("Gender"),
                                 Mobile = reader.SafeGetString("Mobile"),
                                 Address = reader.SafeGetString("Address"),
                                 City = reader.SafeGetString("City"),
                                 Country = reader.SafeGetString("Country"),
                                 Pincode = reader.SafeGetString("Pincode"),
-                                IsActive = reader.GetBoolean("IsActive"),
-                                RoleID = reader.GetInt32("RoleID")
+                                IsActive = reader.SafeGetBoolean("IsActive"),
+                                RoleID = reader.SafeGetInt32("RoleID")
                             };
                         }
                     }
@@ -177,21 +177,21 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new Customer()
                             {
-                                CustomerID = reader.GetInt32("CustomerID"),
+                                CustomerID = reader.SafeGetInt32("CustomerID"),
                                 FirstName = reader.SafeGetString("FirstName"),
                                 MiddleName = reader.SafeGetString("MiddleName"),
                                 LastName = reader.SafeGetString("Lastname"),
                                 Email = reader.SafeGetString("Email"),
                                 Password = reader.SafeGetString("Password"),
-                                DOB = reader.GetDateTime("DOB"),
-                                Gender = reader.GetBoolean("Gender"),
+                                DOB = reader.SafeGetDateTime("DOB"),
+                                Gender = reader.SafeGetBoolean("Gender"),
                                 Mobile = reader.SafeGetString("Mobile"),
                                 Address = reader.SafeGetString("Address"),
                                 City = reader.SafeGetString("City"),
                                 Country = reader.SafeGetString("Country"),
                                 Pincode = reader.SafeGetString("Pincode"),
-                                IsActive = reader.GetBoolean("IsActive"),
-                                RoleID = reader.GetInt32("RoleID")
+                                IsActive = reader.SafeGetBoolean("IsActive"),
+                                RoleID = reader.SafeGetInt32("RoleID")
                             });
                     }
                 }
@@ -231,21 +231,21 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new Customer()
                             {
-                                CustomerID = reader.GetInt32("CustomerID"),
+                                CustomerID = reader.SafeGetInt32("CustomerID"),
                                 FirstName = reader.SafeGetString("FirstName"),
                                 MiddleName = reader.SafeGetString("MiddleName"),
                                 LastName = reader.SafeGetString("Lastname"),
                                 Email = reader.SafeGetString("Email"),
                                 Password = reader.SafeGetString("Password"),
-                                DOB = reader.GetDateTime("DOB"),
-                                Gender = reader.GetBoolean("Gender"),
+                                DOB = reader.SafeGetDateTime("DOB"),
+                                Gender = reader.SafeGetBoolean("Gender"),
                                 Mobile = reader.SafeGetString("Mobile"),
                                 Address = reader.SafeGetString("Address"),
                                 City = reader.SafeGetString("City"),
                                 Country = reader.SafeGetString("Country"),
                                 Pincode = reader.SafeGetString("Pincode"),
-                                IsActive = reader.GetBoolean("IsActive"),
-                                RoleID = reader.GetInt32("RoleID")
+                                IsActive = reader.SafeGetBoolean("IsActive"),
+                                RoleID = reader.SafeGetInt32("RoleID")
                             });
                     }
                 }
@@ -353,21 +353,21 @@ namespace EliteBlindsAPI.Business
                         {
                             returnValue = new Customer()
                             {
-                                CustomerID = reader.GetInt32("CustomerID"),
+                                CustomerID = reader.SafeGetInt32("CustomerID"),
                                 FirstName = reader.SafeGetString("FirstName"),
                                 MiddleName = reader.SafeGetString("MiddleName"),
                                 LastName = reader.SafeGetString("Lastname"),
                                 Email = reader.SafeGetString("Email"),
                                 Password = reader.SafeGetString("Password"),
-                                DOB = reader.GetDateTime("DOB"),
-                                Gender = reader.GetBoolean("Gender"),
+                                DOB = reader.SafeGetDateTime("DOB"),
+                                Gender = reader.SafeGetBoolean("Gender"),
                                 Mobile = reader.SafeGetString("Mobile"),
                                 Address = reader.SafeGetString("Address"),
                                 City = reader.SafeGetString("City"),
                                 Country = reader.SafeGetString("Country"),
                                 Pincode = reader.SafeGetString("Pincode"),
-                                IsActive = reader.GetBoolean("IsActive"),
-                                RoleID = reader.GetInt32("RoleID")
+                                IsActive = reader.SafeGetBoolean("IsActive"),
+                                RoleID = reader.SafeGetInt32("RoleID")
                             };
                         }
                     }
@@ -533,7 +533,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO `Order` (CustomerID, IsNew,Fault,Evidence, Company, Reference, OrderType,OrderStatus,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,OrderM2,Notes) " +
+                string query = "INSERT INTO `Order` (CustomerID, IsNew,Fault,Evidence, Company, Reference, OrderType,OrderStatus,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes) " +
                            "VALUES (@CustomerID, @IsNew, @Fault,@Evidence, @Company, @Reference, @OrderType, @OrderStatus, @OrderDate, @NumbOfBlinds, @ConsignNoteNum, @CompleteDate, @DeliveryDate, @DepartureDate, @ArrivalDate, @OrderM2,@Notes); " +
                            "SELECT LAST_INSERT_ID();";
 
@@ -554,6 +554,8 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@DeliveryDate", MySqlDbType.DateTime).Value = instance.DeliveryDate;
                     command.Parameters.Add("@DepartureDate", MySqlDbType.DateTime).Value = instance.DepartureDate;
                     command.Parameters.Add("@ArrivalDate", MySqlDbType.DateTime).Value = instance.ArrivalDate;
+                    command.Parameters.Add("@BlindTypeID", MySqlDbType.Int32).Value = instance.BlindTypeID;
+                    command.Parameters.Add("@Transport", MySqlDbType.Int32).Value = instance.Transport;
                     command.Parameters.Add("@OrderM2", MySqlDbType.Double).Value = instance.OrderM2;
                     command.Parameters.Add("@Notes", MySqlDbType.VarString).Value = instance.Notes;
 
@@ -638,7 +640,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, OrderType,OrderStatus,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,OrderM2,Notes,IsApproved FROM Order Where OrderID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, OrderType,OrderStatus,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes,IsApproved FROM Order Where OrderID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -646,25 +648,27 @@ namespace EliteBlindsAPI.Business
                         {
                             returnValue = new Order()
                             {
-                                OrderID = reader.GetInt32("OrderID"),
-                                CustomerID = reader.GetInt32("CustomerID"),
-                                Fault = reader.GetInt32("Fault"),
-                                IsNew = reader.GetBoolean("IsNew"),
-                                Evidence = reader.GetBoolean("Evidence"),
+                                OrderID = reader.SafeGetInt32("OrderID"),
+                                CustomerID = reader.SafeGetInt32("CustomerID"),
+                                Fault = reader.SafeGetInt32("Fault"),
+                                IsNew = reader.SafeGetBoolean("IsNew"),
+                                Evidence = reader.SafeGetBoolean("Evidence"),
                                 Company = reader.SafeGetString("Company"),
                                 Reference = reader.SafeGetString("Reference"),
-                                OrderType = reader.GetInt32("OrderType"),
+                                OrderType = reader.SafeGetInt32("OrderType"),
                                 OrderStatus = reader.SafeGetString("OrderStatus"),
-                                OrderDate = reader.GetDateTime("OrderDate"),
-                                NumbOfBlinds = reader.GetInt32("NumbOfBlinds"),
+                                OrderDate = reader.SafeGetDateTime("OrderDate"),
+                                NumbOfBlinds = reader.SafeGetInt32("NumbOfBlinds"),
                                 ConsignNoteNum = reader.SafeGetString("ConsignNoteNum"),
-                                CompleteDate = reader.GetDateTime("CompleteDate"),
-                                DeliveryDate = reader.GetDateTime("DeliveryDate"),
-                                DepartureDate = reader.GetDateTime("DepartureDate"),
-                                ArrivalDate = reader.GetDateTime("ArrivalDate"),
-                                OrderM2 = reader.GetDouble("OrderM2"),
+                                CompleteDate = reader.SafeGetDateTime("CompleteDate"),
+                                DeliveryDate = reader.SafeGetDateTime("DeliveryDate"),
+                                DepartureDate = reader.SafeGetDateTime("DepartureDate"),
+                                ArrivalDate = reader.SafeGetDateTime("ArrivalDate"),
+                                BlindTypeID = reader.SafeGetInt32("BlindTypeID"),
+                                Transport = reader.SafeGetInt32("Transport"),
+                                OrderM2 = reader.SafeGetDouble("OrderM2"),
                                 Notes = reader.SafeGetString("Notes"),
-                                IsApproved = reader.GetBoolean("IsApproved")
+                                IsApproved = reader.SafeGetBoolean("IsApproved")
                             };
                         }
                     }
@@ -696,32 +700,38 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
+<<<<<<< HEAD
                 using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, OrderType,OrderStatus,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,OrderM2,Notes,IsApproved FROM `Order`", (MySqlConnection)this.Connection))
+=======
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, OrderType,OrderStatus,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes,IsApproved FROM Order", (MySqlConnection)this.Connection))
+>>>>>>> 6a0c1cc18506a9b85379b0b30ad4549ee182c013
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                             returnValue.Add(new Order()
                             {
-                                OrderID = reader.GetInt32("OrderID"),
-                                Fault = reader.GetInt32("Fault"),
-                                CustomerID = reader.GetInt32("CustomerID"),
-                                IsNew = reader.GetBoolean("IsNew"),
-                                Evidence = reader.GetBoolean("Evidence"),
+                                OrderID = reader.SafeGetInt32("OrderID"),
+                                Fault = reader.SafeGetInt32("Fault"),
+                                CustomerID = reader.SafeGetInt32("CustomerID"),
+                                IsNew = reader.SafeGetBoolean("IsNew"),
+                                Evidence = reader.SafeGetBoolean("Evidence"),
                                 Company = reader.SafeGetString("Company"),
                                 Reference = reader.SafeGetString("Reference"),
-                                OrderType = reader.GetInt32("OrderType"),
+                                OrderType = reader.SafeGetInt32("OrderType"),
                                 OrderStatus = reader.SafeGetString("OrderStatus"),
-                                OrderDate = reader.GetDateTime("OrderDate"),
-                                NumbOfBlinds = reader.GetInt32("NumbOfBlinds"),
+                                OrderDate = reader.SafeGetDateTime("OrderDate"),
+                                NumbOfBlinds = reader.SafeGetInt32("NumbOfBlinds"),
                                 ConsignNoteNum = reader.SafeGetString("ConsignNoteNum"),
-                                CompleteDate = reader.GetDateTime("CompleteDate"),
-                                DeliveryDate = reader.GetDateTime("DeliveryDate"),
-                                DepartureDate = reader.GetDateTime("DepartureDate"),
-                                ArrivalDate = reader.GetDateTime("ArrivalDate"),
-                                OrderM2 = reader.GetDouble("OrderM2"),
+                                CompleteDate = reader.SafeGetDateTime("CompleteDate"),
+                                DeliveryDate = reader.SafeGetDateTime("DeliveryDate"),
+                                DepartureDate = reader.SafeGetDateTime("DepartureDate"),
+                                ArrivalDate = reader.SafeGetDateTime("ArrivalDate"),
+                                BlindTypeID = reader.SafeGetInt32("BlindTypeID"),
+                                Transport = reader.SafeGetInt32("Transport"),
+                                OrderM2 = reader.SafeGetDouble("OrderM2"),
                                 Notes = reader.SafeGetString("Notes"),
-                                IsApproved = reader.GetBoolean("IsApproved")
+                                IsApproved = reader.SafeGetBoolean("IsApproved")
                             });
                     }
                 }
@@ -765,7 +775,9 @@ namespace EliteBlindsAPI.Business
                     "DeliveryDate = @DeliveryDate," +
                     "DepartureDate = @DepartureDate," +
                     "ArrivalDate = @ArrivalDate," +
-                    "OrderM2 = @OrderM2,"+
+                    "BlindTypeID = @BlindTypeID," +
+                    "Transport = @Transport," +
+                    "OrderM2 = @OrderM2," +
                     "Notes = @Notes, " +
                     "IsApproved = @IsApproved " +
                     "WHERE OrderID = @OrderID";
@@ -788,6 +800,8 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@DeliveryDate", MySqlDbType.DateTime).Value = instance.DeliveryDate;
                     command.Parameters.Add("@DepartureDate", MySqlDbType.DateTime).Value = instance.DepartureDate;
                     command.Parameters.Add("@ArrivalDate", MySqlDbType.DateTime).Value = instance.ArrivalDate;
+                    command.Parameters.Add("@BlindTypeID", MySqlDbType.Int32).Value = instance.BlindTypeID;
+                    command.Parameters.Add("@Transport", MySqlDbType.Int32).Value = instance.Transport;
                     command.Parameters.Add("@OrderM2", MySqlDbType.Double).Value = instance.OrderM2;
                     command.Parameters.Add("@Notes", MySqlDbType.VarString).Value = instance.Notes;
                     command.Parameters.Add("@IsApproved", MySqlDbType.Bit).Value = instance.IsApproved;
@@ -830,7 +844,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,IsNew,Fault,Evidence, Company, Reference, OrderType,OrderStatus,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,OrderM2,Notes,IsApproved FROM Order WHERE OrderID IN (@OrderIDs)", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,IsNew,Fault,Evidence, Company, Reference, OrderType,OrderStatus,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes,IsApproved FROM Order WHERE OrderID IN (@OrderIDs)", (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@OrderIDs", MySqlDbType.VarString).Value = string.Join(",", IDs.ToArray());
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -838,24 +852,26 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new Order()
                             {
-                                OrderID = reader.GetInt32("OrderID"),
-                                Fault = reader.GetInt32("Fault"),
-                                IsNew = reader.GetBoolean("IsNew"),
-                                Evidence = reader.GetBoolean("Evidence"),
+                                OrderID = reader.SafeGetInt32("OrderID"),
+                                Fault = reader.SafeGetInt32("Fault"),
+                                IsNew = reader.SafeGetBoolean("IsNew"),
+                                Evidence = reader.SafeGetBoolean("Evidence"),
                                 Company = reader.SafeGetString("Company"),
                                 Reference = reader.SafeGetString("Reference"),
-                                OrderType = reader.GetInt32("OrderType"),
+                                OrderType = reader.SafeGetInt32("OrderType"),
                                 OrderStatus = reader.SafeGetString("OrderStatus"),
-                                OrderDate = reader.GetDateTime("OrderDate"),
-                                NumbOfBlinds = reader.GetInt32("NumbOfBlinds"),
+                                OrderDate = reader.SafeGetDateTime("OrderDate"),
+                                NumbOfBlinds = reader.SafeGetInt32("NumbOfBlinds"),
                                 ConsignNoteNum = reader.SafeGetString("ConsignNoteNum"),
-                                CompleteDate = reader.GetDateTime("CompleteDate"),
-                                DeliveryDate = reader.GetDateTime("DeliveryDate"),
-                                DepartureDate = reader.GetDateTime("DepartureDate"),
-                                ArrivalDate = reader.GetDateTime("ArrivalDate"),
-                                OrderM2 = reader.GetDouble("OrderM2"),
+                                CompleteDate = reader.SafeGetDateTime("CompleteDate"),
+                                DeliveryDate = reader.SafeGetDateTime("DeliveryDate"),
+                                DepartureDate = reader.SafeGetDateTime("DepartureDate"),
+                                ArrivalDate = reader.SafeGetDateTime("ArrivalDate"),
+                                BlindTypeID = reader.SafeGetInt32("BlindTypeID"),
+                                Transport = reader.SafeGetInt32("Transport"),
+                                OrderM2 = reader.SafeGetDouble("OrderM2"),
                                 Notes = reader.SafeGetString("Notes"),
-                                IsApproved = reader.GetBoolean("IsApproved")
+                                IsApproved = reader.SafeGetBoolean("IsApproved")
                             });
                     }
                 }
@@ -886,7 +902,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, OrderType,OrderStatus,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,OrderM2,Notes,IsApproved FROM Order WHERE CustomerID = @CustomerID ", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, OrderType,OrderStatus,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes,IsApproved FROM Order WHERE CustomerID = @CustomerID ", (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@CustomerID", MySqlDbType.Int32).Value = ID;
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -894,25 +910,27 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new Order()
                             {
-                                OrderID = reader.GetInt32("OrderID"),
-                                CustomerID = reader.GetInt32("CustomerID"),
-                                Fault = reader.GetInt32("Fault"),
-                                IsNew = reader.GetBoolean("IsNew"),
-                                Evidence = reader.GetBoolean("Evidence"),
+                                OrderID = reader.SafeGetInt32("OrderID"),
+                                CustomerID = reader.SafeGetInt32("CustomerID"),
+                                Fault = reader.SafeGetInt32("Fault"),
+                                IsNew = reader.SafeGetBoolean("IsNew"),
+                                Evidence = reader.SafeGetBoolean("Evidence"),
                                 Company = reader.SafeGetString("Company"),
                                 Reference = reader.SafeGetString("Reference"),
-                                OrderType = reader.GetInt32("OrderType"),
+                                OrderType = reader.SafeGetInt32("OrderType"),
                                 OrderStatus = reader.SafeGetString("OrderStatus"),
-                                OrderDate = reader.GetDateTime("OrderDate"),
-                                NumbOfBlinds = reader.GetInt32("NumbOfBlinds"),
+                                OrderDate = reader.SafeGetDateTime("OrderDate"),
+                                NumbOfBlinds = reader.SafeGetInt32("NumbOfBlinds"),
                                 ConsignNoteNum = reader.SafeGetString("ConsignNoteNum"),
-                                CompleteDate = reader.GetDateTime("CompleteDate"),
-                                DeliveryDate = reader.GetDateTime("DeliveryDate"),
-                                DepartureDate = reader.GetDateTime("DepartureDate"),
-                                ArrivalDate = reader.GetDateTime("ArrivalDate"),
-                                OrderM2 = reader.GetDouble("OrderM2"),
+                                CompleteDate = reader.SafeGetDateTime("CompleteDate"),
+                                DeliveryDate = reader.SafeGetDateTime("DeliveryDate"),
+                                DepartureDate = reader.SafeGetDateTime("DepartureDate"),
+                                ArrivalDate = reader.SafeGetDateTime("ArrivalDate"),
+                                BlindTypeID = reader.SafeGetInt32("BlindTypeID"),
+                                Transport = reader.SafeGetInt32("Transport"),
+                                OrderM2 = reader.SafeGetDouble("OrderM2"),
                                 Notes = reader.SafeGetString("Notes"),
-                                IsApproved = reader.GetBoolean("IsApproved")
+                                IsApproved = reader.SafeGetBoolean("IsApproved")
                             });
                     }
                 }
@@ -1023,7 +1041,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, OrderType,OrderStatus,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,OrderM2,Notes,IsApproved FROM Order" +
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, OrderType,OrderStatus,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes,IsApproved FROM Order" +
                     " " + strFilterBy + " " + strOrderBy, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -1031,25 +1049,27 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new Order()
                             {
-                                OrderID = reader.GetInt32("OrderID"),
-                                Fault = reader.GetInt32("Fault"),
-                                CustomerID = reader.GetInt32("CustomerID"),
-                                IsNew = reader.GetBoolean("IsNew"),
-                                Evidence = reader.GetBoolean("Evidence"),
+                                OrderID = reader.SafeGetInt32("OrderID"),
+                                Fault = reader.SafeGetInt32("Fault"),
+                                CustomerID = reader.SafeGetInt32("CustomerID"),
+                                IsNew = reader.SafeGetBoolean("IsNew"),
+                                Evidence = reader.SafeGetBoolean("Evidence"),
                                 Company = reader.SafeGetString("Company"),
                                 Reference = reader.SafeGetString("Reference"),
-                                OrderType = reader.GetInt32("OrderType"),
+                                OrderType = reader.SafeGetInt32("OrderType"),
                                 OrderStatus = reader.SafeGetString("OrderStatus"),
-                                OrderDate = reader.GetDateTime("OrderDate"),
-                                NumbOfBlinds = reader.GetInt32("NumbOfBlinds"),
+                                OrderDate = reader.SafeGetDateTime("OrderDate"),
+                                NumbOfBlinds = reader.SafeGetInt32("NumbOfBlinds"),
                                 ConsignNoteNum = reader.SafeGetString("ConsignNoteNum"),
-                                CompleteDate = reader.GetDateTime("CompleteDate"),
-                                DeliveryDate = reader.GetDateTime("DeliveryDate"),
-                                DepartureDate = reader.GetDateTime("DepartureDate"),
-                                ArrivalDate = reader.GetDateTime("ArrivalDate"),
-                                OrderM2 = reader.GetDouble("OrderM2"),
+                                CompleteDate = reader.SafeGetDateTime("CompleteDate"),
+                                DeliveryDate = reader.SafeGetDateTime("DeliveryDate"),
+                                DepartureDate = reader.SafeGetDateTime("DepartureDate"),
+                                ArrivalDate = reader.SafeGetDateTime("ArrivalDate"),
+                                BlindTypeID = reader.SafeGetInt32("BlindTypeID"),
+                                Transport = reader.SafeGetInt32("Transport"),
+                                OrderM2 = reader.SafeGetDouble("OrderM2"),
                                 Notes = reader.SafeGetString("Notes"),
-                                IsApproved = reader.GetBoolean("IsApproved")
+                                IsApproved = reader.SafeGetBoolean("IsApproved")
                             });
                     }
                 }
@@ -1189,26 +1209,26 @@ namespace EliteBlindsAPI.Business
                         {
                             returnValue = new OrderDetail()
                             {
-                                OrderID = reader.GetInt32("OrderID"),
-                                Width = reader.GetDouble("Width"),
-                                Height = reader.GetDouble("Height"),
-                                SplPelmetWidth = reader.GetDouble("SplPelmetWidth"),
+                                OrderID = reader.SafeGetInt32("OrderID"),
+                                Width = reader.SafeGetDouble("Width"),
+                                Height = reader.SafeGetDouble("Height"),
+                                SplPelmetWidth = reader.SafeGetDouble("SplPelmetWidth"),
                                 WidthMadeBy = reader.SafeGetString("WidthMadeBy"),
                                 HeightMadeBy = reader.SafeGetString("HeightMadeBy"),
                                 QualityCheckedBy = reader.SafeGetString("QualityCheckedBy"),
-                                SlatStyleID = reader.GetInt32("SlatStyleID"),
-                                CordStyleID = reader.GetInt32("CordStyleID"),
-                                ReturnRequired = reader.GetBoolean("ReturnRequired"),
-                                MountType = reader.GetBoolean("MountType"),
-                                SquareMeter = reader.GetDouble("SquareMeter"),
-                                ControlID = reader.GetInt32("ControlID"),
-                                ControlStyle = reader.GetInt32("ControlStyle"),
-                                OpeningStyle = reader.GetInt32("OpeningStyle"),
-                                PelmetStyle = reader.GetInt32("PelmetStyle"),
-                                ColorID = reader.GetInt32("ColorID"),
-                                MaterialID = reader.GetInt32("MaterialID"),
-                                Roll = reader.GetBoolean("Roll"),
-                                ReadyMadeSize = reader.GetDouble("ReadyMadeSize")
+                                SlatStyleID = reader.SafeGetInt32("SlatStyleID"),
+                                CordStyleID = reader.SafeGetInt32("CordStyleID"),
+                                ReturnRequired = reader.SafeGetBoolean("ReturnRequired"),
+                                MountType = reader.SafeGetBoolean("MountType"),
+                                SquareMeter = reader.SafeGetDouble("SquareMeter"),
+                                ControlID = reader.SafeGetInt32("ControlID"),
+                                ControlStyle = reader.SafeGetInt32("ControlStyle"),
+                                OpeningStyle = reader.SafeGetInt32("OpeningStyle"),
+                                PelmetStyle = reader.SafeGetInt32("PelmetStyle"),
+                                ColorID = reader.SafeGetInt32("ColorID"),
+                                MaterialID = reader.SafeGetInt32("MaterialID"),
+                                Roll = reader.SafeGetBoolean("Roll"),
+                                ReadyMadeSize = reader.SafeGetDouble("ReadyMadeSize")
                             };
                         }
                     }
@@ -1247,26 +1267,26 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new OrderDetail()
                             {
-                                OrderID = reader.GetInt32("OrderID"),
-                                Width = reader.GetDouble("Width"),
-                                Height = reader.GetDouble("Height"),
-                                SplPelmetWidth = reader.GetDouble("SplPelmetWidth"),
+                                OrderID = reader.SafeGetInt32("OrderID"),
+                                Width = reader.SafeGetDouble("Width"),
+                                Height = reader.SafeGetDouble("Height"),
+                                SplPelmetWidth = reader.SafeGetDouble("SplPelmetWidth"),
                                 WidthMadeBy = reader.SafeGetString("WidthMadeBy"),
                                 HeightMadeBy = reader.SafeGetString("HeightMadeBy"),
                                 QualityCheckedBy = reader.SafeGetString("QualityCheckedBy"),
-                                SlatStyleID = reader.GetInt32("SlatStyleID"),
-                                CordStyleID = reader.GetInt32("CordStyleID"),
-                                ReturnRequired = reader.GetBoolean("ReturnRequired"),
-                                MountType = reader.GetBoolean("MountType"),
-                                SquareMeter = reader.GetDouble("SquareMeter"),
-                                ControlID = reader.GetInt32("ControlID"),
-                                ControlStyle = reader.GetInt32("ControlStyle"),
-                                OpeningStyle = reader.GetInt32("OpeningStyle"),
-                                PelmetStyle = reader.GetInt32("PelmetStyle"),
-                                ColorID = reader.GetInt32("ColorID"),
-                                MaterialID = reader.GetInt32("MaterialID"),
-                                Roll = reader.GetBoolean("Roll"),
-                                ReadyMadeSize = reader.GetDouble("ReadyMadeSize")
+                                SlatStyleID = reader.SafeGetInt32("SlatStyleID"),
+                                CordStyleID = reader.SafeGetInt32("CordStyleID"),
+                                ReturnRequired = reader.SafeGetBoolean("ReturnRequired"),
+                                MountType = reader.SafeGetBoolean("MountType"),
+                                SquareMeter = reader.SafeGetDouble("SquareMeter"),
+                                ControlID = reader.SafeGetInt32("ControlID"),
+                                ControlStyle = reader.SafeGetInt32("ControlStyle"),
+                                OpeningStyle = reader.SafeGetInt32("OpeningStyle"),
+                                PelmetStyle = reader.SafeGetInt32("PelmetStyle"),
+                                ColorID = reader.SafeGetInt32("ColorID"),
+                                MaterialID = reader.SafeGetInt32("MaterialID"),
+                                Roll = reader.SafeGetBoolean("Roll"),
+                                ReadyMadeSize = reader.SafeGetDouble("ReadyMadeSize")
                             });
                     }
                 }
@@ -1306,26 +1326,26 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new OrderDetail()
                             {
-                                OrderID = reader.GetInt32("OrderID"),
-                                Width = reader.GetDouble("Width"),
-                                Height = reader.GetDouble("Height"),
-                                SplPelmetWidth = reader.GetDouble("SplPelmetWidth"),
+                                OrderID = reader.SafeGetInt32("OrderID"),
+                                Width = reader.SafeGetDouble("Width"),
+                                Height = reader.SafeGetDouble("Height"),
+                                SplPelmetWidth = reader.SafeGetDouble("SplPelmetWidth"),
                                 WidthMadeBy = reader.SafeGetString("WidthMadeBy"),
                                 HeightMadeBy = reader.SafeGetString("HeightMadeBy"),
                                 QualityCheckedBy = reader.SafeGetString("QualityCheckedBy"),
-                                SlatStyleID = reader.GetInt32("SlatStyleID"),
-                                CordStyleID = reader.GetInt32("CordStyleID"),
-                                ReturnRequired = reader.GetBoolean("ReturnRequired"),
-                                MountType = reader.GetBoolean("MountType"),
-                                SquareMeter = reader.GetDouble("SquareMeter"),
-                                ControlID = reader.GetInt32("ControlID"),
-                                ControlStyle = reader.GetInt32("ControlStyle"),
-                                OpeningStyle = reader.GetInt32("OpeningStyle"),
-                                PelmetStyle = reader.GetInt32("PelmetStyle"),
-                                ColorID = reader.GetInt32("ColorID"),
-                                MaterialID = reader.GetInt32("MaterialID"),
-                                Roll = reader.GetBoolean("Roll"),
-                                ReadyMadeSize = reader.GetDouble("ReadyMadeSize")
+                                SlatStyleID = reader.SafeGetInt32("SlatStyleID"),
+                                CordStyleID = reader.SafeGetInt32("CordStyleID"),
+                                ReturnRequired = reader.SafeGetBoolean("ReturnRequired"),
+                                MountType = reader.SafeGetBoolean("MountType"),
+                                SquareMeter = reader.SafeGetDouble("SquareMeter"),
+                                ControlID = reader.SafeGetInt32("ControlID"),
+                                ControlStyle = reader.SafeGetInt32("ControlStyle"),
+                                OpeningStyle = reader.SafeGetInt32("OpeningStyle"),
+                                PelmetStyle = reader.SafeGetInt32("PelmetStyle"),
+                                ColorID = reader.SafeGetInt32("ColorID"),
+                                MaterialID = reader.SafeGetInt32("MaterialID"),
+                                Roll = reader.SafeGetBoolean("Roll"),
+                                ReadyMadeSize = reader.SafeGetDouble("ReadyMadeSize")
                             });
                     }
                 }
@@ -1365,26 +1385,26 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new OrderDetail()
                             {
-                                OrderID = reader.GetInt32("OrderID"),
-                                Width = reader.GetDouble("Width"),
-                                Height = reader.GetDouble("Height"),
-                                SplPelmetWidth = reader.GetDouble("SplPelmetWidth"),
+                                OrderID = reader.SafeGetInt32("OrderID"),
+                                Width = reader.SafeGetDouble("Width"),
+                                Height = reader.SafeGetDouble("Height"),
+                                SplPelmetWidth = reader.SafeGetDouble("SplPelmetWidth"),
                                 WidthMadeBy = reader.SafeGetString("WidthMadeBy"),
                                 HeightMadeBy = reader.SafeGetString("HeightMadeBy"),
                                 QualityCheckedBy = reader.SafeGetString("QualityCheckedBy"),
-                                SlatStyleID = reader.GetInt32("SlatStyleID"),
-                                CordStyleID = reader.GetInt32("CordStyleID"),
-                                ReturnRequired = reader.GetBoolean("ReturnRequired"),
-                                MountType = reader.GetBoolean("MountType"),
-                                SquareMeter = reader.GetDouble("SquareMeter"),
-                                ControlID = reader.GetInt32("ControlID"),
-                                ControlStyle = reader.GetInt32("ControlStyle"),
-                                OpeningStyle = reader.GetInt32("OpeningStyle"),
-                                PelmetStyle = reader.GetInt32("PelmetStyle"),
-                                ColorID = reader.GetInt32("ColorID"),
-                                MaterialID = reader.GetInt32("MaterialID"),
-                                Roll = reader.GetBoolean("Roll"),
-                                ReadyMadeSize = reader.GetDouble("ReadyMadeSize")
+                                SlatStyleID = reader.SafeGetInt32("SlatStyleID"),
+                                CordStyleID = reader.SafeGetInt32("CordStyleID"),
+                                ReturnRequired = reader.SafeGetBoolean("ReturnRequired"),
+                                MountType = reader.SafeGetBoolean("MountType"),
+                                SquareMeter = reader.SafeGetDouble("SquareMeter"),
+                                ControlID = reader.SafeGetInt32("ControlID"),
+                                ControlStyle = reader.SafeGetInt32("ControlStyle"),
+                                OpeningStyle = reader.SafeGetInt32("OpeningStyle"),
+                                PelmetStyle = reader.SafeGetInt32("PelmetStyle"),
+                                ColorID = reader.SafeGetInt32("ColorID"),
+                                MaterialID = reader.SafeGetInt32("MaterialID"),
+                                Roll = reader.SafeGetBoolean("Roll"),
+                                ReadyMadeSize = reader.SafeGetDouble("ReadyMadeSize")
                             });
                     }
                 }
@@ -1589,11 +1609,11 @@ namespace EliteBlindsAPI.Business
                         {
                             returnValue = new UtilityOrder()
                             {
-                                UtilityOrderID = reader.GetInt32("UtilityOrderID"),
-                                CustomerID = reader.GetInt32("CustomerID"),
-                                OrderType = reader.GetInt32("OrderType"),
-                                Boxes = reader.GetInt32("Boxes"),
-                                IsApproved = reader.GetBoolean("IsApproved")
+                                UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
+                                CustomerID = reader.SafeGetInt32("CustomerID"),
+                                OrderType = reader.SafeGetInt32("OrderType"),
+                                Boxes = reader.SafeGetInt32("Boxes"),
+                                IsApproved = reader.SafeGetBoolean("IsApproved")
                             };
                         }
                     }
@@ -1632,11 +1652,11 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new UtilityOrder()
                             {
-                                UtilityOrderID = reader.GetInt32("UtilityOrderID"),
-                                CustomerID = reader.GetInt32("CustomerID"),
-                                OrderType = reader.GetInt32("OrderType"),
-                                Boxes = reader.GetInt32("Boxes"),
-                                IsApproved = reader.GetBoolean("IsApproved")
+                                UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
+                                CustomerID = reader.SafeGetInt32("CustomerID"),
+                                OrderType = reader.SafeGetInt32("OrderType"),
+                                Boxes = reader.SafeGetInt32("Boxes"),
+                                IsApproved = reader.SafeGetBoolean("IsApproved")
                             });
                     }
                 }
@@ -1674,11 +1694,11 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new UtilityOrder()
                             {
-                                UtilityOrderID = reader.GetInt32("UtilityOrderID"),
-                                CustomerID = reader.GetInt32("CustomerID"),
-                                OrderType = reader.GetInt32("OrderType"),
-                                Boxes = reader.GetInt32("Boxes"),
-                                IsApproved = reader.GetBoolean("IsApproved")
+                                UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
+                                CustomerID = reader.SafeGetInt32("CustomerID"),
+                                OrderType = reader.SafeGetInt32("OrderType"),
+                                Boxes = reader.SafeGetInt32("Boxes"),
+                                IsApproved = reader.SafeGetBoolean("IsApproved")
                             });
                     }
                 }
@@ -1832,11 +1852,11 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new UtilityOrder()
                             {
-                                UtilityOrderID = reader.GetInt32("UtilityOrderID"),
-                                CustomerID = reader.GetInt32("CustomerID"),
-                                OrderType = reader.GetInt32("OrderType"),
-                                Boxes = reader.GetInt32("Boxes"),
-                                IsApproved = reader.GetBoolean("IsApproved")
+                                UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
+                                CustomerID = reader.SafeGetInt32("CustomerID"),
+                                OrderType = reader.SafeGetInt32("OrderType"),
+                                Boxes = reader.SafeGetInt32("Boxes"),
+                                IsApproved = reader.SafeGetBoolean("IsApproved")
                             });
                     }
                 }
@@ -1959,10 +1979,10 @@ namespace EliteBlindsAPI.Business
                         {
                             returnValue = new Fabric()
                             {
-                                FabricID = reader.GetInt32("FabricID"),
-                                FabricType = reader.GetInt32("FabricType"),
-                                ColorID = reader.GetInt32("ColorID"),
-                                FabricSize = reader.GetInt32("FabricSize")
+                                FabricID = reader.SafeGetInt32("FabricID"),
+                                FabricType = reader.SafeGetInt32("FabricType"),
+                                ColorID = reader.SafeGetInt32("ColorID"),
+                                FabricSize = reader.SafeGetInt32("FabricSize")
                             };
                         }
                     }
@@ -2001,11 +2021,11 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new Fabric()
                             {
-                                FabricID = reader.GetInt32("FabricID"),
-                                FabricType = reader.GetInt32("FabricType"),
-                                ColorID = reader.GetInt32("ColorID"),
-                                UtilityOrderID = reader.GetInt32("UtilityOrderID"),
-                                FabricSize = reader.GetInt32("FabricSize")
+                                FabricID = reader.SafeGetInt32("FabricID"),
+                                FabricType = reader.SafeGetInt32("FabricType"),
+                                ColorID = reader.SafeGetInt32("ColorID"),
+                                UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
+                                FabricSize = reader.SafeGetInt32("FabricSize")
                             });
                     }
                 }
@@ -2043,11 +2063,11 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new Fabric()
                             {
-                                FabricID = reader.GetInt32("FabricID"),
-                                FabricType = reader.GetInt32("FabricType"),
-                                ColorID = reader.GetInt32("ColorID"),
-                                UtilityOrderID = reader.GetInt32("UtilityOrderID"),
-                                FabricSize = reader.GetInt32("FabricSize")
+                                FabricID = reader.SafeGetInt32("FabricID"),
+                                FabricType = reader.SafeGetInt32("FabricType"),
+                                ColorID = reader.SafeGetInt32("ColorID"),
+                                UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
+                                FabricSize = reader.SafeGetInt32("FabricSize")
                             });
                     }
                 }
@@ -2221,7 +2241,7 @@ namespace EliteBlindsAPI.Business
                         {
                             returnValue = new RollerBlindType()
                             {
-                                RollerBlindTypeID = reader.GetInt32("RollerBlindTypeID"),
+                                RollerBlindTypeID = reader.SafeGetInt32("RollerBlindTypeID"),
                                 Description = reader.SafeGetString("Description"),
                                 Profile = reader.SafeGetString("Profile"),
                                 RollerColor = reader.SafeGetString("RollerColor"),
@@ -2266,7 +2286,7 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new RollerBlindType()
                             {
-                                RollerBlindTypeID = reader.GetInt32("RollerBlindTypeID"),
+                                RollerBlindTypeID = reader.SafeGetInt32("RollerBlindTypeID"),
                                 Description = reader.SafeGetString("Description"),
                                 Profile = reader.SafeGetString("Profile"),
                                 RollerColor = reader.SafeGetString("RollerColor"),
@@ -2448,9 +2468,9 @@ namespace EliteBlindsAPI.Business
                         {
                             returnValue = new RollerBlinds()
                             {
-                                RollerBlindsID = reader.GetInt32("RollerBlindsID"),
-                                UtilityOrderID = reader.GetInt32("UtilityOrderID"),
-                                RollerBlindTypeID = reader.GetInt32("RollerBlindTypeID")
+                                RollerBlindsID = reader.SafeGetInt32("RollerBlindsID"),
+                                UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
+                                RollerBlindTypeID = reader.SafeGetInt32("RollerBlindTypeID")
                             };
                         }
                     }
@@ -2489,9 +2509,9 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new RollerBlinds()
                             {
-                                RollerBlindsID = reader.GetInt32("RollerBlindsID"),
-                                UtilityOrderID = reader.GetInt32("UtilityOrderID"),
-                                RollerBlindTypeID = reader.GetInt32("RollerBlindTypeID")
+                                RollerBlindsID = reader.SafeGetInt32("RollerBlindsID"),
+                                UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
+                                RollerBlindTypeID = reader.SafeGetInt32("RollerBlindTypeID")
                             });
                     }
                 }
@@ -2529,9 +2549,9 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new RollerBlinds()
                             {
-                                RollerBlindsID = reader.GetInt32("RollerBlindsID"),
-                                UtilityOrderID = reader.GetInt32("UtilityOrderID"),
-                                RollerBlindTypeID = reader.GetInt32("RollerBlindTypeID")
+                                RollerBlindsID = reader.SafeGetInt32("RollerBlindsID"),
+                                UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
+                                RollerBlindTypeID = reader.SafeGetInt32("RollerBlindTypeID")
                             });
                     }
                 }
@@ -2700,9 +2720,9 @@ namespace EliteBlindsAPI.Business
                         {
                             returnValue = new Valance()
                             {
-                                ValanceID = reader.GetInt32("ValanceID"),
-                                MaterialID = reader.GetInt32("MaterialID"),
-                                ColorID = reader.GetInt32("ColorID"),
+                                ValanceID = reader.SafeGetInt32("ValanceID"),
+                                MaterialID = reader.SafeGetInt32("MaterialID"),
+                                ColorID = reader.SafeGetInt32("ColorID"),
                                 Size = reader.SafeGetString("Size")
                             };
                         }
@@ -2742,10 +2762,10 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new Valance()
                             {
-                                ValanceID = reader.GetInt32("ValanceID"),
-                                MaterialID = reader.GetInt32("MaterialID"),
-                                ColorID = reader.GetInt32("ColorID"),
-                                UtilityOrderID = reader.GetInt32("UtilityOrderID"),
+                                ValanceID = reader.SafeGetInt32("ValanceID"),
+                                MaterialID = reader.SafeGetInt32("MaterialID"),
+                                ColorID = reader.SafeGetInt32("ColorID"),
+                                UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 Size = reader.SafeGetString("Size")
                             });
                     }
@@ -2784,10 +2804,10 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new Valance()
                             {
-                                ValanceID = reader.GetInt32("ValanceID"),
-                                MaterialID = reader.GetInt32("MaterialID"),
-                                ColorID = reader.GetInt32("ColorID"),
-                                UtilityOrderID = reader.GetInt32("UtilityOrderID"),
+                                ValanceID = reader.SafeGetInt32("ValanceID"),
+                                MaterialID = reader.SafeGetInt32("MaterialID"),
+                                ColorID = reader.SafeGetInt32("ColorID"),
+                                UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 Size = reader.SafeGetString("Size")
                             });
                     }
@@ -2959,9 +2979,9 @@ namespace EliteBlindsAPI.Business
                         {
                             returnValue = new BottomRail()
                             {
-                                BottomRailID = reader.GetInt32("BottomRailID"),
-                                MaterialID = reader.GetInt32("MaterialID"),
-                                ColorID = reader.GetInt32("ColorID"),
+                                BottomRailID = reader.SafeGetInt32("BottomRailID"),
+                                MaterialID = reader.SafeGetInt32("MaterialID"),
+                                ColorID = reader.SafeGetInt32("ColorID"),
                                 Size = reader.SafeGetString("Size")
                             };
                         }
@@ -3001,10 +3021,10 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new BottomRail()
                             {
-                                BottomRailID = reader.GetInt32("BottomRailID"),
-                                MaterialID = reader.GetInt32("MaterialID"),
-                                ColorID = reader.GetInt32("ColorID"),
-                                UtilityOrderID = reader.GetInt32("UtilityOrderID"),
+                                BottomRailID = reader.SafeGetInt32("BottomRailID"),
+                                MaterialID = reader.SafeGetInt32("MaterialID"),
+                                ColorID = reader.SafeGetInt32("ColorID"),
+                                UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 Size = reader.SafeGetString("Size")
                             });
                     }
@@ -3043,10 +3063,10 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new BottomRail()
                             {
-                                BottomRailID = reader.GetInt32("BottomRailID"),
-                                MaterialID = reader.GetInt32("MaterialID"),
-                                ColorID = reader.GetInt32("ColorID"),
-                                UtilityOrderID = reader.GetInt32("UtilityOrderID"),
+                                BottomRailID = reader.SafeGetInt32("BottomRailID"),
+                                MaterialID = reader.SafeGetInt32("MaterialID"),
+                                ColorID = reader.SafeGetInt32("ColorID"),
+                                UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 Size = reader.SafeGetString("Size")
                             });
                     }
@@ -3217,7 +3237,7 @@ namespace EliteBlindsAPI.Business
                         {
                             returnValue = new SlatStyle()
                             {
-                                SlatStyleID = reader.GetInt32("SlatStyleID"),
+                                SlatStyleID = reader.SafeGetInt32("SlatStyleID"),
                                 SlatStyleDesc = reader.SafeGetString("SlatStyleDesc"),
                                 For = reader.SafeGetString("For")
                             };
@@ -3258,7 +3278,7 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new SlatStyle()
                             {
-                                SlatStyleID = reader.GetInt32("SlatStyleID"),
+                                SlatStyleID = reader.SafeGetInt32("SlatStyleID"),
                                 SlatStyleDesc = reader.SafeGetString("SlatStyleDesc"),
                                 For = reader.SafeGetString("For")
                             });
@@ -3298,7 +3318,7 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new SlatStyle()
                             {
-                                SlatStyleID = reader.GetInt32("SlatStyleID"),
+                                SlatStyleID = reader.SafeGetInt32("SlatStyleID"),
                                 SlatStyleDesc = reader.SafeGetString("SlatStyleDesc"),
                                 For = reader.SafeGetString("For")
                             });
@@ -3467,7 +3487,7 @@ namespace EliteBlindsAPI.Business
                         {
                             returnValue = new CordStyle()
                             {
-                                CordStyleID = reader.GetInt32("CordStyleID"),
+                                CordStyleID = reader.SafeGetInt32("CordStyleID"),
                                 CordStyleDesc = reader.SafeGetString("CordStyleDesc"),
                                 For = reader.SafeGetString("For")
                             };
@@ -3508,7 +3528,7 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new CordStyle()
                             {
-                                CordStyleID = reader.GetInt32("CordStyleID"),
+                                CordStyleID = reader.SafeGetInt32("CordStyleID"),
                                 CordStyleDesc = reader.SafeGetString("CordStyleDesc"),
                                 For = reader.SafeGetString("FOr")
                             });
@@ -3548,7 +3568,7 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new CordStyle()
                             {
-                                CordStyleID = reader.GetInt32("CordStyleID"),
+                                CordStyleID = reader.SafeGetInt32("CordStyleID"),
                                 CordStyleDesc = reader.SafeGetString("CordStyleDesc"),
                                 For = reader.SafeGetString("For")
                             });
@@ -3718,7 +3738,7 @@ namespace EliteBlindsAPI.Business
                         {
                             returnValue = new Control()
                             {
-                                ControlID = reader.GetInt32("ControlID"),
+                                ControlID = reader.SafeGetInt32("ControlID"),
                                 ControlDesc = reader.SafeGetString("ControlDesc"),
                                 For = reader.SafeGetString("For")
                             };
@@ -3759,7 +3779,7 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new Control()
                             {
-                                ControlID = reader.GetInt32("ControlID"),
+                                ControlID = reader.SafeGetInt32("ControlID"),
                                 ControlDesc = reader.SafeGetString("ControlDesc"),
                                 For = reader.SafeGetString("For")
                             });
@@ -3799,7 +3819,7 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new Control()
                             {
-                                ControlID = reader.GetInt32("ControlID"),
+                                ControlID = reader.SafeGetInt32("ControlID"),
                                 ControlDesc = reader.SafeGetString("ControlDesc"),
                                 For = reader.SafeGetString("For")
                             });
@@ -3968,7 +3988,7 @@ namespace EliteBlindsAPI.Business
                         {
                             returnValue = new Material()
                             {
-                                MaterialID = reader.GetInt32("MaterialID"),
+                                MaterialID = reader.SafeGetInt32("MaterialID"),
                                 MaterialDesc = reader.SafeGetString("MaterialDesc"),
                                 For = reader.SafeGetString("For")
                             };
@@ -4009,7 +4029,7 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new Material()
                             {
-                                MaterialID = reader.GetInt32("MaterialID"),
+                                MaterialID = reader.SafeGetInt32("MaterialID"),
                                 MaterialDesc = reader.SafeGetString("MaterialDesc"),
                                 For = reader.SafeGetString("For")
                             });
@@ -4049,7 +4069,7 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new Material()
                             {
-                                MaterialID = reader.GetInt32("MaterialID"),
+                                MaterialID = reader.SafeGetInt32("MaterialID"),
                                 MaterialDesc = reader.SafeGetString("MaterialDesc"),
                                 For = reader.SafeGetString("For")
                             });
@@ -4219,7 +4239,7 @@ namespace EliteBlindsAPI.Business
                         {
                             returnValue = new Colors()
                             {
-                                ColorsID = reader.GetInt32("ColorsID"),
+                                ColorsID = reader.SafeGetInt32("ColorsID"),
                                 ColorsDesc = reader.SafeGetString("ColorsDesc"),
                                 For = reader.SafeGetString("For")
                             };
@@ -4260,7 +4280,7 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new Colors()
                             {
-                                ColorsID = reader.GetInt32("ColorsID"),
+                                ColorsID = reader.SafeGetInt32("ColorsID"),
                                 ColorsDesc = reader.SafeGetString("ColorsDesc"),
                                 For = reader.SafeGetString("For")
                             });
@@ -4300,7 +4320,7 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new Colors()
                             {
-                                ColorsID = reader.GetInt32("ColorsID"),
+                                ColorsID = reader.SafeGetInt32("ColorsID"),
                                 ColorsDesc = reader.SafeGetString("ColorsDesc"),
                                 For = reader.SafeGetString("For")
                             });
@@ -4470,7 +4490,7 @@ namespace EliteBlindsAPI.Business
                         {
                             returnValue = new Size()
                             {
-                                SizeID = reader.GetInt32("SizeID"),
+                                SizeID = reader.SafeGetInt32("SizeID"),
                                 SizeDesc = reader.SafeGetString("SizeDesc"),
                                 For = reader.SafeGetString("For")
                             };
@@ -4511,7 +4531,7 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new Size()
                             {
-                                SizeID = reader.GetInt32("SizeID"),
+                                SizeID = reader.SafeGetInt32("SizeID"),
                                 SizeDesc = reader.SafeGetString("SizeDesc"),
                                 For = reader.SafeGetString("For")
                             });
@@ -4551,7 +4571,7 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new Size()
                             {
-                                SizeID = reader.GetInt32("SizeID"),
+                                SizeID = reader.SafeGetInt32("SizeID"),
                                 SizeDesc = reader.SafeGetString("SizeDesc"),
                                 For = reader.SafeGetString("For")
                             });
@@ -4721,9 +4741,9 @@ namespace EliteBlindsAPI.Business
                         {
                             returnValue = new BlindType()
                             {
-                                BlindTypeID = reader.GetInt32("BlindTypeID"),
+                                BlindTypeID = reader.SafeGetInt32("BlindTypeID"),
                                 BlindTypeDesc = reader.SafeGetString("BlindTypeDesc"),
-                                Val = reader.GetInt32("Val")
+                                Val = reader.SafeGetInt32("Val")
                             };
                         }
                     }
@@ -4762,9 +4782,9 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new BlindType()
                             {
-                                BlindTypeID = reader.GetInt32("BlindTypeID"),
+                                BlindTypeID = reader.SafeGetInt32("BlindTypeID"),
                                 BlindTypeDesc = reader.SafeGetString("BlindTypeDesc"),
-                                Val = reader.GetInt32("Val")
+                                Val = reader.SafeGetInt32("Val")
                             });
                     }
                 }
@@ -4932,7 +4952,7 @@ namespace EliteBlindsAPI.Business
                         {
                             returnValue = new OrderType()
                             {
-                                OrderTypeID = reader.GetInt32("OrderTypeID"),
+                                OrderTypeID = reader.SafeGetInt32("OrderTypeID"),
                                 OrderTypeDesc = reader.SafeGetString("OrderTypeDesc")
                             };
                         }
@@ -4972,7 +4992,7 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new OrderType()
                             {
-                                OrderTypeID = reader.GetInt32("OrderTypeID"),
+                                OrderTypeID = reader.SafeGetInt32("OrderTypeID"),
                                 OrderTypeDesc = reader.SafeGetString("OrderTypeDesc")
                             });
                     }
@@ -5139,7 +5159,7 @@ namespace EliteBlindsAPI.Business
                         {
                             returnValue = new OrderStatus()
                             {
-                                OrderStatusID = reader.GetInt32("OrderStatusID"),
+                                OrderStatusID = reader.SafeGetInt32("OrderStatusID"),
                                 OrderStatusDesc = reader.SafeGetString("OrderStatusDesc")
                             };
                         }
@@ -5179,7 +5199,7 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new OrderStatus()
                             {
-                                OrderStatusID = reader.GetInt32("OrderStatusID"),
+                                OrderStatusID = reader.SafeGetInt32("OrderStatusID"),
                                 OrderStatusDesc = reader.SafeGetString("OrderStatusDesc")
                             });
                     }
@@ -5242,8 +5262,213 @@ namespace EliteBlindsAPI.Business
             }
         }
     }
+    public class EliteRoles_Mapper : IDataMapper<EliteRoles>
+    {
+        public override EliteRoles Create(EliteRoles instance, out Exception exError)
+        {
+            exError = null;
+            try
+            {
+                if (this.Connection == null)
+                {
+                    throw new Exception("Unable to Connect to Database");
+                }
+                else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
 
-    public static class StringExt
+                string query = "INSERT INTO EliteRoles (EliteRolesDesc) " +
+                           "VALUES (@EliteRolesDesc); " +
+                            "SELECT LAST_INSERT_ID();";
+
+                using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
+                {
+                    command.Parameters.Add("@EliteRolesDesc", MySqlDbType.VarString).Value = instance.EliteRolesDesc;
+
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
+
+                    if (RetVal <= 0)
+                    {
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(RetVal, out custException);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+                throw ex;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public override bool Delete(int ID, out Exception exError)
+        {
+            exError = null;
+
+            try
+            {
+                if (this.Connection == null)
+                {
+                    throw new Exception("Unable to Connect to Database");
+                }
+                else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM EliteRoles WHERE ColorID = " + ID, (MySqlConnection)this.Connection))
+                {
+                    int rows = command.ExecuteNonQuery();
+                    if (rows <= 0)
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+                return false;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+            return true;
+        }
+
+        public override EliteRoles Select(int ID, out Exception exError)
+        {
+            EliteRoles returnValue = new EliteRoles();
+            exError = null;
+
+            try
+            {
+                if (this.Connection == null)
+                {
+                    throw new Exception("Unable to Connect to Database");
+                }
+                else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("SELECT EliteRolesID, EliteRolesDesc FROM EliteRoles Where EliteRolesID = " + ID, (MySqlConnection)this.Connection))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows && reader.Read())
+                        {
+                            returnValue = new EliteRoles()
+                            {
+                                EliteRolesID = reader.SafeGetInt32("EliteRolesID"),
+                                EliteRolesDesc = reader.SafeGetString("EliteRolesDesc")
+                            };
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+            return returnValue;
+        }
+
+        public override List<EliteRoles> SelectAll(out Exception exError)
+        {
+            List<EliteRoles> returnValue = new List<EliteRoles>();
+            exError = null;
+
+            try
+            {
+                if (this.Connection == null)
+                {
+                    throw new Exception("Unable to Connect to Database");
+                }
+                else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("SELECT EliteRolesID, EliteRolesDesc FROM EliteRoles", (MySqlConnection)this.Connection))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                            returnValue.Add(new EliteRoles()
+                            {
+                                EliteRolesID = reader.SafeGetInt32("EliteRolesID"),
+                                EliteRolesDesc = reader.SafeGetString("EliteRolesDesc")
+                            });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+            return returnValue;
+        }
+
+        public override EliteRoles Update(EliteRoles instance, out Exception exError)
+        {
+            exError = null;
+            try
+            {
+                if (this.Connection == null)
+                {
+                    throw new Exception("Unable to Connect to Database");
+                }
+                else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+                string query = "UPDATE EliteRoles SET " +
+                    "EliteRolesDesc = @EliteRolesDesc" +
+                    "WHERE EliteRolesID = @EliteRolesID";
+
+                using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
+                {
+                    command.Parameters.Add("@EliteRolesDesc", MySqlDbType.VarString).Value = instance.EliteRolesDesc;
+                    command.Parameters.Add("@EliteRolesID", MySqlDbType.Int32).Value = instance.EliteRolesID;
+
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
+
+                    if (RetVal <= 0)
+                    {
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return Select(instance.EliteRolesID, out custException);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+                throw ex;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+    }
+    public static class ExtMethods
     {
         public static string SafeGetString(this MySqlDataReader reader, string colIndex)
         {
@@ -5251,5 +5476,34 @@ namespace EliteBlindsAPI.Business
                 return reader.GetString(colIndex);
             return string.Empty;
         }
+    
+        public static int SafeGetInt32(this MySqlDataReader reader, string colIndex)
+        {
+            if (!reader.IsDBNull(reader.GetOrdinal(colIndex)))
+                return reader.GetInt32(colIndex);
+            return 0;
+        }
+
+        public static Double SafeGetDouble(this MySqlDataReader reader, string colIndex)
+        {
+            if (!reader.IsDBNull(reader.GetOrdinal(colIndex)))
+                return reader.GetDouble(colIndex);
+            return 0;
+        }
+
+        public static DateTime SafeGetDateTime(this MySqlDataReader reader, string colIndex)
+        {
+            if (!reader.IsDBNull(reader.GetOrdinal(colIndex)))
+                return reader.GetDateTime(colIndex);
+            return DateTime.MinValue;
+        }
+
+        public static Boolean SafeGetBoolean(this MySqlDataReader reader, string colIndex)
+        {
+            if (!reader.IsDBNull(reader.GetOrdinal(colIndex)))
+                return reader.GetBoolean(colIndex);
+            return false;
+        }
+
     }
 }

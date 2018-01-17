@@ -233,14 +233,22 @@ namespace EliteBlindsAPI.Controllers
             var json = new JavaScriptSerializer().Serialize(BusinessObj.GetBlindType());
             return json; ;
         }
+
         public string GetOrderStatus()
         {
             var json = new JavaScriptSerializer().Serialize(BusinessObj.GetOrderStatus());
             return json; ;
         }
+
         public string GetOrderType()
         {
             var json = new JavaScriptSerializer().Serialize(BusinessObj.GetOrderType());
+            return json; ;
+        }
+
+        public string GetRoles()
+        {
+            var json = new JavaScriptSerializer().Serialize(BusinessObj.GetRoles());
             return json; ;
         }
 
