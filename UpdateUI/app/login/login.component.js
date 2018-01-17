@@ -93,7 +93,7 @@ var LoginComponent = /** @class */ (function () {
             if (data) {
                 // let
                 // this.user.CustomerId=data;
-                localStorage.setItem("user", data);
+                localStorage.setItem("user", data.toString());
                 _this.route.navigate(['Home']);
             }
             else {

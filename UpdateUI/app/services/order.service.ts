@@ -27,7 +27,10 @@ export class OrderMiscService {
        }
        GetSize(type){
         return  this.http.get(this.rootUrl+"GetSize/"+type);
-       }      
+       }  
+       GetBlindType(){
+           return this.http.get(this.rootUrl+"GetBlindType");
+       }    
 
     SaveOrderInitiation(order:OrderInitiation)
     {
@@ -40,6 +43,9 @@ export class OrderMiscService {
         debugger;
         let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
         return this.http.post(this.rootUrl+"OrderDetails",JSON.stringify(orderDetails),{headers:headers});
+    }
+    GetOrders(CustomerID,FilterBy,SearchCriteria,OrderBy){
+     return this.http.get(this.rootUrl+"SearchOrders/"+CustomerID+"/"+FilterBy+"/"+SearchCriteria+"/"+OrderBy);
     }
 
 }

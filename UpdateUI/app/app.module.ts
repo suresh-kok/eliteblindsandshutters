@@ -10,6 +10,7 @@ import {HomeComponent} from '../app/home/home';
 import {LoginComponent} from '../app/login/login.component';
 import {OrderTypeComponent} from '../app/Order/orderType.component';
 import {OrderListComponent} from '../app/Order/orderlist.component';
+import {OverSeaComponent} from '../app/overseaorder/overseaorder.component';
 import {routes} from './app.routing';
 import{ OrderComponent} from '../app/Order/order.component';
 import {RollerOrderComponent} from '../app/rollerorder/rollerorder.component';
@@ -37,7 +38,7 @@ import {OrderMiscService} from '../app/services/order.service';
 ],
   declarations: [ AppComponent
     ,OrderComponent,OrderTypeComponent,HomeComponent,LoginComponent,OrderListComponent
-    ,RollerOrderComponent, NotAuthorisedComponent
+    ,OverSeaComponent,RollerOrderComponent, NotAuthorisedComponent
 ],
   bootstrap: [ AppComponent ], 
   providers:[AuthenticationService,MiscellaneousService,OrderMiscService

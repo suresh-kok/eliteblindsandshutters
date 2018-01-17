@@ -34,6 +34,9 @@
 </div>
 <div class="col-lg-6 col-md-6">
     <form>
+      <div class="form-group" *ngIf="newOrder.OrderType==3">
+          <label for="blind">Blind Type</label>
+      </div>
             <div class="form-group">
                     <label for="company">Company</label>
                     <input type="text" class="form-control" [(ngModel)]="newOrder.Company" name="company" id="company" placeholder="Company">

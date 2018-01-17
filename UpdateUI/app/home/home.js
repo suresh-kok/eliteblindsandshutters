@@ -11,19 +11,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../../app/services/auth.service");
+var order_service_1 = require("../../app/services/order.service");
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent(service) {
+    function HomeComponent(service, orderService) {
         this.service = service;
+        this.orderService = orderService;
+        this.ViewDetailsBool = false;
     }
     HomeComponent.prototype.ngOnInit = function () {
         this.service.checkCredentials();
+        this.CustomerID = this.service.GetCustomerId();
+        this.GetOrders();
+    };
+    HomeComponent.prototype.GetOrders = function () {
+        var _this = this;
+        this.orderService.GetOrders(this.CustomerID, "0", "0", "OrderDate").subscribe(function (data) {
+            _this.OrderInfoList = JSON.parse(data.toString());
+        }, function (err) { return console.error(err); });
+    };
+    HomeComponent.prototype.ViewDetails = function (OrderID) {
+        this.OrderItem = this.OrderInfoList.find(function (f) { return f.OrderID == OrderID; })[0];
+        this.ViewDetailsBool = true;
     };
     HomeComponent = __decorate([
         core_1.Component({
             selector: 'home',
             templateUrl: 'app/home/home.html'
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthenticationService])
+        __metadata("design:paramtypes", [auth_service_1.AuthenticationService, order_service_1.OrderMiscService])
     ], HomeComponent);
     return HomeComponent;
 }());

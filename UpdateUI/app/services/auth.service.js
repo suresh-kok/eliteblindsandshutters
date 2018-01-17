@@ -50,7 +50,7 @@ var AuthenticationService = /** @class */ (function () {
         var cust = localStorage.getItem("user");
         if (cust != null) {
             var temp = JSON.parse(cust);
-            return temp.CustomerId;
+            return temp.CustomerID;
         }
     };
     AuthenticationService.prototype.canActivate = function () {

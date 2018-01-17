@@ -18,6 +18,7 @@ var home_1 = require("../app/home/home");
 var login_component_1 = require("../app/login/login.component");
 var orderType_component_1 = require("../app/Order/orderType.component");
 var orderlist_component_1 = require("../app/Order/orderlist.component");
+var overseaorder_component_1 = require("../app/overseaorder/overseaorder.component");
 var app_routing_1 = require("./app.routing");
 var order_component_1 = require("../app/Order/order.component");
 var rollerorder_component_1 = require("../app/rollerorder/rollerorder.component");
@@ -49,7 +50,7 @@ var AppModule = /** @class */ (function () {
             ],
             declarations: [app_component_1.AppComponent,
                 order_component_1.OrderComponent, orderType_component_1.OrderTypeComponent, home_1.HomeComponent, login_component_1.LoginComponent, orderlist_component_1.OrderListComponent,
-                rollerorder_component_1.RollerOrderComponent, unauthorised_1.NotAuthorisedComponent
+                overseaorder_component_1.OverSeaComponent, rollerorder_component_1.RollerOrderComponent, unauthorised_1.NotAuthorisedComponent
             ],
             bootstrap: [app_component_1.AppComponent],
             providers: [auth_service_1.AuthenticationService, misc_service_1.MiscellaneousService, order_service_1.OrderMiscService

@@ -62,7 +62,7 @@ namespace EliteBlindsAPI.Controllers
         {
             return BusinessObj.SetUserActive(CustId);
         }
-
+        [Route("SearchOrders/{CustId}/{FilterBy}/{SearchCriteria}/{OrderBy}")]
         public string GetSearchOrders(int CustId,string FilterBy, string SearchCriteria, string OrderBy)
         {
             var json = new JavaScriptSerializer().Serialize(BusinessObj.GetCustOrders(CustId,FilterBy, SearchCriteria,OrderBy));
@@ -74,7 +74,7 @@ namespace EliteBlindsAPI.Controllers
             var json = new JavaScriptSerializer().Serialize(BusinessObj.GetCustomerUtilityOrders(CustId, FilterBy, SearchCriteria, OrderBy));
             return json;
         }
-
+        [Route("GetOrderDetail/{OrderID}")]
         public string GetOrderDetail(int OrderID)
         {
             var json = new JavaScriptSerializer().Serialize(BusinessObj.GetOrderDetails(OrderID));
@@ -227,7 +227,7 @@ namespace EliteBlindsAPI.Controllers
             var json = new JavaScriptSerializer().Serialize(BusinessObj.GetSize(For));
             return json; ;
         }
-
+        [Route("GetBlindType")]
         public string GetBlindType()
         {
             var json = new JavaScriptSerializer().Serialize(BusinessObj.GetBlindType());

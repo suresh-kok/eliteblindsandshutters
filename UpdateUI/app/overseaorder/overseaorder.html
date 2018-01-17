@@ -1,0 +1,19 @@
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+            <a class="nav-link active" #basic [class.disabled]="enableCheckOut" id="basicTab" data-toggle="tab" href="#basic">Basic Information</a>
+          </li>
+    <li class="nav-item">
+      <a class="nav-link active" #home [class.disabled]="enableCheckOut" id="homeTab" data-toggle="tab" href="#home">Add Items</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" #details [class.disabled]="enableCheckOut" id="orderDetailsTab" data-toggle="tab" href="#orderDetails">Order Details</a>
+    </li>
+    <li class="nav-item"  [class.active]="enableCheckOut" >
+            <a #extra class="nav-link" id="extraTab" data-toggle="tab" href="#extraDetails">Extra Information</a>
+          </li>
+</ul>
+<div id="myTabContent" class="tab-content">
+<div class="tab-pane fade" id="basic">
+        <order-type [order]="3" (notify)='onNotify($event)'></order-type>
+</div>
+</div>

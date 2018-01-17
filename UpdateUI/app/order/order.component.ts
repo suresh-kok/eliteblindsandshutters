@@ -67,7 +67,7 @@ export class OrderComponent{
     GetSlatStyles(){
         this.orderService.GetSlatStyle('Venetian').subscribe(
             data => { 
-               this.slatStyles = JSON.parse(data)
+             //  this.slatStyles = JSON.parse(data)
             },
             err => console.error(err)
           );
@@ -75,7 +75,7 @@ export class OrderComponent{
     GetCordStyles(){
         this.orderService.GetCordStyle('OVenetian').subscribe(
             data => {
-                this.cordStyles = JSON.parse(data)
+               // this.cordStyles = JSON.parse(data)
             },
             err => console.error(err)
           );
@@ -113,16 +113,16 @@ export class OrderComponent{
       SaveOrder(){
           let orderId:any=0;
           debugger;
-          this.OrderInitiation.CustomerID=this.service.GetCustomerId();
-          this.OrderInitiation.OrderType=1;
+      this.OrderInitiation.CustomerID=this.service.GetCustomerId();
+        //  this.OrderInitiation.OrderType=1;
           this.OrderInitiation.OrderDate=new Date();
           this.OrderInitiation.OrderStatus="Order Received";
         this.orderService.SaveOrderInitiation(this.OrderInitiation).subscribe(
          data=>{
              debugger;
              if(data){
-                // let orderData:any;
-                let orderData:any=JSON.parse(data);
+                 let orderData:any;
+                // let orderData=JSON.parse(data);
                  if(orderData.OrderID!=0)
                  {
                      this.OrderInitiation.OrderID=orderData.OrderID;

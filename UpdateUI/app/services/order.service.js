@@ -35,6 +35,9 @@ var OrderMiscService = /** @class */ (function () {
     OrderMiscService.prototype.GetSize = function (type) {
         return this.http.get(this.rootUrl + "GetSize/" + type);
     };
+    OrderMiscService.prototype.GetBlindType = function () {
+        return this.http.get(this.rootUrl + "GetBlindType");
+    };
     OrderMiscService.prototype.SaveOrderInitiation = function (order) {
         debugger;
         var headers = new http_1.HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
@@ -44,6 +47,9 @@ var OrderMiscService = /** @class */ (function () {
         debugger;
         var headers = new http_1.HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
         return this.http.post(this.rootUrl + "OrderDetails", JSON.stringify(orderDetails), { headers: headers });
+    };
+    OrderMiscService.prototype.GetOrders = function (CustomerID, FilterBy, SearchCriteria, OrderBy) {
+        return this.http.get(this.rootUrl + "SearchOrders/" + CustomerID + "/" + FilterBy + "/" + SearchCriteria + "/" + OrderBy);
     };
     OrderMiscService = __decorate([
         core_1.Injectable(),

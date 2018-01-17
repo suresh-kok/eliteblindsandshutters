@@ -10,11 +10,14 @@ export class OrderTypeComponent{
     @Input('order') OrderTypeVal:string;
     newOrder:OrderInitiation;
     IsRemake:boolean=false;
+    blindType:any;
     constructor(){
      this.newOrder=new OrderInitiation();
     }
     ngOnInit(){
        this.newOrder.OrderType=this.OrderTypeVal;
+       if(this.OrderTypeVal=="3")
+       this.GetBlindType();
     }
     orderChange(){
         debugger;
@@ -27,6 +30,9 @@ export class OrderTypeComponent{
     {
         debugger;
         this.notify.emit(this.newOrder);
+    }
+    GetBlindType(){
+      
     }
 
 }

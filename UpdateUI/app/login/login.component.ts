@@ -113,7 +113,7 @@ showModal:boolean=false;
         if(data){
             // let
             // this.user.CustomerId=data;
-        localStorage.setItem("user", data);
+        localStorage.setItem("user", data.toString());
         this.route.navigate(['Home']); 
     }else{
         this.errorMsg = 'Failed to login';
