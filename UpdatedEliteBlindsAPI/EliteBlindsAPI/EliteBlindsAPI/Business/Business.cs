@@ -105,7 +105,10 @@ namespace EliteBlindsAPI.Business
             }
         }
 
-
+        public List<EliteRoles> GetRoles()
+        {
+            return EliteBusinessObj.GetRoles();
+        }
         //Order Related
 
         public Order GetOrder(int ID)

@@ -26,6 +26,7 @@ namespace EliteBlindsAPI.Business
         private Size_Mapper SizeDB;
         private OrderType_Mapper OrderTypeDB;
         private OrderStatus_Mapper OrderStatusDB;
+        private EliteRoles_Mapper EliteRolesDB;
         private Exception CustomException;
         public EliteBusiness()
         {
@@ -47,6 +48,7 @@ namespace EliteBlindsAPI.Business
             SizeDB = new Size_Mapper();
             OrderStatusDB = new OrderStatus_Mapper();
             OrderTypeDB = new OrderType_Mapper();
+            EliteRolesDB = new EliteRoles_Mapper();
             CustomException = new Exception();
         }
 
@@ -271,6 +273,10 @@ namespace EliteBlindsAPI.Business
         public List<OrderType> GetOrderType()
         {
             return OrderTypeDB.SelectAll(out CustomException);
+        }
+        public List<EliteRoles> GetRoles()
+        {
+            return EliteRolesDB.SelectAll(out CustomException);
         }
 
         public Fabric GetFabric(int FabricID)

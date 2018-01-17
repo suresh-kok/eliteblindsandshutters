@@ -61,6 +61,7 @@ namespace EliteBlindsAPI.Business
         List<BlindType> GetBlindType();
         List<OrderStatus> GetOrderStatus();
         List<OrderType> GetOrderType();
+        List<EliteRoles> GetRoles();
         List<RollerBlinds> GetRollerBlinds();
         List<Valance> GetValance();
         List<BottomRail> GetBottomRail();

@@ -254,6 +254,23 @@ namespace EliteBlindsAPI.Models
             set { _ArrivalDate = value; }
         }
 
+        private int _BlindTypeID;
+
+        public int BlindTypeID
+        {
+            get { return _BlindTypeID; }
+            set { _BlindTypeID = value; }
+        }
+
+        private int _Transport;
+
+        public int Transport
+        {
+            get { return _Transport; }
+            set { _Transport = value; }
+        }
+
+
         private string _Notes;
 
         public string Notes
@@ -261,7 +278,6 @@ namespace EliteBlindsAPI.Models
             get { return _Notes; }
             set { _Notes = value; }
         }
-
 
         private double _OrderM2;
 
@@ -943,6 +959,26 @@ namespace EliteBlindsAPI.Models
         {
             get { return _OrderStatusDesc; }
             set { _OrderStatusDesc = value; }
+        }
+
+    }
+
+    public class EliteRoles
+    {
+        private int _EliteRolesID;
+
+        public int EliteRolesID
+        {
+            get { return _EliteRolesID; }
+            set { _EliteRolesID = value; }
+        }
+
+        private string _EliteRolesDesc;
+
+        public string EliteRolesDesc
+        {
+            get { return _EliteRolesDesc; }
+            set { _EliteRolesDesc = value; }
         }
 
     }

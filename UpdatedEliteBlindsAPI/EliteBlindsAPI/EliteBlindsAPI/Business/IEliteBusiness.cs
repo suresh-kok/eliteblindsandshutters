@@ -79,6 +79,7 @@ namespace EliteBlindsAPI.Business
         List<BlindType> GetBlindType();
         List<OrderStatus> GetOrderStatus();
         List<OrderType> GetOrderType();
+        List<EliteRoles> GetRoles();
         List<Size> GetSize();
         List<Colors> GetColors(string For);
         List<SlatStyle> GetSlatStyle(string For);
