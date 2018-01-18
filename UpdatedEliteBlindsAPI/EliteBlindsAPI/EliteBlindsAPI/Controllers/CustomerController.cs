@@ -88,6 +88,8 @@ namespace EliteBlindsAPI.Controllers
         }
 
         public string GetOrderDetails(int OrderID)
+        [Route("GetOrderDetail/{OrderID}")]
+        public string GetOrderDetail(int OrderID)
         {
             var json = new JavaScriptSerializer().Serialize(BusinessObj.GetOrderDetails(OrderID));
             return json;
@@ -271,6 +273,7 @@ namespace EliteBlindsAPI.Controllers
             return json; ;
         }
 
+        [Route("GetBlindType")]
         public string GetBlindType()
         {
             var json = new JavaScriptSerializer().Serialize(BusinessObj.GetBlindType());
