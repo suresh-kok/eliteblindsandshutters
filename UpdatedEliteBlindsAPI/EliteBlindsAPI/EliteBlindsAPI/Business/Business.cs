@@ -88,7 +88,7 @@ namespace EliteBlindsAPI.Business
         {
             if (!EliteBusinessObj.UserCheck(CustData.Email))
             {
-                if (CustData.CustomerID > 0)
+                if (CustData.CustomerID>0)
                 {
                     return EliteBusinessObj.UpdateCustomer(CustData);
                 }
@@ -109,8 +109,9 @@ namespace EliteBlindsAPI.Business
         {
             return EliteBusinessObj.GetRoles();
         }
-        //Order Related
 
+
+        //Order Related
         public Order GetOrder(int ID)
         {
             return EliteBusinessObj.GetOrder(ID);
@@ -139,10 +140,10 @@ namespace EliteBlindsAPI.Business
         public Order SaveOrder(Order OrderData)
         {
             Order OrderObj = new Order();
-            if (OrderData.OrderID > 0)
+            if (OrderData.OrderID>0)
             {
                 OrderObj = EliteBusinessObj.UpdateOrder(OrderData);
-                SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), "New Order Has been Created", "New Order");
+                SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), CreateOrderMailBody(OrderObj) ,"New Order Has been Created");
             }
             else
             {
@@ -156,7 +157,7 @@ namespace EliteBlindsAPI.Business
             List<OrderDetail> RetList = new List<OrderDetail>();
             foreach (var orderDetails in OrderDetailData)
             {
-                if (orderDetails.OrderDetailID > 0)
+                if (orderDetails.OrderDetailID>0)
                 {
                     RetList.Add(EliteBusinessObj.UpdateOrderDetail(orderDetails));
                 }
@@ -171,10 +172,10 @@ namespace EliteBlindsAPI.Business
         public UtilityOrder SaveUtilityOrder(UtilityOrder OrderData)
         {
             UtilityOrder UtilityObj = new UtilityOrder();
-            if (OrderData.UtilityOrderID > 0)
+            if (OrderData.UtilityOrderID>0)
             {
                 UtilityObj = EliteBusinessObj.UpdateUtilityOrder(OrderData);
-                SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), "New Utility Order Has been Created", "New Utility Order");
+                SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), CreateUtilityOrderMailBody(OrderData) ,"New Utility Order Has been Created");
             }
             else
             {
@@ -212,7 +213,6 @@ namespace EliteBlindsAPI.Business
 
 
         //Related to Utility Orders
-
         public Fabric GetFabric(int ID)
         {
             return EliteBusinessObj.GetFabric(ID);
@@ -233,7 +233,7 @@ namespace EliteBlindsAPI.Business
             List<Fabric> RetList = new List<Fabric>();
             foreach (var Fabrics in FabricData)
             {
-                if (Fabrics.FabricID > 0)
+                if (Fabrics.FabricID>0)
                 {
                     RetList.Add(EliteBusinessObj.UpdateFabric(Fabrics));
                 }
@@ -255,6 +255,11 @@ namespace EliteBlindsAPI.Business
             return EliteBusinessObj.GetRollerBlind(ID);
         }
 
+        public RollerBlindType GetRollerBlindType(int ID)
+        {
+            return EliteBusinessObj.GetRollerBlindType(ID);
+        }
+
         public List<RollerBlinds> GetRollerBlinds()
         {
             return EliteBusinessObj.GetRollerBlinds();
@@ -270,7 +275,7 @@ namespace EliteBlindsAPI.Business
             List<RollerBlinds> RetList = new List<RollerBlinds>();
             foreach (var RollerBlind in RollerBlindsData)
             {
-                if (RollerBlind.RollerBlindsID > 0)
+                if (RollerBlind.RollerBlindsID>0)
                 {
                     RetList.Add(EliteBusinessObj.UpdateRollerBlinds(RollerBlind));
                 }
@@ -307,7 +312,7 @@ namespace EliteBlindsAPI.Business
             List<Valance> RetList = new List<Valance>();
             foreach (var Valance in ValanceData)
             {
-                if (Valance.ValanceID > 0)
+                if (Valance.ValanceID>0)
                 {
                     RetList.Add(EliteBusinessObj.UpdateValance(Valance));
                 }
@@ -344,7 +349,7 @@ namespace EliteBlindsAPI.Business
             List<BottomRail> RetList = new List<BottomRail>();
             foreach (var BottomRail in BottomRailData)
             {
-                if (BottomRail.BottomRailID > 0)
+                if (BottomRail.BottomRailID>0)
                 {
                     RetList.Add(EliteBusinessObj.UpdateBottomRail(BottomRail));
                 }
@@ -407,6 +412,51 @@ namespace EliteBlindsAPI.Business
         public List<OrderType> GetOrderType()
         {
             return EliteBusinessObj.GetOrderType();
+        }
+
+        public Colors GetColors(int ID)
+        {
+            return EliteBusinessObj.GetColors(ID);
+        }
+
+        public Control GetControl(int ID)
+        {
+            return EliteBusinessObj.GetControl(ID);
+        }
+
+        public CordStyle GetCordStyle(int ID)
+        {
+            return EliteBusinessObj.GetCordStyle(ID);
+        }
+
+        public Material GetMaterial(int ID)
+        {
+            return EliteBusinessObj.GetMaterial(ID);
+        }
+
+        public SlatStyle GetSlatStyle(int ID)
+        {
+            return EliteBusinessObj.GetSlatStyle(ID);
+        }
+
+        public Size GetSize(int ID)
+        {
+            return EliteBusinessObj.GetSize(ID);
+        }
+
+        public BlindType GetBlindType(int ID)
+        {
+            return EliteBusinessObj.GetBlindType(ID);
+        }
+
+        public OrderStatus GetOrderStatus(int ID)
+        {
+            return EliteBusinessObj.GetOrderStatus(ID);
+        }
+
+        public OrderType GetOrderType(int ID)
+        {
+            return EliteBusinessObj.GetOrderType(ID);
         }
 
         public List<Colors> GetColors(string For)
@@ -472,7 +522,498 @@ namespace EliteBlindsAPI.Business
                 throw new Exception(sb.ToString(), ex);
             }
         }
-        
+
+        public string CreateOrderMailBody(Order OrderObj)
+        {
+            StringBuilder strBody = new StringBuilder();
+            StringBuilder strOrder = new StringBuilder();
+            StringBuilder strOrderDetails = new StringBuilder();
+
+            #region Order Part
+            strOrder.AppendLine("<table style='width: 100%'> " +
+                "<thead> " +
+                "<tr style = 'white-space: nowrap;'>" +
+                "<th>Order Status </th>" +
+                "<th>Order Number </th>" +
+                "<th>Order Date </th>" +
+                "<th>Number Of Blinds </th>" +
+                "<th>Company </th>" +
+                "<th>Reference </th>" +
+                "<th>Consign Note Number </th>" +
+                "<th>Complete Date </th>" +
+                "<th>Delivery Date </th>" +
+                "<th>Departure Date </th>" +
+                "<th>Arrival Date </th>" +
+                "<th>Order M2 </th>" +
+                "<th>Edit </th>" +
+                "</tr>" +
+                "</thead>");
+
+            strOrder.AppendLine("<tr>");
+            strOrder.AppendLine("<td>" + OrderObj.OrderStatus + "</td>");
+            strOrder.AppendLine("<td>" + OrderObj.OrderNumber + "</td>");
+            strOrder.AppendLine("<td>" + OrderObj.OrderDate + "</td>");
+            strOrder.AppendLine("<td>" + OrderObj.NumbOfBlinds + "</td>");
+            strOrder.AppendLine("<td>" + OrderObj.Company + "</td>");
+            strOrder.AppendLine("<td>" + OrderObj.Reference + "</td>");
+            strOrder.AppendLine("<td>" + OrderObj.ConsignNoteNum + "</td>");
+            strOrder.AppendLine("<td>" + OrderObj.CompleteDate + "</td>");
+            strOrder.AppendLine("<td>" + OrderObj.DeliveryDate + "</td>");
+            strOrder.AppendLine("<td>" + OrderObj.DepartureDate + "</td>");
+            strOrder.AppendLine("<td>" + OrderObj.ArrivalDate + "</td>");
+            strOrder.AppendLine("<td>" + OrderObj.OrderM2 + "</td>");
+            strOrder.AppendLine("<td>" + ConfigurationManager.AppSettings["WebLink"].ToString() + "/GetOrder/" + OrderObj.OrderID + "</td>");
+            strOrder.AppendLine("</tr>");
+
+            #endregion
+
+            #region Order Details
+            List<OrderDetail> OrderDetailsObj = GetOrderDetails(OrderObj.OrderID);
+
+            switch (OrderObj.OrderType)
+            {
+
+                case 1:
+                    //Venetian
+                    strOrderDetails.AppendLine("<table style='width: 100%'>" +
+                "<thead>" +
+                "<tr style = 'white-space: nowrap;'>" +
+                "<th>Slat Style</th>" +
+                "<th>Cord Style</th>" +
+                "<th>Make Width</th>" +
+                "<th>Special Pelmet Width</th>" +
+                "<th>Mount</th>" +
+                "<th>Return Required</th>" +
+                "<th>Make Height</th>" +
+                "<th>Ready Made Size</th>" +
+                "<th>Width Made By</th>" +
+                "<th>Height Made By</th>" +
+                "<th>Quality Check By</th>" +
+                "<th>Square Meter</th>" +
+                "<th>Edit</th>" +
+                "</tr>" +
+                "</thead>");
+                    foreach (var item in OrderDetailsObj)
+                    {
+                        strOrderDetails.AppendLine("<tr>");
+                        strOrderDetails.AppendLine("<td>" + GetSlatStyle(item.SlatStyleID).SlatStyleDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + GetCordStyle(item.CordStyleID).CordStyleDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.Width + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.SplPelmetWidth + "</td>");
+                        strOrderDetails.AppendLine("<td>" + (item.MountType ? "In" : "Out") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.Height + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.ReadyMadeSize + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.WidthMadeBy + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.HeightMadeBy + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.QualityCheckedBy + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.SquareMeter + "</td>");
+                        strOrderDetails.AppendLine("<td>" + ConfigurationManager.AppSettings["WebLink"].ToString() + "/GetOrderDetail/" + OrderObj.OrderID + "</td>");
+                        strOrderDetails.AppendLine("</tr>");
+                    }
+                    break;
+                case 2:
+                    //Roller
+                    strOrderDetails.AppendLine("<table style='width: 100%'>" +
+                "<thead>" +
+                "<tr style = 'white-space: nowrap;'>" +
+                "<th>Width</th>" +
+                "<th>Height</th>" +
+                "<th>Material</th>" +
+                "<th>ColorsWidth</th>" +
+                "<th>Control Style</th>" +
+                "<th>Mount Type</th>" +
+                "<th>Square Meter</th>" +
+                "<th>Edit</th>" +
+                "</tr>" +
+                "</thead>");
+                    foreach (var item in OrderDetailsObj)
+                    {
+                        strOrderDetails.AppendLine("<tr>");
+                        strOrderDetails.AppendLine("<td>" + item.Width + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.Height + "</td>");
+                        strOrderDetails.AppendLine("<td>" + GetMaterial(item.MaterialID).MaterialDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + GetColors(item.ColorID).ColorsDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + (item.ControlStyle == 1 ? "Left" : "Right") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + (item.MountType ? "In" : "Out") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.SquareMeter + "</td>");
+                        strOrderDetails.AppendLine("<td>" + ConfigurationManager.AppSettings["WebLink"].ToString() + "/GetOrderDetail/" + OrderObj.OrderID + "</td>");
+                        strOrderDetails.AppendLine("</tr>");
+                    }
+                    break;
+                case 3:
+                    //Vertical(Oversea)
+                    strOrderDetails.AppendLine("<table style='width: 100%'>" +
+                "<thead>" +
+                "<tr style = 'white-space: nowrap;'>" +
+                "<th>Material</th>" +
+                "<th>Color</th>" +
+                "<th>Control</th>" +
+                "<th>Control Style</th>" +
+                "<th>Opening Style</th>" +
+                "<th>Pelmet Style</th>" +
+                "<th>Mount Type</th>" +
+                "<th>Width</th>" +
+                "<th>Height</th>" +
+                "<th>Ready Made Size</th>" +
+                "<th>Square Meter</th>" +
+                "<th>Edit</th>" +
+                "</tr>" +
+                "</thead>");
+                    foreach (var item in OrderDetailsObj)
+                    {
+                        strOrderDetails.AppendLine("<tr>");
+                        strOrderDetails.AppendLine("<td>" + GetMaterial(item.MaterialID).MaterialDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + GetColors(item.ColorID).ColorsDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + GetControl(item.ControlID).ControlDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + (item.ControlStyle == 1 ? "Left" : "Right") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + (item.OpeningStyle == 1 ? "Left" : "Right") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + (item.PelmetStyle == 1 ? "Left" : "Right") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + (item.MountType ? "In" : "Out") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.Width + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.Height + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.ReadyMadeSize + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.SquareMeter + "</td>");
+                        strOrderDetails.AppendLine("<td>" + ConfigurationManager.AppSettings["WebLink"].ToString() + "/GetOrderDetail/" + OrderObj.OrderID + "</td>");
+                        strOrderDetails.AppendLine("</tr>");
+                    }
+                    break;
+                case 4:
+                    //Venetian(Oversea)
+                    strOrderDetails.AppendLine("<table style='width: 100%'>" +
+                    "<thead>" +
+                    "<tr style = 'white-space: nowrap;'>" +
+                    "<th>Material</th>" +
+                    "<th>Color</th>" +
+                    "<th>Control</th>" +
+                    "<th>Mount</th>" +
+                    "<th>Make Width</th>" +
+                    "<th>Make Height</th>" +
+                    "<th>Special Pelmet Width</th>" +
+                    "<th>Cord Style</th>" +
+                    "<th>Return Required</th>" +
+                    "<th>Ready Made Size</th>" +
+                    "<th>Square Meter</th>" +
+                    "<th>Edit</th>" +
+                    "</tr>" +
+                    "</thead>");
+                    foreach (var item in OrderDetailsObj)
+                    {
+                        strOrderDetails.AppendLine("<tr>");
+                        strOrderDetails.AppendLine("<td>" + GetMaterial(item.MaterialID).MaterialDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + GetColors(item.ColorID).ColorsDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + GetControl(item.ControlID).ControlDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + (item.MountType ? "In" : "Out") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.Width + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.Height + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.SplPelmetWidth + "</td>");
+                        strOrderDetails.AppendLine("<td>" + GetCordStyle(item.CordStyleID).CordStyleDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + (item.ReturnRequired ? "True" : "False") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.ReadyMadeSize + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.SquareMeter + "</td>");
+                        strOrderDetails.AppendLine("<td>" + ConfigurationManager.AppSettings["WebLink"].ToString() + "/GetOrderDetail/" + OrderObj.OrderID + "</td>");
+                        strOrderDetails.AppendLine("</tr>");
+                    }
+                    break;
+                case 5:
+                    //Honeycomb(Oversea)
+                    strOrderDetails.AppendLine("<table style='width: 100%'>" +
+                    "<thead>" +
+                    "<tr style = 'white-space: nowrap;'>" +
+                    "<th>Material</th>" +
+                    "<th>Color</th>" +
+                    "<th>Control</th>" +
+                    "<th>Mount</th>" +
+                    "<th>Make Width</th>" +
+                    "<th>Make Height</th>" +
+                    "<th>Ready Made Size</th>" +
+                    "<th>Square Meter</th>" +
+                    "<th>Edit</th>" +
+                    "</tr>" +
+                    "</thead>");
+                    foreach (var item in OrderDetailsObj)
+                    {
+                        strOrderDetails.AppendLine("<tr>");
+                        strOrderDetails.AppendLine("<td>" + GetMaterial(item.MaterialID).MaterialDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + GetColors(item.ColorID).ColorsDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + GetControl(item.ControlID).ControlDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + (item.MountType ? "In" : "Out") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.Width + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.Height + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.ReadyMadeSize + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.SquareMeter + "</td>");
+                        strOrderDetails.AppendLine("<td>" + ConfigurationManager.AppSettings["WebLink"].ToString() + "/GetOrderDetail/" + OrderObj.OrderID + "</td>");
+                        strOrderDetails.AppendLine("</tr>");
+                    }
+                    break;
+                case 6:
+                    //Roman(Oversea)
+                    strOrderDetails.AppendLine("<table style='width: 100%'>" +
+                    "<thead>" +
+                    "<tr style = 'white-space: nowrap;'>" +
+                    "<th>Material</th>" +
+                    "<th>Color</th>" +
+                    "<th>Control</th>" +
+                    "<th>Control Style</th>" +
+                    "<th>Mount</th>" +
+                    "<th>Make Width</th>" +
+                    "<th>Make Height</th>" +
+                    "<th>Ready Made Size</th>" +
+                    "<th>Square Meter</th>" +
+                    "<th>Edit</th>" +
+                    "</tr>" +
+                    "</thead>");
+                    foreach (var item in OrderDetailsObj)
+                    {
+                        strOrderDetails.AppendLine("<tr>");
+                        strOrderDetails.AppendLine("<td>" + GetMaterial(item.MaterialID).MaterialDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + GetColors(item.ColorID).ColorsDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + GetControl(item.ControlID).ControlDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + (item.ControlStyle == 1 ? "Left" : "Right") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + (item.MountType ? "In" : "Out") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.Width + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.Height + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.ReadyMadeSize + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.SquareMeter + "</td>");
+                        strOrderDetails.AppendLine("<td>" + ConfigurationManager.AppSettings["WebLink"].ToString() + "/GetOrderDetail/" + OrderObj.OrderID + "</td>");
+                        strOrderDetails.AppendLine("</tr>");
+                    }
+                    break;
+                case 7:
+                    //Roller(Oversea)
+                    strOrderDetails.AppendLine("<table style='width: 100%'>" +
+                    "<thead>" +
+                    "<tr style = 'white-space: nowrap;'>" +
+                    "<th>Material</th>" +
+                    "<th>Color</th>" +
+                    "<th>Control</th>" +
+                    "<th>Control Style</th>" +
+                    "<th>Roll</th>" +
+                    "<th>Mount</th>" +
+                    "<th>Make Width</th>" +
+                    "<th>Make Height</th>" +
+                    "<th>Ready Made Size</th>" +
+                    "<th>Square Meter</th>" +
+                    "<th>Edit</th>" +
+                    "</tr>" +
+                    "</thead>");
+                    foreach (var item in OrderDetailsObj)
+                    {
+                        strOrderDetails.AppendLine("<tr>");
+                        strOrderDetails.AppendLine("<td>" + GetMaterial(item.MaterialID).MaterialDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + GetColors(item.ColorID).ColorsDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + GetControl(item.ControlID).ControlDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + (item.ControlStyle == 1 ? "Left" : "Right") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + (item.Roll ? "Standard" : "Reverse") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + (item.MountType ? "In" : "Out") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.Width + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.Height + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.ReadyMadeSize + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.SquareMeter + "</td>");
+                        strOrderDetails.AppendLine("<td>" + ConfigurationManager.AppSettings["WebLink"].ToString() + "/GetOrderDetail/" + OrderObj.OrderID + "</td>");
+                        strOrderDetails.AppendLine("</tr>");
+                    }
+                    break;
+                case 8:
+                    //Zebra(Oversea)
+                    strOrderDetails.AppendLine("<table style='width: 100%'>" +
+                    "<thead>" +
+                    "<tr style = 'white-space: nowrap;'>" +
+                    "<th>Material</th>" +
+                    "<th>Color</th>" +
+                    "<th>Control</th>" +
+                    "<th>Control Style</th>" +
+                    "<th>Mount</th>" +
+                    "<th>Make Width</th>" +
+                    "<th>Make Height</th>" +
+                    "<th>Ready Made Size</th>" +
+                    "<th>Square Meter</th>" +
+                    "<th>Edit</th>" +
+                    "</tr>" +
+                    "</thead>");
+                    foreach (var item in OrderDetailsObj)
+                    {
+                        strOrderDetails.AppendLine("<tr>");
+                        strOrderDetails.AppendLine("<td>" + GetMaterial(item.MaterialID).MaterialDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + GetColors(item.ColorID).ColorsDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + GetControl(item.ControlID).ControlDesc + "</td>");
+                        strOrderDetails.AppendLine("<td>" + (item.ControlStyle == 1 ? "Left" : "Right") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + (item.MountType ? "In" : "Out") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.Width + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.Height + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.ReadyMadeSize + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.SquareMeter + "</td>");
+                        strOrderDetails.AppendLine("<td>" + ConfigurationManager.AppSettings["WebLink"].ToString() + "/GetOrderDetail/" + OrderObj.OrderID + "</td>");
+                        strOrderDetails.AppendLine("</tr>");
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            #endregion
+
+            strBody.AppendLine("THIS IS AN AUTO-GENERATED MAIL. DO NOT REPLY.");
+            strBody.AppendLine("<br/>");
+            strBody.AppendLine("Order Information <br/>");
+            strBody.AppendLine(strOrder.ToString());
+            strBody.AppendLine("<br/>");
+            strBody.AppendLine("Item Information <br/>");
+            strBody.AppendLine(strOrderDetails.ToString());
+            strBody.AppendLine("<br/>");
+            strBody.AppendLine("Notes");
+            strBody.AppendLine(OrderObj.Notes);
+
+            return strBody.ToString();
+        }
+
+        public string CreateUtilityOrderMailBody(UtilityOrder UtilityOrderObj)
+        {
+            StringBuilder strBody = new StringBuilder();
+            StringBuilder strUtilityOrder = new StringBuilder();
+            StringBuilder strUtilityOrderDetails = new StringBuilder();
+
+            #region Utility Order Part
+            strUtilityOrder.AppendLine("<table style='width: 100%'> " +
+                "<thead> " +
+                "<tr style = 'white-space: nowrap;'>" +
+                "<th>Order Type </th>" +
+                "<th>Order Number </th>" +
+                "<th>Order Date </th>" +
+                "<th>Complete Date </th>" +
+                "</tr>" +
+                "</thead>");
+
+            strUtilityOrder.AppendLine("<tr>");
+            strUtilityOrder.AppendLine("<td>" + UtilityOrderObj.OrderType + "</td>");
+            strUtilityOrder.AppendLine("<td>" + UtilityOrderObj.UtilityOrderNumber + "</td>");
+            strUtilityOrder.AppendLine("<td>" + UtilityOrderObj.OrderDate + "</td>");
+            strUtilityOrder.AppendLine("<td>" + UtilityOrderObj.CompleteDate + "</td>");
+            strUtilityOrder.AppendLine("<td>" + ConfigurationManager.AppSettings["WebLink"].ToString() + "/GetUtilityOrder/" + UtilityOrderObj.UtilityOrderID + "</td>");
+            strUtilityOrder.AppendLine("</tr>");
+            #endregion
+
+            #region Utility Order Details
+
+            switch (UtilityOrderObj.OrderType)
+            {
+
+                case 9:
+                    //Faric
+                    List<Fabric> FabricDetailsObj = GetFabrics(UtilityOrderObj.UtilityOrderID);
+                    strUtilityOrder.AppendLine("<table style='width: 100%'>" +
+                "<thead>" +
+                "<tr style = 'white-space: nowrap;'>" +
+                "<th>Fabric Type</th>" +
+                "<th>Fabric Color</th>" +
+                "<th>Faric Size</th>" +
+                "<th>Boxes</th>" +
+                "<th>Edit</th>" +
+                "</tr>" +
+                "</thead>");
+                    foreach (var item in FabricDetailsObj)
+                    {
+                        strUtilityOrder.AppendLine("<tr>");
+                        strUtilityOrder.AppendLine("<td>" + (item.FabricType == 1 ? "Roller" : "Vertical") + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + GetColors(item.ColorID).ColorsDesc + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + GetSize(item.FabricSize).SizeDesc + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + item.Boxes + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + ConfigurationManager.AppSettings["WebLink"].ToString() + "/GetFabric/" + item.FabricID + "</td>");
+                        strUtilityOrder.AppendLine("</tr>");
+                    }
+                    break;
+                case 10:
+                    //Roller Blinds
+                    List<RollerBlinds> RollerDetailsObj = GetRollerBlinds(UtilityOrderObj.UtilityOrderID);
+                    strUtilityOrder.AppendLine("<table style='width: 100%'>" +
+                "<thead>" +
+                "<tr style = 'white-space: nowrap;'>" +
+                "<th>Profile</th>" +
+                "<th>Description</th>" +
+                "<th>Color</th>" +
+                "<th>DLX CODE</th>" +
+                "<th>PCS/CTN</th>" +
+                "<th>MOQ</th>" +
+                "<th>CNTS</th>" +
+                "<th>Edit</th>" +
+                "</tr>" +
+                "</thead>");
+                    foreach (var item in RollerDetailsObj)
+                    {
+                        RollerBlindType TypeDetails = GetRollerBlindType(item.RollerBlindTypeID);
+                        strUtilityOrder.AppendLine("<tr>");
+                        strUtilityOrder.AppendLine("<td>" + TypeDetails.Profile + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + TypeDetails.Description + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + TypeDetails.RollerColor + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + TypeDetails.DLXCODE + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + TypeDetails.PCSCTN + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + TypeDetails.MOQ + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + item.Boxes + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + ConfigurationManager.AppSettings["WebLink"].ToString() + "/GetRollerBlinds/" + item.RollerBlindsID + "</td>");
+                        strUtilityOrder.AppendLine("</tr>");
+                    }
+                    break;
+                case 11:
+                    //Valance
+                    List<Valance> ValalnceDetailsObj = GetValances(UtilityOrderObj.UtilityOrderID);
+                    strUtilityOrder.AppendLine("<table style='width: 100%'>" +
+                "<thead>" +
+                "<tr style = 'white-space: nowrap;'>" +
+                "<th>Material</th>" +
+                "<th>Color</th>" +
+                "<th>Size</th>" +
+                "<th>Boxes</th>" +
+                "<th>Edit</th>" +
+                "</tr>" +
+                "</thead>");
+                    foreach (var item in ValalnceDetailsObj)
+                    {
+                        strUtilityOrder.AppendLine("<tr>");
+                        strUtilityOrder.AppendLine("<td>" + GetMaterial(item.MaterialID).MaterialDesc + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + GetColors(item.ColorID).ColorsDesc + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + item.Size + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + item.Boxes + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + ConfigurationManager.AppSettings["WebLink"].ToString() + "/GetValance/" + item.ValanceID + "</td>");
+                        strUtilityOrder.AppendLine("</tr>");
+                    }
+                    break;
+                case 12:
+                    //Bottom Rail
+                    List<BottomRail> BottomRailDetailsObj = GetBottomRails(UtilityOrderObj.UtilityOrderID);
+                    strUtilityOrder.AppendLine("<table style='width: 100%'>" +
+                "<thead>" +
+                "<tr style = 'white-space: nowrap;'>" +
+                "<th>Material</th>" +
+                "<th>Color</th>" +
+                "<th>Size</th>" +
+                "<th>Boxes</th>" +
+                "<th>Edit</th>" +
+                "</tr>" +
+                "</thead>");
+                    foreach (var item in BottomRailDetailsObj)
+                    {
+                        strUtilityOrder.AppendLine("<tr>");
+                        strUtilityOrder.AppendLine("<td>" + GetMaterial(item.MaterialID).MaterialDesc + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + GetColors(item.ColorID).ColorsDesc + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + item.Size + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + item.Boxes + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + ConfigurationManager.AppSettings["WebLink"].ToString() + "/GetValance/" + item.BottomRailID + "</td>");
+                        strUtilityOrder.AppendLine("</tr>");
+                    }
+                    break;
+            }
+            #endregion
+
+            strBody.AppendLine("THIS IS AN AUTO-GENERATED MAIL. DO NOT REPLY.");
+            strBody.AppendLine("<br/>");
+            strBody.AppendLine("Order Information <br/>");
+            strBody.AppendLine(strUtilityOrder.ToString());
+            strBody.AppendLine("<br/>");
+            strBody.AppendLine("Item Information <br/>");
+            strBody.AppendLine(strUtilityOrderDetails.ToString());
+
+            return strBody.ToString();
+
+        }
     }
 
     public class MailAttachment

@@ -51,6 +51,7 @@ namespace EliteBlindsAPI.Business
         List<Fabric> GetFabrics(int UtilityOrderID);
 
         RollerBlinds GetRollerBlind(int RollerBlindsID);
+        RollerBlindType GetRollerBlindType(int RollerBlindTypeID);
         RollerBlinds SaveRollerBlinds(RollerBlinds RollerBlindsData);
         RollerBlinds UpdateRollerBlinds(RollerBlinds RollerBlindsData);
         bool DeleteRollerBlinds(int RollerBlindsID);
@@ -81,6 +82,16 @@ namespace EliteBlindsAPI.Business
         List<OrderType> GetOrderType();
         List<EliteRoles> GetRoles();
         List<Size> GetSize();
+        Colors GetColors(int ID);
+        SlatStyle GetSlatStyle(int ID);
+        CordStyle GetCordStyle(int ID);
+        Control GetControl(int ID);
+        Material GetMaterial(int ID);
+        BlindType GetBlindType(int ID);
+        OrderStatus GetOrderStatus(int ID);
+        OrderType GetOrderType(int ID);
+        EliteRoles GetRoles(int ID);
+        Size GetSize(int ID);
         List<Colors> GetColors(string For);
         List<SlatStyle> GetSlatStyle(string For);
         List<CordStyle> GetCordStyle(string For);

@@ -75,7 +75,19 @@ namespace EliteBlindsAPI.Controllers
             return json;
         }
 
-        public string GetOrderDetail(int OrderID)
+        public string GetOrder(int OrderID)
+        {
+            var json = new JavaScriptSerializer().Serialize(BusinessObj.GetOrder(OrderID));
+            return json;
+        }
+
+        public string GetOrderDetail(int OrderDetailsID)
+        {
+            var json = new JavaScriptSerializer().Serialize(BusinessObj.GetOrderDetail(OrderDetailsID));
+            return json;
+        }
+
+        public string GetOrderDetails(int OrderID)
         {
             var json = new JavaScriptSerializer().Serialize(BusinessObj.GetOrderDetails(OrderID));
             return json;
@@ -84,6 +96,12 @@ namespace EliteBlindsAPI.Controllers
         public string GetCustOrderDetail(int CustID)
         {
             var json = new JavaScriptSerializer().Serialize(BusinessObj.GetOrderDetails((BusinessObj.GetCustOrders(CustID,"","","")).Select(a => a.OrderID).ToList()));
+            return json;
+        }
+
+        public string GetUtilityOrder(int OrderID)
+        {
+            var json = new JavaScriptSerializer().Serialize(BusinessObj.GetUtilityOrder(OrderID));
             return json;
         }
 
@@ -149,6 +167,11 @@ namespace EliteBlindsAPI.Controllers
             return BusinessObj.ApproveOrders((List<int>)IDObj);
         }
 
+        public string GetFabric(int FabricID)
+        {
+            return new JavaScriptSerializer().Serialize(BusinessObj.GetFabric(FabricID));
+        }
+
         public string PostFabric([FromBody]string value)
         {
             var FabricObj = new JavaScriptSerializer().Deserialize(value, typeof(List<Fabric>));
@@ -158,6 +181,11 @@ namespace EliteBlindsAPI.Controllers
         public void DeleteFabric(int FabricID)
         {
             BusinessObj.DeleteFabric(FabricID);
+        }
+
+        public string GetValance(int ValanceID)
+        {
+            return new JavaScriptSerializer().Serialize(BusinessObj.GetValance(ValanceID));
         }
 
         public string PostValance([FromBody]string value)
@@ -171,6 +199,16 @@ namespace EliteBlindsAPI.Controllers
             BusinessObj.DeleteValance(ValanceID);
         }
 
+        public string GetRollerBlinds(int RollerBlindsID)
+        {
+            return new JavaScriptSerializer().Serialize(BusinessObj.GetRollerBlinds(RollerBlindsID));
+        }
+
+        public string GetRollerBlindType(int RollerBlindTypeID)
+        {
+            return new JavaScriptSerializer().Serialize(BusinessObj.GetRollerBlindType(RollerBlindTypeID));
+        }
+
         public string PostRollerBlinds([FromBody]string value)
         {
             var RollerBlindsObj = new JavaScriptSerializer().Deserialize(value, typeof(List<RollerBlinds>));
@@ -180,6 +218,11 @@ namespace EliteBlindsAPI.Controllers
         public void DeleteRollerBlinds(int RollerBlindsID)
         {
             BusinessObj.DeleteRollerBlinds(RollerBlindsID);
+        }
+
+        public string GetBottomRail(int BottomRailID)
+        {
+            return new JavaScriptSerializer().Serialize(BusinessObj.GetBottomRail(BottomRailID));
         }
 
         public string PostBottomRail([FromBody]string value)

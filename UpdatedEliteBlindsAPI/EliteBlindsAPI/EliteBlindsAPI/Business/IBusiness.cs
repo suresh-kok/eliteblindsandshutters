@@ -35,6 +35,7 @@ namespace EliteBlindsAPI.Business
         List<Fabric> SaveFabric(List<Fabric> FabricData);
         void DeleteFabric(int ID);
         RollerBlinds GetRollerBlind(int ID);
+        RollerBlindType GetRollerBlindType(int ID);
         List<RollerBlinds> SaveRollerBlinds(List<RollerBlinds> RollerBlindsData);
         void DeleteRollerBlinds(int ID);
         Valance GetValance(int ID);

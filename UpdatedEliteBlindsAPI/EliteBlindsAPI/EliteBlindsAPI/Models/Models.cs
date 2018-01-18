@@ -478,6 +478,14 @@ namespace EliteBlindsAPI.Models
             set { _UtilityOrderID = value; }
         }
 
+        private int _UtilityOrderNumber;
+
+        public int UtilityOrderNumber
+        {
+            get { return _UtilityOrderNumber; }
+            set { _UtilityOrderNumber = value; }
+        }
+
         private int _CustomerID;
 
         public int CustomerID
@@ -494,12 +502,20 @@ namespace EliteBlindsAPI.Models
             set { _OrderType = value; }
         }
 
-        private int _Boxes;
+        private DateTime _OrderDate;
 
-        public int Boxes
+        public DateTime OrderDate
         {
-            get { return _Boxes; }
-            set { _Boxes = value; }
+            get { return _OrderDate; }
+            set { _OrderDate = value; }
+        }
+
+        private DateTime? _CompleteDate;
+
+        public DateTime? CompleteDate
+        {
+            get { return _CompleteDate; }
+            set { _CompleteDate = value; }
         }
 
         private bool _IsApproved;
@@ -553,6 +569,14 @@ namespace EliteBlindsAPI.Models
             set { _FabricSize = value; }
         }
 
+        private int _Boxes;
+
+        public int Boxes
+        {
+            get { return _Boxes; }
+            set { _Boxes = value; }
+        }
+        
     }
 
     public class RollerBlinds
@@ -579,6 +603,14 @@ namespace EliteBlindsAPI.Models
         {
             get { return _RollerBlindTypeID; }
             set { _RollerBlindTypeID = value; }
+        }
+
+        private int _Boxes;
+
+        public int Boxes
+        {
+            get { return _Boxes; }
+            set { _Boxes = value; }
         }
 
     }
@@ -625,6 +657,14 @@ namespace EliteBlindsAPI.Models
             set { _Size = value; }
         }
 
+        private int _Boxes;
+
+        public int Boxes
+        {
+            get { return _Boxes; }
+            set { _Boxes = value; }
+        }
+
     }
 
     public class BottomRail
@@ -667,6 +707,14 @@ namespace EliteBlindsAPI.Models
         {
             get { return _Size; }
             set { _Size = value; }
+        }
+
+        private int _Boxes;
+
+        public int Boxes
+        {
+            get { return _Boxes; }
+            set { _Boxes = value; }
         }
 
     }

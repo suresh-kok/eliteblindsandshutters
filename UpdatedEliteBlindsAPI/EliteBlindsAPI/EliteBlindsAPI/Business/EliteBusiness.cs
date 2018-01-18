@@ -57,10 +57,12 @@ namespace EliteBlindsAPI.Business
         {
             return CustDB.LoginCheck(Email, Password, out CustomException);
         }
+
         public bool ForgotPassword(string Email)
         {
             return CustDB.ForgotPassword(Email, out CustomException);
         }
+
         public bool ResetPassword(string Email, string Password)
         {
             return CustDB.ResetPassword(Email, Password, out CustomException);
@@ -105,7 +107,7 @@ namespace EliteBlindsAPI.Business
         //Order Related
         public Order GetOrder(int OrderID)
         {
-            throw new NotImplementedException();
+            return OrderDB.Select(OrderID, out CustomException);
         }
 
         public List<Order> GetAllOrders()
@@ -125,7 +127,7 @@ namespace EliteBlindsAPI.Business
 
         public List<OrderDetail> GetOrderDetails(int OrderID)
         {
-            return OrderDetailDB.SelectAll(out CustomException);
+            return OrderDetailDB.SelectedOrderID(new List<int>() { OrderID }, out CustomException);
         }
 
         public List<OrderDetail> GetOrderDetails(List<int> OrderIDs)
@@ -274,11 +276,52 @@ namespace EliteBlindsAPI.Business
         {
             return OrderTypeDB.SelectAll(out CustomException);
         }
+
         public List<EliteRoles> GetRoles()
         {
             return EliteRolesDB.SelectAll(out CustomException);
         }
 
+        public Colors GetColors(int ID)
+        {
+            return ColorsDB.Select(ID,out CustomException);
+        }
+        public SlatStyle GetSlatStyle(int ID)
+        {
+            return SlatStyleDB.Select(ID, out CustomException);
+        }
+        public CordStyle GetCordStyle(int ID)
+        {
+            return CordStyleDB.Select(ID, out CustomException);
+        }
+        public Control GetControl(int ID)
+        {
+            return ControlDB.Select(ID, out CustomException);
+        }
+        public Material GetMaterial(int ID)
+        {
+            return MaterialDB.Select(ID, out CustomException);
+        }
+        public BlindType GetBlindType(int ID)
+        {
+            return BlindTypeDB.Select(ID, out CustomException);
+        }
+        public OrderStatus GetOrderStatus(int ID)
+        {
+            return OrderStatusDB.Select(ID, out CustomException);
+        }
+        public OrderType GetOrderType(int ID)
+        {
+            return OrderTypeDB.Select(ID, out CustomException);
+        }
+        public EliteRoles GetRoles(int ID)
+        {
+            return EliteRolesDB.Select(ID, out CustomException);
+        }
+        public Size GetSize(int ID)
+        {
+            return SizeDB.Select(ID, out CustomException);
+        }
         public Fabric GetFabric(int FabricID)
         {
             return FabricDB.Select(FabricID, out CustomException);
@@ -297,6 +340,11 @@ namespace EliteBlindsAPI.Business
         public RollerBlinds GetRollerBlind(int RollerBlindsID)
         {
             return RollerBlindsDB.Select(RollerBlindsID, out CustomException);
+        }
+
+        public RollerBlindType GetRollerBlindType(int RollerBlindTypeID)
+        {
+            return RollerBlindTypeDB.Select(RollerBlindTypeID, out CustomException);
         }
 
         public List<RollerBlinds> GetRollerBlinds()
