@@ -884,6 +884,79 @@ namespace EliteBlindsAPI.Business
             return returnValue;
         }
 
+        public List<Order> SelectedRole(int RoleID, out Exception exError)
+        {
+            List<Order> returnValue = new List<Order>();
+            exError = null;
+
+            try
+            {
+                string strFilterBy = "";
+                switch (RoleID)
+                {
+                    case 1:
+                        strFilterBy = " WHERE OrderStatusID IN (1,2,3) ";
+                        break;
+                    case 2:
+                        strFilterBy = " WHERE OrderStatusID = 3";
+                        break;
+                    case 3:
+                        strFilterBy = " WHERE OrderStatusID = 4";
+                        break;
+                    default:
+                        break;
+                }
+                if (this.Connection == null)
+                {
+                    throw new Exception("Unable to Connect to Database");
+                }
+                else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,IsNew,Fault,Evidence, Company, Reference, OrderTypeID,OrderStatusID,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes,IsApproved FROM `Order`" +
+                    " " + strFilterBy , (MySqlConnection)this.Connection))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                            returnValue.Add(new Order()
+                            {
+                                OrderID = reader.SafeGetInt32("OrderID"),
+                                Fault = reader.SafeGetString("Fault"),
+                                IsNew = reader.SafeGetBoolean("IsNew"),
+                                Evidence = reader.SafeGetBoolean("Evidence"),
+                                Company = reader.SafeGetString("Company"),
+                                Reference = reader.SafeGetString("Reference"),
+                                OrderTypeID = reader.SafeGetInt32("OrderTypeID"),
+                                OrderStatusID = reader.SafeGetInt32("OrderStatusID"),
+                                OrderDate = reader.SafeGetDateTime("OrderDate"),
+                                NumbOfBlinds = reader.SafeGetInt32("NumbOfBlinds"),
+                                ConsignNoteNum = reader.SafeGetString("ConsignNoteNum"),
+                                CompleteDate = reader.SafeGetDateTime("CompleteDate"),
+                                DeliveryDate = reader.SafeGetDateTime("DeliveryDate"),
+                                DepartureDate = reader.SafeGetDateTime("DepartureDate"),
+                                ArrivalDate = reader.SafeGetDateTime("ArrivalDate"),
+                                BlindTypeID = reader.SafeGetInt32("BlindTypeID"),
+                                Transport = reader.SafeGetString("Transport"),
+                                OrderM2 = reader.SafeGetDouble("OrderM2"),
+                                Notes = reader.SafeGetString("Notes"),
+                                IsApproved = reader.SafeGetBoolean("IsApproved")
+                            });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+            return returnValue;
+        }
+
         public List<Order> SelectedCustomer(int ID, out Exception exError)
         {
             List<Order> returnValue = new List<Order>();
@@ -1761,6 +1834,65 @@ namespace EliteBlindsAPI.Business
             return returnValue;
         }
 
+        public List<UtilityOrder> SelectedRole(int RoleID, out Exception exError)
+        {
+            List<UtilityOrder> returnValue = new List<UtilityOrder>();
+            exError = null;
+
+            try
+            {
+                string strFilterBy = "";
+                switch (RoleID)
+                {
+                    case 1:
+                        strFilterBy = " WHERE OrderStatusID IN (1,2,3) ";
+                        break;
+                    case 2:
+                        strFilterBy = " WHERE OrderStatusID = 3";
+                        break;
+                    case 3:
+                        strFilterBy = " WHERE OrderStatusID = 4";
+                        break;
+                    default:
+                        break;
+                }
+                if (this.Connection == null)
+                {
+                    throw new Exception("Unable to Connect to Database");
+                }
+                else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, OrderTypeID,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder" +
+                " " + strFilterBy, (MySqlConnection)this.Connection))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                            returnValue.Add(new UtilityOrder()
+                            {
+                                UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
+                                CustomerID = reader.SafeGetInt32("CustomerID"),
+                                OrderTypeID = reader.SafeGetInt32("OrderTypeID"),
+                                OrderDate = reader.SafeGetDateTime("OrderDate"),
+                                CompleteDate = reader.SafeGetDateTime("CompleteDate"),
+                                IsApproved = reader.SafeGetBoolean("IsApproved")
+                            });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+            return returnValue;
+        }
+
         public override UtilityOrder Update(UtilityOrder instance, out Exception exError)
         {
             exError = null;
@@ -1903,6 +2035,7 @@ namespace EliteBlindsAPI.Business
                 Connection.Close();
             }
         }
+
         public List<UtilityOrder> GetCustomerUtilityOrders(int CustId, string FilterBy, string SearchCriteria, string OrderBy, out Exception exError)
         {
             List<UtilityOrder> returnValue = new List<UtilityOrder>();

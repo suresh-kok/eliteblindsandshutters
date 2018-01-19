@@ -48,13 +48,14 @@ namespace EliteBlindsAPI.Business
 
         public List<Order> GetCustOrders(int CustId, string FilterBy, string SearchCriteria, string OrderBy)
         {
-            if (GetCustomer(CustId).RoleID == 1)
+            int RoleID = GetCustomer(CustId).RoleID;
+            if (RoleID != 4)
             {
-                return EliteBusinessObj.GetAllOrders();
+                return EliteBusinessObj.GetOrdersForRole(RoleID);
             }
             else
             {
-                return EliteBusinessObj.GetCustomerOrders(CustId, FilterBy,SearchCriteria, OrderBy);
+                return EliteBusinessObj.GetCustomerOrders(CustId, FilterBy, SearchCriteria, OrderBy);
             }
         }
 
@@ -65,9 +66,10 @@ namespace EliteBlindsAPI.Business
 
         public List<UtilityOrder> GetCustomerUtilityOrders(int CustId, string FilterBy, string SearchCriteria, string OrderBy)
         {
-            if (GetCustomer(CustId).RoleID == 1)
+            int RoleID = GetCustomer(CustId).RoleID;
+            if (RoleID != 4)
             {
-                return EliteBusinessObj.GetAllUtilityOrders();
+                return EliteBusinessObj.GetUtilityOrdersForRole(RoleID);
             }
             else
             {

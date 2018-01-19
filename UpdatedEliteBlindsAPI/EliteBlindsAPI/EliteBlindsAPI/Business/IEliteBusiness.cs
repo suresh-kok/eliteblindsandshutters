@@ -21,6 +21,8 @@ namespace EliteBlindsAPI.Business
 
         Order GetOrder(int OrderID);
         List<Order> GetAllOrders();
+        List<Order> GetOrdersForRole(int RoleID);
+        List<UtilityOrder> GetUtilityOrdersForRole(int RoleID);
         List<Order> GetCustomerOrders(int CustId, string FilterBy, string SearchCriteria, string OrderBy);
         List<UtilityOrder> GetCustomerUtilityOrders(int CustId, string FilterBy, string SearchCriteria, string OrderBy);
         Order SaveOrder(Order OrderData);
