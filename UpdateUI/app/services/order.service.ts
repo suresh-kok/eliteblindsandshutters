@@ -47,5 +47,9 @@ export class OrderMiscService {
     GetOrders(CustomerID,FilterBy,SearchCriteria,OrderBy){
      return this.http.get(this.rootUrl+"SearchOrders/"+CustomerID+"/"+FilterBy+"/"+SearchCriteria+"/"+OrderBy);
     }
+    GetOrderDetails(OrderId)
+    {
+        return this.http.get(this.rootUrl+"GetOrderDetail/"+OrderId);
+    }
 
 }

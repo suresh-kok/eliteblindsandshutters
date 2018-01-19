@@ -1,7 +1,7 @@
 <h3>
     Welcome to ELITE BLINDS & SHUTTERS
 </h3>
-<div class="row" *ngIf="!ViewDetailsBool">
+<div class="row" *ngIf="!ViewDetailsBool" style="height:33em;overflow-y:scroll;">
     <h5>Order Information</h5>
     <table  class="table table-responsive table-condensed table-striped table-hover">
             <thead>
@@ -25,7 +25,7 @@
                     <tr *ngFor="let OrderInfo of OrderInfoList">
                         <td>{{OrderInfo.OrderID}}</td>
                         <td>{{OrderInfo.OrderStatus}}</td>
-                        <td>{{OrderInfo.OrderDate | date}}</td>
+                        <td>{{OrderInfo.OrderDate}}</td>
                         <td>{{OrderInfo.NumbOfBlinds}}</td>
                         <td>{{OrderInfo.Company}}</td>
                         <td>{{OrderInfo.Reference}}</td>
@@ -35,11 +35,12 @@
                         <td>{{OrderInfo.DepartureDate}}</td>
                         <td>{{OrderInfo.ArrivalDate}}</td>
                         <td>{{OrderInfo.OrderM2}}</td>
-                        <td><a (click)="ViewDetails(OrderInfo.OrderID)"></a></td>
+                        <td><a (click)="ViewDetails(OrderInfo.OrderID)">View</a></td>
                     </tr>
             </tbody>
     </table>
 </div>
 <div class="row" *ngIf="ViewDetailsBool">
+    <button (click)="ReturnToAllOrders()">Back to Orders</button>
     <order-list [orderPlaced]="false" [orderDetails]="OrderDetails" [orderInitiate]="OrderItem"></order-list>
 </div>

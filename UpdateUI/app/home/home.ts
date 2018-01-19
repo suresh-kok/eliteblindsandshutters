@@ -12,7 +12,7 @@ export class HomeComponent{
     CustomerID:number;
     ViewDetailsBool:boolean=false;
     OrderDetails:OrderData[];
-    OrderItem:OrderInitiation[];
+    OrderItem:OrderInitiation;
     constructor(private service:AuthenticationService,private orderService:OrderMiscService){
        
             }
@@ -30,9 +30,19 @@ export class HomeComponent{
     }
     ViewDetails(OrderID)
     {
-        this.OrderItem=this.OrderInfoList.find(f=>f.OrderID==OrderID)[0];
-        this.ViewDetailsBool=true;
-        
-
+        debugger;
+        this.OrderItem=this.OrderInfoList.find(f=>f.OrderID==OrderID);
+        this.orderService.GetOrderDetails(OrderID).subscribe(
+         data=>{
+             
+            if(data) 
+            this.OrderDetails=JSON.parse(data.toString())
+            this.ViewDetailsBool=true;
+        },
+         err=>console.error(err)
+        );
+    }
+    ReturnToAllOrders(){
+        this.ViewDetailsBool=false;
     }
 }

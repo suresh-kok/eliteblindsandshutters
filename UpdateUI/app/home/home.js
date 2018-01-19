@@ -30,8 +30,17 @@ var HomeComponent = /** @class */ (function () {
         }, function (err) { return console.error(err); });
     };
     HomeComponent.prototype.ViewDetails = function (OrderID) {
-        this.OrderItem = this.OrderInfoList.find(function (f) { return f.OrderID == OrderID; })[0];
-        this.ViewDetailsBool = true;
+        var _this = this;
+        debugger;
+        this.OrderItem = this.OrderInfoList.find(function (f) { return f.OrderID == OrderID; });
+        this.orderService.GetOrderDetails(OrderID).subscribe(function (data) {
+            if (data)
+                _this.OrderDetails = JSON.parse(data.toString());
+            _this.ViewDetailsBool = true;
+        }, function (err) { return console.error(err); });
+    };
+    HomeComponent.prototype.ReturnToAllOrders = function () {
+        this.ViewDetailsBool = false;
     };
     HomeComponent = __decorate([
         core_1.Component({
