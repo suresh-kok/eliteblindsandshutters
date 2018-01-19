@@ -35,9 +35,6 @@ var OrderMiscService = /** @class */ (function () {
     OrderMiscService.prototype.GetSize = function (type) {
         return this.http.get(this.rootUrl + "GetSize/" + type);
     };
-    OrderMiscService.prototype.GetBlindType = function () {
-        return this.http.get(this.rootUrl + "GetBlindType");
-    };
     OrderMiscService.prototype.SaveOrderInitiation = function (order) {
         debugger;
         var headers = new http_1.HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });

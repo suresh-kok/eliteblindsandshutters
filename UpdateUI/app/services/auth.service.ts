@@ -57,7 +57,7 @@ logout() {
     let cust=localStorage.getItem("user");
     if(cust!=null){
         let temp=JSON.parse(cust);
-        return temp.CustomerID;
+        return temp.CustomerId;
     }  
     
   }

@@ -26,10 +26,6 @@ var OrderListComponent = /** @class */ (function () {
         core_1.Input('orderDetails'),
         __metadata("design:type", Array)
     ], OrderListComponent.prototype, "OrderDetails", void 0);
-    __decorate([
-        core_1.Input('orderPlaced'),
-        __metadata("design:type", Boolean)
-    ], OrderListComponent.prototype, "OrderPlaced", void 0);
     OrderListComponent = __decorate([
         core_1.Component({
             selector: 'order-list',

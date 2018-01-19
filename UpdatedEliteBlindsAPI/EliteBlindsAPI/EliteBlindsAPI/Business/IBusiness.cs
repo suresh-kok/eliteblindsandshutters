@@ -29,12 +29,14 @@ namespace EliteBlindsAPI.Business
         Tuple<List<Order>, List<UtilityOrder>> GetAllCustomerOrders(int ID);
         Boolean ApproveOrders(List<int> OrderIDs);
         Boolean ApproveUtilityOrders(List<int> OrderIDs);
-
+        Boolean ChangeOrderStatus(List<int> OrderIDs,int StatusID);
+        Boolean ChangeUtilityOrderStatus(List<int> OrderIDs,int StatusID);
         OrderDetail GetOrderDetail(int ID);
         Fabric GetFabric(int ID);
         List<Fabric> SaveFabric(List<Fabric> FabricData);
         void DeleteFabric(int ID);
         RollerBlinds GetRollerBlind(int ID);
+        RollerBlindType GetRollerBlindType(int ID);
         List<RollerBlinds> SaveRollerBlinds(List<RollerBlinds> RollerBlindsData);
         void DeleteRollerBlinds(int ID);
         Valance GetValance(int ID);

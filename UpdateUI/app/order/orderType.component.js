@@ -19,8 +19,6 @@ var OrderTypeComponent = /** @class */ (function () {
     }
     OrderTypeComponent.prototype.ngOnInit = function () {
         this.newOrder.OrderType = this.OrderTypeVal;
-        if (this.OrderTypeVal == "3")
-            this.GetBlindType();
     };
     OrderTypeComponent.prototype.orderChange = function () {
         debugger;
@@ -32,8 +30,6 @@ var OrderTypeComponent = /** @class */ (function () {
     OrderTypeComponent.prototype.ProceedData = function () {
         debugger;
         this.notify.emit(this.newOrder);
-    };
-    OrderTypeComponent.prototype.GetBlindType = function () {
     };
     __decorate([
         core_1.Output(),

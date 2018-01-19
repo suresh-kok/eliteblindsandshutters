@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../../app/services/auth.service");
-var order_service_1 = require("../../app/services/order.service");
 var HomeComponent = /** @class */ (function () {
     function HomeComponent(service, orderService) {
         this.service = service;
@@ -47,7 +46,7 @@ var HomeComponent = /** @class */ (function () {
             selector: 'home',
             templateUrl: 'app/home/home.html'
         }),
-        __metadata("design:paramtypes", [auth_service_1.AuthenticationService, order_service_1.OrderMiscService])
+        __metadata("design:paramtypes", [auth_service_1.AuthenticationService, Object])
     ], HomeComponent);
     return HomeComponent;
 }());

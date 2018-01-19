@@ -9,7 +9,7 @@ import {OrderInitiation}from '../DataModels/orderInitiationData';
 export class OrderListComponent{
     @Input('orderInitiate') OrderInfo:OrderInitiation;
     @Input('orderDetails') OrderDetails:OrderData[];
-    @Input('orderPlaced') OrderPlaced:boolean;
+
     constructor(){
   this.testData();
     }

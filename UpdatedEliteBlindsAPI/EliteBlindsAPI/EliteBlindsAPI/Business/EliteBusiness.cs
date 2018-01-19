@@ -52,15 +52,17 @@ namespace EliteBlindsAPI.Business
             CustomException = new Exception();
         }
 
-        //Customer Related
+        #region Customer Related
         public Customer LoginCheck(string Email, string Password)
         {
             return CustDB.LoginCheck(Email, Password, out CustomException);
         }
+
         public bool ForgotPassword(string Email)
         {
             return CustDB.ForgotPassword(Email, out CustomException);
         }
+
         public bool ResetPassword(string Email, string Password)
         {
             return CustDB.ResetPassword(Email, Password, out CustomException);
@@ -100,12 +102,13 @@ namespace EliteBlindsAPI.Business
         {
             return CustDB.Delete(CustomerID, out CustomException);
         }
+        
+        #endregion
 
-
-        //Order Related
+        #region Order Related
         public Order GetOrder(int OrderID)
         {
-            throw new NotImplementedException();
+            return OrderDB.Select(OrderID, out CustomException);
         }
 
         public List<Order> GetAllOrders()
@@ -125,7 +128,7 @@ namespace EliteBlindsAPI.Business
 
         public List<OrderDetail> GetOrderDetails(int OrderID)
         {
-            return OrderDetailDB.SelectAll(out CustomException);
+            return OrderDetailDB.SelectedOrderID(new List<int>() { OrderID }, out CustomException);
         }
 
         public List<OrderDetail> GetOrderDetails(List<int> OrderIDs)
@@ -173,6 +176,26 @@ namespace EliteBlindsAPI.Business
             return UtilityOrderDB.ApproveUtilityOrders(OrderIDs, out CustomException);
         }
 
+        public Boolean ChangeOrderStatus(List<int> OrderIDs, int StatusID)
+        {
+            return OrderDB.ChangeOrderStatus(OrderIDs, StatusID, out CustomException);
+        }
+
+        public Boolean ChangeUtilityOrderStatus(List<int> OrderIDs, int StatusID)
+        {
+            return UtilityOrderDB.ChangeUtilityOrderStatus(OrderIDs, StatusID, out CustomException);
+        }
+
+        public List<Order> GetOrdersForRole(int RoleID)
+        {
+            return OrderDB.SelectedRole(RoleID, out CustomException);
+        }
+
+        public List<UtilityOrder> GetUtilityOrdersForRole(int RoleID)
+        {
+            return UtilityOrderDB.SelectedRole(RoleID, out CustomException);
+        }
+
         public List<Order> GetCustomerOrders(int CustId, string FilterBy, string SearchCriteria, string OrderBy)
         {
             return OrderDB.GetCustomerOrders(CustId, FilterBy,SearchCriteria, OrderBy, out CustomException);
@@ -183,8 +206,146 @@ namespace EliteBlindsAPI.Business
             return UtilityOrderDB.GetCustomerUtilityOrders(CustId, FilterBy,SearchCriteria, OrderBy, out CustomException);
         }
 
+        public List<Fabric> GetFabrics(int UtilityOrderID)
+        {
+            return FabricDB.SelectAll(UtilityOrderID, out CustomException);
+        }
 
-        //Other Details
+        public RollerBlinds GetRollerBlind(int RollerBlindsID)
+        {
+            return RollerBlindsDB.Select(RollerBlindsID, out CustomException);
+        }
+
+        public RollerBlindType GetRollerBlindType(int RollerBlindTypeID)
+        {
+            return RollerBlindTypeDB.Select(RollerBlindTypeID, out CustomException);
+        }
+
+        public List<RollerBlinds> GetRollerBlinds()
+        {
+            return RollerBlindsDB.SelectAll(out CustomException);
+        }
+
+        public List<RollerBlinds> GetRollerBlinds(int UtilityOrderID)
+        {
+            return RollerBlindsDB.SelectAll(UtilityOrderID, out CustomException);
+        }
+
+        public Valance GetValance(int ValanceID)
+        {
+            return ValanceDB.Select(ValanceID, out CustomException);
+        }
+
+        public List<Valance> GetValance()
+        {
+            return ValanceDB.SelectAll(out CustomException);
+        }
+
+        public List<Valance> GetValances(int UtilityOrderID)
+        {
+            return ValanceDB.SelectAll(UtilityOrderID, out CustomException);
+        }
+
+        public Order SaveOrder(Order OrderData)
+        {
+            return OrderDB.Create(OrderData, out CustomException);
+        }
+
+        public Order UpdateOrder(Order OrderData)
+        {
+            return OrderDB.Update(OrderData, out CustomException);
+        }
+
+        public OrderDetail SaveOrderDetail(OrderDetail OrderDetailData)
+        {
+            return OrderDetailDB.Create(OrderDetailData, out CustomException);
+        }
+
+        public OrderDetail UpdateOrderDetail(OrderDetail OrderDetailData)
+        {
+            return OrderDetailDB.Update(OrderDetailData, out CustomException);
+        }
+
+        public UtilityOrder SaveUtilityOrder(UtilityOrder UtilityOrderData)
+        {
+            return UtilityOrderDB.Create(UtilityOrderData, out CustomException);
+        }
+
+        public UtilityOrder UpdateUtilityOrder(UtilityOrder UtilityOrderData)
+        {
+            return UtilityOrderDB.Update(UtilityOrderData, out CustomException);
+        }
+
+        public Fabric GetFabric(int FabricID)
+        {
+            return FabricDB.Select(FabricID, out CustomException);
+        }
+
+        public List<Fabric> GetFabric()
+        {
+            return FabricDB.SelectAll(out CustomException);
+        }
+
+        public Fabric SaveFabric(Fabric FabricData)
+        {
+            return FabricDB.Create(FabricData, out CustomException);
+        }
+
+        public RollerBlinds SaveRollerBlinds(RollerBlinds RollerBlindsData)
+        {
+            return RollerBlindsDB.Create(RollerBlindsData, out CustomException);
+        }
+
+        public Valance SaveValance(Valance ValanceData)
+        {
+            return ValanceDB.Create(ValanceData, out CustomException);
+        }
+
+        public BottomRail SaveBottomRail(BottomRail BottomRailData)
+        {
+            return BottomRailDB.Create(BottomRailData, out CustomException);
+        }
+
+        public Fabric UpdateFabric(Fabric FabricData)
+        {
+            return FabricDB.Update(FabricData, out CustomException);
+        }
+
+        public RollerBlinds UpdateRollerBlinds(RollerBlinds RollerBlindsData)
+        {
+            return RollerBlindsDB.Update(RollerBlindsData, out CustomException);
+        }
+
+        public Valance UpdateValance(Valance ValanceData)
+        {
+            return ValanceDB.Update(ValanceData, out CustomException);
+        }
+
+        public BottomRail UpdateBottomRail(BottomRail BottomRailData)
+        {
+            return BottomRailDB.Update(BottomRailData, out CustomException);
+        }
+
+        public bool DeleteFabric(int FabricID)
+        {
+            return FabricDB.Delete(FabricID, out CustomException);
+        }
+
+        public bool DeleteRollerBlinds(int RollerBlindsID)
+        {
+            return RollerBlindsDB.Delete(RollerBlindsID, out CustomException);
+        }
+
+        public bool DeleteValance(int ValanceID)
+        {
+            return ValanceDB.Delete(ValanceID, out CustomException);
+        }
+
+        public bool DeleteBottomRail(int BottomRailID)
+        {
+            return BottomRailDB.Delete(BottomRailID, out CustomException);
+        }
+
         public BottomRail GetBottomRail(int BottomRailID)
         {
             return BottomRailDB.Select(BottomRailID, out CustomException);
@@ -199,6 +360,10 @@ namespace EliteBlindsAPI.Business
         {
             return BottomRailDB.SelectAll(UtilityOrderID, out CustomException);
         }
+
+        #endregion
+
+        #region Other Details
 
         public List<Colors> GetColors()
         {
@@ -274,144 +439,62 @@ namespace EliteBlindsAPI.Business
         {
             return OrderTypeDB.SelectAll(out CustomException);
         }
+
         public List<EliteRoles> GetRoles()
         {
             return EliteRolesDB.SelectAll(out CustomException);
         }
 
-        public Fabric GetFabric(int FabricID)
+        public Colors GetColors(int ID)
         {
-            return FabricDB.Select(FabricID, out CustomException);
+            return ColorsDB.Select(ID,out CustomException);
         }
 
-        public List<Fabric> GetFabric()
+        public SlatStyle GetSlatStyle(int ID)
         {
-            return FabricDB.SelectAll(out CustomException);
+            return SlatStyleDB.Select(ID, out CustomException);
         }
 
-        public List<Fabric> GetFabrics(int UtilityOrderID)
+        public CordStyle GetCordStyle(int ID)
         {
-            return FabricDB.SelectAll(UtilityOrderID, out CustomException);
+            return CordStyleDB.Select(ID, out CustomException);
         }
 
-        public RollerBlinds GetRollerBlind(int RollerBlindsID)
+        public Control GetControl(int ID)
         {
-            return RollerBlindsDB.Select(RollerBlindsID, out CustomException);
+            return ControlDB.Select(ID, out CustomException);
         }
 
-        public List<RollerBlinds> GetRollerBlinds()
+        public Material GetMaterial(int ID)
         {
-            return RollerBlindsDB.SelectAll(out CustomException);
+            return MaterialDB.Select(ID, out CustomException);
         }
 
-        public List<RollerBlinds> GetRollerBlinds(int UtilityOrderID)
+        public BlindType GetBlindType(int ID)
         {
-            return RollerBlindsDB.SelectAll(UtilityOrderID, out CustomException);
+            return BlindTypeDB.Select(ID, out CustomException);
         }
 
-        public Valance GetValance(int ValanceID)
+        public OrderStatus GetOrderStatus(int ID)
         {
-            return ValanceDB.Select(ValanceID, out CustomException);
+            return OrderStatusDB.Select(ID, out CustomException);
         }
 
-        public List<Valance> GetValance()
+        public OrderType GetOrderType(int ID)
         {
-            return ValanceDB.SelectAll(out CustomException);
+            return OrderTypeDB.Select(ID, out CustomException);
         }
 
-        public List<Valance> GetValances(int UtilityOrderID)
+        public EliteRoles GetRoles(int ID)
         {
-            return ValanceDB.SelectAll(UtilityOrderID, out CustomException);
+            return EliteRolesDB.Select(ID, out CustomException);
         }
 
-        public Order SaveOrder(Order OrderData)
+        public Size GetSize(int ID)
         {
-            return OrderDB.Create(OrderData, out CustomException);
+            return SizeDB.Select(ID, out CustomException);
         }
 
-        public Order UpdateOrder(Order OrderData)
-        {
-            return OrderDB.Update(OrderData, out CustomException);
-        }
-
-        public OrderDetail SaveOrderDetail(OrderDetail OrderDetailData)
-        {
-            return OrderDetailDB.Create(OrderDetailData, out CustomException);
-        }
-
-        public OrderDetail UpdateOrderDetail(OrderDetail OrderDetailData)
-        {
-            return OrderDetailDB.Update(OrderDetailData, out CustomException);
-        }
-
-        public UtilityOrder SaveUtilityOrder(UtilityOrder UtilityOrderData)
-        {
-            return UtilityOrderDB.Create(UtilityOrderData, out CustomException);
-        }
-
-        public UtilityOrder UpdateUtilityOrder(UtilityOrder UtilityOrderData)
-        {
-            return UtilityOrderDB.Update(UtilityOrderData, out CustomException);
-        }
-
-        public Fabric SaveFabric(Fabric FabricData)
-        {
-            return FabricDB.Create(FabricData, out CustomException);
-        }
-
-        public RollerBlinds SaveRollerBlinds(RollerBlinds RollerBlindsData)
-        {
-            return RollerBlindsDB.Create(RollerBlindsData, out CustomException);
-        }
-
-        public Valance SaveValance(Valance ValanceData)
-        {
-            return ValanceDB.Create(ValanceData, out CustomException);
-        }
-
-        public BottomRail SaveBottomRail(BottomRail BottomRailData)
-        {
-            return BottomRailDB.Create(BottomRailData, out CustomException);
-        }
-
-        public Fabric UpdateFabric(Fabric FabricData)
-        {
-            return FabricDB.Update(FabricData, out CustomException);
-        }
-
-        public RollerBlinds UpdateRollerBlinds(RollerBlinds RollerBlindsData)
-        {
-            return RollerBlindsDB.Update(RollerBlindsData, out CustomException);
-        }
-
-        public Valance UpdateValance(Valance ValanceData)
-        {
-            return ValanceDB.Update(ValanceData, out CustomException);
-        }
-
-        public BottomRail UpdateBottomRail(BottomRail BottomRailData)
-        {
-            return BottomRailDB.Update(BottomRailData, out CustomException);
-        }
-
-        public bool DeleteFabric(int FabricID)
-        {
-            return FabricDB.Delete(FabricID, out CustomException);
-        }
-
-        public bool DeleteRollerBlinds(int RollerBlindsID)
-        {
-            return RollerBlindsDB.Delete(RollerBlindsID, out CustomException);
-        }
-
-        public bool DeleteValance(int ValanceID)
-        {
-            return ValanceDB.Delete(ValanceID, out CustomException);
-        }
-
-        public bool DeleteBottomRail(int BottomRailID)
-        {
-            return BottomRailDB.Delete(BottomRailID, out CustomException);
-        }
+        #endregion
     }
 }

@@ -56,13 +56,15 @@ var OrderComponent = /** @class */ (function () {
         // this.OrderDetails.pop(item);
     };
     OrderComponent.prototype.GetSlatStyles = function () {
+        var _this = this;
         this.orderService.GetSlatStyle('Venetian').subscribe(function (data) {
-            //  this.slatStyles = JSON.parse(data)
+            _this.slatStyles = JSON.parse(data);
         }, function (err) { return console.error(err); });
     };
     OrderComponent.prototype.GetCordStyles = function () {
+        var _this = this;
         this.orderService.GetCordStyle('OVenetian').subscribe(function (data) {
-            // this.cordStyles = JSON.parse(data)
+            _this.cordStyles = JSON.parse(data);
         }, function (err) { return console.error(err); });
     };
     OrderComponent.prototype.onCordChange = function () {
@@ -99,14 +101,14 @@ var OrderComponent = /** @class */ (function () {
         var orderId = 0;
         debugger;
         this.OrderInitiation.CustomerID = this.service.GetCustomerId();
-        //  this.OrderInitiation.OrderType=1;
+        this.OrderInitiation.OrderType = 1;
         this.OrderInitiation.OrderDate = new Date();
         this.OrderInitiation.OrderStatus = "Order Received";
         this.orderService.SaveOrderInitiation(this.OrderInitiation).subscribe(function (data) {
             debugger;
             if (data) {
-                var orderData = void 0;
-                // let orderData=JSON.parse(data);
+                // let orderData:any;
+                var orderData = JSON.parse(data);
                 if (orderData.OrderID != 0) {
                     _this.OrderInitiation.OrderID = orderData.OrderID;
                     for (var i = 0; i < _this.OrderDetails.length; i++) {

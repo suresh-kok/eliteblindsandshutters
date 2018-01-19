@@ -27,7 +27,7 @@ namespace EliteBlindsAPI.Business
             server = "localhost";
             database = "eliteblinds";
             uid = "root";
-            password = "1234";
+            password = "abc@123";
             string connectionString;
             connectionString = "SERVER=" + server + ";" + "DATABASE=" +
                 database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";

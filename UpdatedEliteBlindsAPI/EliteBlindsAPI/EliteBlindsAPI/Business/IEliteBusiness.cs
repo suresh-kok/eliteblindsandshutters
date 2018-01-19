@@ -21,6 +21,8 @@ namespace EliteBlindsAPI.Business
 
         Order GetOrder(int OrderID);
         List<Order> GetAllOrders();
+        List<Order> GetOrdersForRole(int RoleID);
+        List<UtilityOrder> GetUtilityOrdersForRole(int RoleID);
         List<Order> GetCustomerOrders(int CustId, string FilterBy, string SearchCriteria, string OrderBy);
         List<UtilityOrder> GetCustomerUtilityOrders(int CustId, string FilterBy, string SearchCriteria, string OrderBy);
         Order SaveOrder(Order OrderData);
@@ -35,6 +37,8 @@ namespace EliteBlindsAPI.Business
         bool DeleteOrder(int OrderID);
         Boolean ApproveOrders(List<int> OrderIDs);
         Boolean ApproveUtilityOrders(List<int> OrderIDs);
+        Boolean ChangeOrderStatus(List<int> OrderIDs, int StatusID);
+        Boolean ChangeUtilityOrderStatus(List<int> OrderIDs, int StatusID);
 
         UtilityOrder GetUtilityOrder(int UtilityOrderID);
         UtilityOrder SaveUtilityOrder(UtilityOrder UtilityOrderData);
@@ -51,6 +55,7 @@ namespace EliteBlindsAPI.Business
         List<Fabric> GetFabrics(int UtilityOrderID);
 
         RollerBlinds GetRollerBlind(int RollerBlindsID);
+        RollerBlindType GetRollerBlindType(int RollerBlindTypeID);
         RollerBlinds SaveRollerBlinds(RollerBlinds RollerBlindsData);
         RollerBlinds UpdateRollerBlinds(RollerBlinds RollerBlindsData);
         bool DeleteRollerBlinds(int RollerBlindsID);
@@ -81,6 +86,16 @@ namespace EliteBlindsAPI.Business
         List<OrderType> GetOrderType();
         List<EliteRoles> GetRoles();
         List<Size> GetSize();
+        Colors GetColors(int ID);
+        SlatStyle GetSlatStyle(int ID);
+        CordStyle GetCordStyle(int ID);
+        Control GetControl(int ID);
+        Material GetMaterial(int ID);
+        BlindType GetBlindType(int ID);
+        OrderStatus GetOrderStatus(int ID);
+        OrderType GetOrderType(int ID);
+        EliteRoles GetRoles(int ID);
+        Size GetSize(int ID);
         List<Colors> GetColors(string For);
         List<SlatStyle> GetSlatStyle(string For);
         List<CordStyle> GetCordStyle(string For);

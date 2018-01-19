@@ -1,23 +1,25 @@
 import {Component} from '@angular/core';
 import {AuthenticationService, User} from '../../app/services/auth.service';
-import {OrderData}from '../DataModels/orderdata';
-import {OrderInitiation}from '../DataModels/orderInitiationData';
-import {OrderMiscService} from '../../app/services/order.service'
 @Component({
     selector:'home',
     templateUrl:'app/home/home.html'
 })
 export class HomeComponent{
+<<<<<<< HEAD
     OrderInfoList:OrderInitiation[];
     CustomerID:number;
     ViewDetailsBool:boolean=false;
     OrderDetails:OrderData[];
     OrderItem:OrderInitiation;
     constructor(private service:AuthenticationService,private orderService:OrderMiscService){
+=======
+    constructor(private service:AuthenticationService){
+>>>>>>> 8457322de887d7f1e2f6db925bf31a49d4feedbb
        
             }
     ngOnInit(){
         this.service.checkCredentials();
+<<<<<<< HEAD
         this.CustomerID=this.service.GetCustomerId();
         this.GetOrders();
     }
@@ -44,5 +46,7 @@ export class HomeComponent{
     }
     ReturnToAllOrders(){
         this.ViewDetailsBool=false;
+=======
+>>>>>>> 8457322de887d7f1e2f6db925bf31a49d4feedbb
     }
 }
