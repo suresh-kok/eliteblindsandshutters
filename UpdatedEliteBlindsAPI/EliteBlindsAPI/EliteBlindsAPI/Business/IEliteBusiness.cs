@@ -35,6 +35,8 @@ namespace EliteBlindsAPI.Business
         bool DeleteOrder(int OrderID);
         Boolean ApproveOrders(List<int> OrderIDs);
         Boolean ApproveUtilityOrders(List<int> OrderIDs);
+        Boolean ChangeOrderStatus(List<int> OrderIDs, int StatusID);
+        Boolean ChangeUtilityOrderStatus(List<int> OrderIDs, int StatusID);
 
         UtilityOrder GetUtilityOrder(int UtilityOrderID);
         UtilityOrder SaveUtilityOrder(UtilityOrder UtilityOrderData);

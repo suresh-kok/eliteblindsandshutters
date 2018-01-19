@@ -194,6 +194,20 @@ namespace EliteBlindsAPI.Controllers
             return BusinessObj.ApproveUtilityOrders(OrderIDs);
         }
 
+        [HttpPost]
+        [Route("ChangeOrderStatus/{OrderIDs}/{Status}")]
+        public bool ChangeOrderStatus([FromBody]List<int> OrderIDs, int StatusID)
+        {
+            return BusinessObj.ChangeOrderStatus(OrderIDs, StatusID);
+        }
+
+        [HttpPost]
+        [Route("ChangeUtilityOrderStatus/{OrderIDs}/{Status}")]
+        public bool ChangeUtilityOrderStatus([FromBody]List<int> OrderIDs,int StatusID)
+        {
+            return BusinessObj.ChangeUtilityOrderStatus(OrderIDs, StatusID);
+        }
+
         [Route("GetFabric/{FabricID}")]
         public string GetFabric(int FabricID)
         {

@@ -14,7 +14,7 @@ namespace EliteBlindsAPI.Business
     {
         IEliteBusiness EliteBusinessObj = new EliteBusiness();
 
-        //Customer Related Methods
+        #region Customer Related Methods
         public Customer LoginCheck(string Email, string Password)
         {
             return EliteBusinessObj.LoginCheck(Email, Password);
@@ -109,9 +109,9 @@ namespace EliteBlindsAPI.Business
         {
             return EliteBusinessObj.GetRoles();
         }
+        #endregion
 
-
-        //Order Related
+        #region Order Related
         public Order GetOrder(int ID)
         {
             return EliteBusinessObj.GetOrder(ID);
@@ -211,8 +211,17 @@ namespace EliteBlindsAPI.Business
             return EliteBusinessObj.ApproveUtilityOrders(OrderIDs);
         }
 
+        public Boolean ChangeOrderStatus(List<int> OrderIDs, int StatusID)
+        {
+            return EliteBusinessObj.ChangeOrderStatus(OrderIDs, StatusID);
+        }
+        public Boolean ChangeUtilityOrderStatus(List<int> OrderIDs, int StatusID)
+        {
+            return EliteBusinessObj.ChangeUtilityOrderStatus(OrderIDs, StatusID);
+        }
+        #endregion
 
-        //Related to Utility Orders
+        #region Related to Utility Orders
         public Fabric GetFabric(int ID)
         {
             return EliteBusinessObj.GetFabric(ID);
@@ -365,10 +374,9 @@ namespace EliteBlindsAPI.Business
         {
             EliteBusinessObj.DeleteBottomRail(ID);
         }
+        #endregion
 
-
-
-        //Other Methods
+        #region Other Methods
         public List<Colors> GetColors()
         {
             return EliteBusinessObj.GetColors();
@@ -488,7 +496,9 @@ namespace EliteBlindsAPI.Business
         {
             return EliteBusinessObj.GetSize(For);
         }
+        #endregion
 
+        #region Mail Feature
         public void SendMail(string to, string body, string subject, params MailAttachment[] attachments)
         {
             string host = ConfigurationManager.AppSettings["SMTPHost"];
@@ -1013,6 +1023,7 @@ namespace EliteBlindsAPI.Business
             return strBody.ToString();
 
         }
+        #endregion
     }
 
     public class MailAttachment
@@ -1022,6 +1033,7 @@ namespace EliteBlindsAPI.Business
         private string filename;
         private string mediaType;
         #endregion
+     
         #region Properties
         /// <summary>
         /// Gets the data stream for this attachment
@@ -1040,6 +1052,7 @@ namespace EliteBlindsAPI.Business
         /// </summary>
         public Attachment File { get { return new Attachment(Data, Filename, MediaType); } }
         #endregion
+        
         #region Constructors
         /// <summary>
         /// Construct a mail attachment form a byte array

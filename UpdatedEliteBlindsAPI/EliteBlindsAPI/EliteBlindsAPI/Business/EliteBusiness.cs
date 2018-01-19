@@ -176,6 +176,17 @@ namespace EliteBlindsAPI.Business
             return UtilityOrderDB.ApproveUtilityOrders(OrderIDs, out CustomException);
         }
 
+
+        public Boolean ChangeOrderStatus(List<int> OrderIDs, int StatusID)
+        {
+            return OrderDB.ChangeOrderStatus(OrderIDs, StatusID, out CustomException);
+        }
+
+        public Boolean ChangeUtilityOrderStatus(List<int> OrderIDs, int StatusID)
+        {
+            return UtilityOrderDB.ChangeUtilityOrderStatus(OrderIDs, StatusID, out CustomException);
+        }
+
         public List<Order> GetCustomerOrders(int CustId, string FilterBy, string SearchCriteria, string OrderBy)
         {
             return OrderDB.GetCustomerOrders(CustId, FilterBy,SearchCriteria, OrderBy, out CustomException);

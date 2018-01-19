@@ -987,6 +987,52 @@ namespace EliteBlindsAPI.Business
             }
         }
 
+        public bool ChangeOrderStatus(List<int> OrderIDs,int StatusID, out Exception exError)
+        {
+            exError = null;
+            try
+            {
+                if (this.Connection == null)
+                {
+                    throw new Exception("Unable to Connect to Database");
+                }
+                else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+                string query = "UPDATE `Order` SET " +
+                    "OrderStatusID = @OrderStatusID " +
+                    "WHERE OrderID IN (@OrderIDs)";
+
+                using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
+                {
+                    command.Parameters.Add("@OrderIDs", MySqlDbType.VarString).Value = OrderIDs;
+                    command.Parameters.Add("@OrderStatusID", MySqlDbType.Int32).Value = StatusID;
+
+
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
+
+                    if (RetVal <= 0)
+                    {
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+                throw ex;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
         public List<Order> GetCustomerOrders(int CustId, string FilterBy, string SearchCriteria, string OrderBy,out Exception exError)
         {
             List<Order> returnValue = new List<Order>();
@@ -1812,6 +1858,51 @@ namespace EliteBlindsAPI.Business
             }
         }
 
+        public bool ChangeUtilityOrderStatus(List<int> OrderIDs, int StatusID, out Exception exError)
+        {
+            exError = null;
+            try
+            {
+                if (this.Connection == null)
+                {
+                    throw new Exception("Unable to Connect to Database");
+                }
+                else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
+                    this.Connection.Open();
+
+                string query = "UPDATE `UtilityOrder` SET " +
+                    "OrderStatusID = @OrderStatusID " +
+                    "WHERE UtilityOrder IN (@OrderIDs)";
+
+                using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
+                {
+                    command.Parameters.Add("@OrderIDs", MySqlDbType.VarString).Value = OrderIDs;
+                    command.Parameters.Add("@OrderStatusID", MySqlDbType.Int32).Value = StatusID;
+
+
+                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
+
+                    if (RetVal <= 0)
+                    {
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Exception custException = new Exception();
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                exError = ex;
+                throw ex;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
         public List<UtilityOrder> GetCustomerUtilityOrders(int CustId, string FilterBy, string SearchCriteria, string OrderBy, out Exception exError)
         {
             List<UtilityOrder> returnValue = new List<UtilityOrder>();
