@@ -533,20 +533,20 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO `Order` (CustomerID, IsNew,Fault,Evidence, Company, Reference, OrderType,OrderStatus,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes) " +
-                           "VALUES (@CustomerID, @IsNew, @Fault,@Evidence, @Company, @Reference, @OrderType, @OrderStatus, @OrderDate, @NumbOfBlinds, @ConsignNoteNum, @CompleteDate, @DeliveryDate, @DepartureDate, @ArrivalDate, @OrderM2,@Notes); " +
+                string query = "INSERT INTO `Order` (CustomerID, IsNew,Fault,Evidence, Company, Reference, OrderType,OrderStatusID,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes) " +
+                           "VALUES (@CustomerID, @IsNew, @Fault,@Evidence, @Company, @Reference, @OrderType, @OrderStatusID, @OrderDate, @NumbOfBlinds, @ConsignNoteNum, @CompleteDate, @DeliveryDate, @DepartureDate, @ArrivalDate, @OrderM2,@Notes); " +
                            "SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@CustomerID", MySqlDbType.Int32).Value = instance.CustomerID;
                     command.Parameters.Add("@IsNew", MySqlDbType.Bit).Value = instance.IsNew;
-                    command.Parameters.Add("@Fault", MySqlDbType.Int32).Value = instance.Fault;
+                    command.Parameters.Add("@Fault", MySqlDbType.VarString).Value = instance.Fault;
                     command.Parameters.Add("@Evidence", MySqlDbType.Bit).Value = instance.Evidence;
                     command.Parameters.Add("@Company", MySqlDbType.VarString).Value = instance.Company;
                     command.Parameters.Add("@Reference", MySqlDbType.VarString).Value = instance.Reference;
-                    command.Parameters.Add("@OrderType", MySqlDbType.Int32).Value = instance.OrderType;
-                    command.Parameters.Add("@OrderStatus", MySqlDbType.VarString).Value = instance.OrderStatus;
+                    command.Parameters.Add("@OrderTypeID", MySqlDbType.Int32).Value = instance.OrderTypeID;
+                    command.Parameters.Add("@OrderStatusID", MySqlDbType.Int32).Value = instance.OrderStatusID;
                     command.Parameters.Add("@OrderDate", MySqlDbType.DateTime).Value = instance.OrderDate;
                     command.Parameters.Add("@NumbOfBlinds", MySqlDbType.Int32).Value = instance.NumbOfBlinds;
                     command.Parameters.Add("@ConsignNoteNum", MySqlDbType.VarString).Value = instance.ConsignNoteNum;
@@ -555,7 +555,7 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@DepartureDate", MySqlDbType.DateTime).Value = instance.DepartureDate;
                     command.Parameters.Add("@ArrivalDate", MySqlDbType.DateTime).Value = instance.ArrivalDate;
                     command.Parameters.Add("@BlindTypeID", MySqlDbType.Int32).Value = instance.BlindTypeID;
-                    command.Parameters.Add("@Transport", MySqlDbType.Int32).Value = instance.Transport;
+                    command.Parameters.Add("@Transport", MySqlDbType.VarString).Value = instance.Transport;
                     command.Parameters.Add("@OrderM2", MySqlDbType.Double).Value = instance.OrderM2;
                     command.Parameters.Add("@Notes", MySqlDbType.VarString).Value = instance.Notes;
 
@@ -604,7 +604,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("DELETE FROM Order WHERE OrderID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM `Order` WHERE OrderID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int rows = command.ExecuteNonQuery();
                     if (rows <= 0)
@@ -640,7 +640,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, OrderType,OrderStatus,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes,IsApproved FROM Order Where OrderID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, OrderTypeID,OrderStatusID,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes,IsApproved FROM `Order` Where OrderID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -650,13 +650,13 @@ namespace EliteBlindsAPI.Business
                             {
                                 OrderID = reader.SafeGetInt32("OrderID"),
                                 CustomerID = reader.SafeGetInt32("CustomerID"),
-                                Fault = reader.SafeGetInt32("Fault"),
+                                Fault = reader.SafeGetString("Fault"),
                                 IsNew = reader.SafeGetBoolean("IsNew"),
                                 Evidence = reader.SafeGetBoolean("Evidence"),
                                 Company = reader.SafeGetString("Company"),
                                 Reference = reader.SafeGetString("Reference"),
-                                OrderType = reader.SafeGetInt32("OrderType"),
-                                OrderStatus = reader.SafeGetString("OrderStatus"),
+                                OrderTypeID = reader.SafeGetInt32("OrderTypeID"),
+                                OrderStatusID = reader.SafeGetInt32("OrderStatusID"),
                                 OrderDate = reader.SafeGetDateTime("OrderDate"),
                                 NumbOfBlinds = reader.SafeGetInt32("NumbOfBlinds"),
                                 ConsignNoteNum = reader.SafeGetString("ConsignNoteNum"),
@@ -665,7 +665,7 @@ namespace EliteBlindsAPI.Business
                                 DepartureDate = reader.SafeGetDateTime("DepartureDate"),
                                 ArrivalDate = reader.SafeGetDateTime("ArrivalDate"),
                                 BlindTypeID = reader.SafeGetInt32("BlindTypeID"),
-                                Transport = reader.SafeGetInt32("Transport"),
+                                Transport = reader.SafeGetString("Transport"),
                                 OrderM2 = reader.SafeGetDouble("OrderM2"),
                                 Notes = reader.SafeGetString("Notes"),
                                 IsApproved = reader.SafeGetBoolean("IsApproved")
@@ -700,7 +700,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, OrderType,OrderStatus,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes,IsApproved FROM `Order`", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, OrderTypeID,OrderStatusID,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes,IsApproved FROM `Order`", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -708,14 +708,14 @@ namespace EliteBlindsAPI.Business
                             returnValue.Add(new Order()
                             {
                                 OrderID = reader.SafeGetInt32("OrderID"),
-                                Fault = reader.SafeGetInt32("Fault"),
+                                Fault = reader.SafeGetString("Fault"),
                                 CustomerID = reader.SafeGetInt32("CustomerID"),
                                 IsNew = reader.SafeGetBoolean("IsNew"),
                                 Evidence = reader.SafeGetBoolean("Evidence"),
                                 Company = reader.SafeGetString("Company"),
                                 Reference = reader.SafeGetString("Reference"),
-                                OrderType = reader.SafeGetInt32("OrderType"),
-                                OrderStatus = reader.SafeGetString("OrderStatus"),
+                                OrderTypeID = reader.SafeGetInt32("OrderTypeID"),
+                                OrderStatusID = reader.SafeGetInt32("OrderStatusID"),
                                 OrderDate = reader.SafeGetDateTime("OrderDate"),
                                 NumbOfBlinds = reader.SafeGetInt32("NumbOfBlinds"),
                                 ConsignNoteNum = reader.SafeGetString("ConsignNoteNum"),
@@ -724,7 +724,7 @@ namespace EliteBlindsAPI.Business
                                 DepartureDate = reader.SafeGetDateTime("DepartureDate"),
                                 ArrivalDate = reader.SafeGetDateTime("ArrivalDate"),
                                 BlindTypeID = reader.SafeGetInt32("BlindTypeID"),
-                                Transport = reader.SafeGetInt32("Transport"),
+                                Transport = reader.SafeGetString("Transport"),
                                 OrderM2 = reader.SafeGetDouble("OrderM2"),
                                 Notes = reader.SafeGetString("Notes"),
                                 IsApproved = reader.SafeGetBoolean("IsApproved")
@@ -762,8 +762,8 @@ namespace EliteBlindsAPI.Business
                     "Evidence = @Evidence," +
                     "Company = @Company, " +
                     "Reference = @Reference, " +
-                    "OrderType = @OrderType, " +
-                    "OrderStatus = @OrderStatus," +
+                    "OrderTypeID = @OrderTypeID, " +
+                    "OrderStatusID = @OrderStatusID," +
                     "OrderDate = @OrderDate," +
                     "NumbOfBlinds = @NumbOfBlinds," +
                     "ConsignNoteNum = @ConsignNoteNum," +
@@ -783,12 +783,12 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@OrderID", MySqlDbType.Int32).Value = instance.OrderID;
                     command.Parameters.Add("@CustomerID", MySqlDbType.Int32).Value = instance.CustomerID;
                     command.Parameters.Add("@IsNew", MySqlDbType.Bit).Value = instance.IsNew;
-                    command.Parameters.Add("@Fault", MySqlDbType.Int32).Value = instance.Fault;
+                    command.Parameters.Add("@Fault", MySqlDbType.VarString).Value = instance.Fault;
                     command.Parameters.Add("@Evidence", MySqlDbType.Bit).Value = instance.Evidence;
                     command.Parameters.Add("@Company", MySqlDbType.VarString).Value = instance.Company;
                     command.Parameters.Add("@Reference", MySqlDbType.VarString).Value = instance.Reference;
-                    command.Parameters.Add("@OrderType", MySqlDbType.Int32).Value = instance.OrderType;
-                    command.Parameters.Add("@OrderStatus", MySqlDbType.VarString).Value = instance.OrderStatus;
+                    command.Parameters.Add("@OrderTypeID", MySqlDbType.Int32).Value = instance.OrderTypeID;
+                    command.Parameters.Add("@OrderStatusID", MySqlDbType.Int32).Value = instance.OrderStatusID;
                     command.Parameters.Add("@OrderDate", MySqlDbType.DateTime).Value = instance.OrderDate;
                     command.Parameters.Add("@NumbOfBlinds", MySqlDbType.Int32).Value = instance.NumbOfBlinds;
                     command.Parameters.Add("@ConsignNoteNum", MySqlDbType.VarString).Value = instance.ConsignNoteNum;
@@ -797,7 +797,7 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@DepartureDate", MySqlDbType.DateTime).Value = instance.DepartureDate;
                     command.Parameters.Add("@ArrivalDate", MySqlDbType.DateTime).Value = instance.ArrivalDate;
                     command.Parameters.Add("@BlindTypeID", MySqlDbType.Int32).Value = instance.BlindTypeID;
-                    command.Parameters.Add("@Transport", MySqlDbType.Int32).Value = instance.Transport;
+                    command.Parameters.Add("@Transport", MySqlDbType.VarString).Value = instance.Transport;
                     command.Parameters.Add("@OrderM2", MySqlDbType.Double).Value = instance.OrderM2;
                     command.Parameters.Add("@Notes", MySqlDbType.VarString).Value = instance.Notes;
                     command.Parameters.Add("@IsApproved", MySqlDbType.Bit).Value = instance.IsApproved;
@@ -840,7 +840,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,IsNew,Fault,Evidence, Company, Reference, OrderType,OrderStatus,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes,IsApproved FROM Order WHERE OrderID IN (@OrderIDs)", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,IsNew,Fault,Evidence, Company, Reference, OrderTypeID,OrderStatusID,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes,IsApproved FROM `Order` WHERE OrderID IN (@OrderIDs)", (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@OrderIDs", MySqlDbType.VarString).Value = string.Join(",", IDs.ToArray());
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -849,13 +849,13 @@ namespace EliteBlindsAPI.Business
                             returnValue.Add(new Order()
                             {
                                 OrderID = reader.SafeGetInt32("OrderID"),
-                                Fault = reader.SafeGetInt32("Fault"),
+                                Fault = reader.SafeGetString("Fault"),
                                 IsNew = reader.SafeGetBoolean("IsNew"),
                                 Evidence = reader.SafeGetBoolean("Evidence"),
                                 Company = reader.SafeGetString("Company"),
                                 Reference = reader.SafeGetString("Reference"),
-                                OrderType = reader.SafeGetInt32("OrderType"),
-                                OrderStatus = reader.SafeGetString("OrderStatus"),
+                                OrderTypeID = reader.SafeGetInt32("OrderTypeID"),
+                                OrderStatusID = reader.SafeGetInt32("OrderStatusID"),
                                 OrderDate = reader.SafeGetDateTime("OrderDate"),
                                 NumbOfBlinds = reader.SafeGetInt32("NumbOfBlinds"),
                                 ConsignNoteNum = reader.SafeGetString("ConsignNoteNum"),
@@ -864,7 +864,7 @@ namespace EliteBlindsAPI.Business
                                 DepartureDate = reader.SafeGetDateTime("DepartureDate"),
                                 ArrivalDate = reader.SafeGetDateTime("ArrivalDate"),
                                 BlindTypeID = reader.SafeGetInt32("BlindTypeID"),
-                                Transport = reader.SafeGetInt32("Transport"),
+                                Transport = reader.SafeGetString("Transport"),
                                 OrderM2 = reader.SafeGetDouble("OrderM2"),
                                 Notes = reader.SafeGetString("Notes"),
                                 IsApproved = reader.SafeGetBoolean("IsApproved")
@@ -898,7 +898,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, OrderType,OrderStatus,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes,IsApproved FROM Order WHERE CustomerID = @CustomerID ", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, OrderTypeID,OrderStatusID,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes,IsApproved FROM `Order` WHERE CustomerID = @CustomerID ", (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@CustomerID", MySqlDbType.Int32).Value = ID;
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -906,15 +906,15 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new Order()
                             {
+
                                 OrderID = reader.SafeGetInt32("OrderID"),
-                                CustomerID = reader.SafeGetInt32("CustomerID"),
-                                Fault = reader.SafeGetInt32("Fault"),
+                                Fault = reader.SafeGetString("Fault"),
                                 IsNew = reader.SafeGetBoolean("IsNew"),
                                 Evidence = reader.SafeGetBoolean("Evidence"),
                                 Company = reader.SafeGetString("Company"),
                                 Reference = reader.SafeGetString("Reference"),
-                                OrderType = reader.SafeGetInt32("OrderType"),
-                                OrderStatus = reader.SafeGetString("OrderStatus"),
+                                OrderTypeID = reader.SafeGetInt32("OrderTypeID"),
+                                OrderStatusID = reader.SafeGetInt32("OrderStatusID"),
                                 OrderDate = reader.SafeGetDateTime("OrderDate"),
                                 NumbOfBlinds = reader.SafeGetInt32("NumbOfBlinds"),
                                 ConsignNoteNum = reader.SafeGetString("ConsignNoteNum"),
@@ -923,7 +923,7 @@ namespace EliteBlindsAPI.Business
                                 DepartureDate = reader.SafeGetDateTime("DepartureDate"),
                                 ArrivalDate = reader.SafeGetDateTime("ArrivalDate"),
                                 BlindTypeID = reader.SafeGetInt32("BlindTypeID"),
-                                Transport = reader.SafeGetInt32("Transport"),
+                                Transport = reader.SafeGetString("Transport"),
                                 OrderM2 = reader.SafeGetDouble("OrderM2"),
                                 Notes = reader.SafeGetString("Notes"),
                                 IsApproved = reader.SafeGetBoolean("IsApproved")
@@ -1037,7 +1037,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, OrderType,OrderStatus,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes,IsApproved FROM Order" +
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, OrderTypeID,OrderStatusID,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes,IsApproved FROM `Order`" +
                     " " + strFilterBy + " " + strOrderBy, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -1045,15 +1045,15 @@ namespace EliteBlindsAPI.Business
                         while (reader.Read())
                             returnValue.Add(new Order()
                             {
+
                                 OrderID = reader.SafeGetInt32("OrderID"),
-                                Fault = reader.SafeGetInt32("Fault"),
-                                CustomerID = reader.SafeGetInt32("CustomerID"),
+                                Fault = reader.SafeGetString("Fault"),
                                 IsNew = reader.SafeGetBoolean("IsNew"),
                                 Evidence = reader.SafeGetBoolean("Evidence"),
                                 Company = reader.SafeGetString("Company"),
                                 Reference = reader.SafeGetString("Reference"),
-                                OrderType = reader.SafeGetInt32("OrderType"),
-                                OrderStatus = reader.SafeGetString("OrderStatus"),
+                                OrderTypeID = reader.SafeGetInt32("OrderTypeID"),
+                                OrderStatusID = reader.SafeGetInt32("OrderStatusID"),
                                 OrderDate = reader.SafeGetDateTime("OrderDate"),
                                 NumbOfBlinds = reader.SafeGetInt32("NumbOfBlinds"),
                                 ConsignNoteNum = reader.SafeGetString("ConsignNoteNum"),
@@ -1062,7 +1062,7 @@ namespace EliteBlindsAPI.Business
                                 DepartureDate = reader.SafeGetDateTime("DepartureDate"),
                                 ArrivalDate = reader.SafeGetDateTime("ArrivalDate"),
                                 BlindTypeID = reader.SafeGetInt32("BlindTypeID"),
-                                Transport = reader.SafeGetInt32("Transport"),
+                                Transport = reader.SafeGetString("Transport"),
                                 OrderM2 = reader.SafeGetDouble("OrderM2"),
                                 Notes = reader.SafeGetString("Notes"),
                                 IsApproved = reader.SafeGetBoolean("IsApproved")
@@ -1113,15 +1113,15 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@SlatStyleID", MySqlDbType.Int32).Value = instance.SlatStyleID;
                     command.Parameters.Add("@CordStyleID", MySqlDbType.Int32).Value = instance.CordStyleID;
                     command.Parameters.Add("@ReturnRequired", MySqlDbType.Bit).Value = instance.ReturnRequired;
-                    command.Parameters.Add("@MountType", MySqlDbType.Bit).Value = instance.MountType;
+                    command.Parameters.Add("@MountType", MySqlDbType.VarString).Value = instance.MountType;
                     command.Parameters.Add("@SquareMeter", MySqlDbType.Double).Value = instance.SquareMeter;
                     //command.Parameters.Add("@ControlID", MySqlDbType.Int32).Value = instance.ControlID;
-                    //command.Parameters.Add("@ControlStyle", MySqlDbType.Int32).Value = instance.ControlStyle;
-                    //command.Parameters.Add("@OpeningStyle", MySqlDbType.Int32).Value = instance.OpeningStyle;
-                    //command.Parameters.Add("@PelmetStyle", MySqlDbType.Int32).Value = instance.PelmetStyle;
+                    //command.Parameters.Add("@ControlStyle", MySqlDbType.VarString).Value = instance.ControlStyle;
+                    //command.Parameters.Add("@OpeningStyle", MySqlDbType.VarString).Value = instance.OpeningStyle;
+                    //command.Parameters.Add("@PelmetStyle", MySqlDbType.VarString).Value = instance.PelmetStyle;
                     //command.Parameters.Add("@ColorID", MySqlDbType.Int32).Value = instance.ColorID;
                     //command.Parameters.Add("@MaterialID", MySqlDbType.Int32).Value = instance.MaterialID;
-                    //command.Parameters.Add("@Roll", MySqlDbType.Bit).Value = instance.Roll;
+                    //command.Parameters.Add("@Roll", MySqlDbType.VarString).Value = instance.Roll;
                     //command.Parameters.Add("@ReadyMadeSize", MySqlDbType.Double).Value = instance.ReadyMadeSize;
 
                     int RetVal = Convert.ToInt32(command.ExecuteScalar());
@@ -1215,15 +1215,15 @@ namespace EliteBlindsAPI.Business
                                 SlatStyleID = reader.SafeGetInt32("SlatStyleID"),
                                 CordStyleID = reader.SafeGetInt32("CordStyleID"),
                                 ReturnRequired = reader.SafeGetBoolean("ReturnRequired"),
-                                MountType = reader.SafeGetBoolean("MountType"),
+                                MountType = reader.SafeGetString("MountType"),
                                 SquareMeter = reader.SafeGetDouble("SquareMeter"),
                                 ControlID = reader.SafeGetInt32("ControlID"),
-                                ControlStyle = reader.SafeGetInt32("ControlStyle"),
-                                OpeningStyle = reader.SafeGetInt32("OpeningStyle"),
-                                PelmetStyle = reader.SafeGetInt32("PelmetStyle"),
+                                ControlStyle = reader.SafeGetString("ControlStyle"),
+                                OpeningStyle = reader.SafeGetString("OpeningStyle"),
+                                PelmetStyle = reader.SafeGetString("PelmetStyle"),
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 MaterialID = reader.SafeGetInt32("MaterialID"),
-                                Roll = reader.SafeGetBoolean("Roll"),
+                                Roll = reader.SafeGetString("Roll"),
                                 ReadyMadeSize = reader.SafeGetDouble("ReadyMadeSize")
                             };
                         }
@@ -1273,15 +1273,15 @@ namespace EliteBlindsAPI.Business
                                 SlatStyleID = reader.SafeGetInt32("SlatStyleID"),
                                 CordStyleID = reader.SafeGetInt32("CordStyleID"),
                                 ReturnRequired = reader.SafeGetBoolean("ReturnRequired"),
-                                MountType = reader.SafeGetBoolean("MountType"),
+                                MountType = reader.SafeGetString("MountType"),
                                 SquareMeter = reader.SafeGetDouble("SquareMeter"),
                                 ControlID = reader.SafeGetInt32("ControlID"),
-                                ControlStyle = reader.SafeGetInt32("ControlStyle"),
-                                OpeningStyle = reader.SafeGetInt32("OpeningStyle"),
-                                PelmetStyle = reader.SafeGetInt32("PelmetStyle"),
+                                ControlStyle = reader.SafeGetString("ControlStyle"),
+                                OpeningStyle = reader.SafeGetString("OpeningStyle"),
+                                PelmetStyle = reader.SafeGetString("PelmetStyle"),
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 MaterialID = reader.SafeGetInt32("MaterialID"),
-                                Roll = reader.SafeGetBoolean("Roll"),
+                                Roll = reader.SafeGetString("Roll"),
                                 ReadyMadeSize = reader.SafeGetDouble("ReadyMadeSize")
                             });
                     }
@@ -1332,15 +1332,15 @@ namespace EliteBlindsAPI.Business
                                 SlatStyleID = reader.SafeGetInt32("SlatStyleID"),
                                 CordStyleID = reader.SafeGetInt32("CordStyleID"),
                                 ReturnRequired = reader.SafeGetBoolean("ReturnRequired"),
-                                MountType = reader.SafeGetBoolean("MountType"),
+                                MountType = reader.SafeGetString("MountType"),
                                 SquareMeter = reader.SafeGetDouble("SquareMeter"),
                                 ControlID = reader.SafeGetInt32("ControlID"),
-                                ControlStyle = reader.SafeGetInt32("ControlStyle"),
-                                OpeningStyle = reader.SafeGetInt32("OpeningStyle"),
-                                PelmetStyle = reader.SafeGetInt32("PelmetStyle"),
+                                ControlStyle = reader.SafeGetString("ControlStyle"),
+                                OpeningStyle = reader.SafeGetString("OpeningStyle"),
+                                PelmetStyle = reader.SafeGetString("PelmetStyle"),
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 MaterialID = reader.SafeGetInt32("MaterialID"),
-                                Roll = reader.SafeGetBoolean("Roll"),
+                                Roll = reader.SafeGetString("Roll"),
                                 ReadyMadeSize = reader.SafeGetDouble("ReadyMadeSize")
                             });
                     }
@@ -1391,15 +1391,15 @@ namespace EliteBlindsAPI.Business
                                 SlatStyleID = reader.SafeGetInt32("SlatStyleID"),
                                 CordStyleID = reader.SafeGetInt32("CordStyleID"),
                                 ReturnRequired = reader.SafeGetBoolean("ReturnRequired"),
-                                MountType = reader.SafeGetBoolean("MountType"),
+                                MountType = reader.SafeGetString("MountType"),
                                 SquareMeter = reader.SafeGetDouble("SquareMeter"),
                                 ControlID = reader.SafeGetInt32("ControlID"),
-                                ControlStyle = reader.SafeGetInt32("ControlStyle"),
-                                OpeningStyle = reader.SafeGetInt32("OpeningStyle"),
-                                PelmetStyle = reader.SafeGetInt32("PelmetStyle"),
+                                ControlStyle = reader.SafeGetString("ControlStyle"),
+                                OpeningStyle = reader.SafeGetString("OpeningStyle"),
+                                PelmetStyle = reader.SafeGetString("PelmetStyle"),
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 MaterialID = reader.SafeGetInt32("MaterialID"),
-                                Roll = reader.SafeGetBoolean("Roll"),
+                                Roll = reader.SafeGetString("Roll"),
                                 ReadyMadeSize = reader.SafeGetDouble("ReadyMadeSize")
                             });
                     }
@@ -1464,15 +1464,15 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@SlatStyleID", MySqlDbType.Int32).Value = instance.SlatStyleID;
                     command.Parameters.Add("@CordStyleID", MySqlDbType.Int32).Value = instance.CordStyleID;
                     command.Parameters.Add("@ReturnRequired", MySqlDbType.Bit).Value = instance.ReturnRequired;
-                    command.Parameters.Add("@MountType", MySqlDbType.Bit).Value = instance.MountType;
+                    command.Parameters.Add("@MountType", MySqlDbType.VarString).Value = instance.MountType;
                     command.Parameters.Add("@SquareMeter", MySqlDbType.Double).Value = instance.SquareMeter;
                     command.Parameters.Add("@ControlID", MySqlDbType.Int32).Value = instance.ControlID;
-                    command.Parameters.Add("@ControlStyle", MySqlDbType.Int32).Value = instance.ControlStyle;
-                    command.Parameters.Add("@OpeningStyle", MySqlDbType.Int32).Value = instance.OpeningStyle;
-                    command.Parameters.Add("@PelmetStyle", MySqlDbType.Int32).Value = instance.PelmetStyle;
+                    command.Parameters.Add("@ControlStyle", MySqlDbType.VarString).Value = instance.ControlStyle;
+                    command.Parameters.Add("@OpeningStyle", MySqlDbType.VarString).Value = instance.OpeningStyle;
+                    command.Parameters.Add("@PelmetStyle", MySqlDbType.VarString).Value = instance.PelmetStyle;
                     command.Parameters.Add("@ColorID", MySqlDbType.Int32).Value = instance.ColorID;
                     command.Parameters.Add("@MaterialID", MySqlDbType.Int32).Value = instance.MaterialID;
-                    command.Parameters.Add("@Roll", MySqlDbType.Bit).Value = instance.Roll;
+                    command.Parameters.Add("@Roll", MySqlDbType.VarString).Value = instance.Roll;
                     command.Parameters.Add("@ReadyMadeSize", MySqlDbType.Double).Value = instance.ReadyMadeSize;
                     command.Parameters.Add("@OrderDetailID", MySqlDbType.Int32).Value = instance.OrderDetailID;
 
@@ -1514,14 +1514,14 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO UtilityOrder (CustomerID, OrderType, OrderDate, CompleteDate) " +
-                           "VALUES (@CustomerID, @OrderType, @OrderDate, @CompleteDate); " +
+                string query = "INSERT INTO UtilityOrder (CustomerID, OrderTypeID, OrderDate, CompleteDate) " +
+                           "VALUES (@CustomerID, @OrderTypeID, @OrderDate, @CompleteDate); " +
                             "SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@CustomerID", MySqlDbType.Int32).Value = instance.CustomerID;
-                    command.Parameters.Add("@OrderType", MySqlDbType.Int32).Value = instance.OrderType;
+                    command.Parameters.Add("@OrderTypeID", MySqlDbType.Int32).Value = instance.OrderTypeID;
                     command.Parameters.Add("@OrderDate", MySqlDbType.DateTime).Value = instance.OrderDate;
                     command.Parameters.Add("@CompleteDate", MySqlDbType.DateTime).Value = instance.CompleteDate;
 
@@ -1598,7 +1598,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, OrderType,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder Where UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, OrderTypeID,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder Where UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -1608,7 +1608,7 @@ namespace EliteBlindsAPI.Business
                             {
                                 UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 CustomerID = reader.SafeGetInt32("CustomerID"),
-                                OrderType = reader.SafeGetInt32("OrderType"),
+                                OrderTypeID = reader.SafeGetInt32("OrderTypeID"),
                                 OrderDate = reader.SafeGetDateTime("OrderDate"),
                                 CompleteDate = reader.SafeGetDateTime("CompleteDate"),
                                 IsApproved = reader.SafeGetBoolean("IsApproved")
@@ -1643,7 +1643,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, OrderType,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, OrderTypeID,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -1652,7 +1652,7 @@ namespace EliteBlindsAPI.Business
                             {
                                 UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 CustomerID = reader.SafeGetInt32("CustomerID"),
-                                OrderType = reader.SafeGetInt32("OrderType"),
+                                OrderTypeID = reader.SafeGetInt32("OrderTypeID"),
                                 OrderDate = reader.SafeGetDateTime("OrderDate"),
                                 CompleteDate = reader.SafeGetDateTime("CompleteDate"),
                                 IsApproved = reader.SafeGetBoolean("IsApproved")
@@ -1686,7 +1686,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, OrderType,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder WHERE CustomerID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, OrderTypeID,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder WHERE CustomerID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -1695,7 +1695,7 @@ namespace EliteBlindsAPI.Business
                             {
                                 UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 CustomerID = reader.SafeGetInt32("CustomerID"),
-                                OrderType = reader.SafeGetInt32("OrderType"),
+                                OrderTypeID = reader.SafeGetInt32("OrderTypeID"),
                                 OrderDate = reader.SafeGetDateTime("OrderDate"),
                                 CompleteDate = reader.SafeGetDateTime("CompleteDate"),
                                 IsApproved = reader.SafeGetBoolean("IsApproved")
@@ -1729,7 +1729,7 @@ namespace EliteBlindsAPI.Business
 
                 string query = "UPDATE UtilityOrder SET " +
                     "CustomerID = @CustomerID, " +
-                    "OrderType = @OrderType," +
+                    "OrderTypeID = @OrderTypeID," +
                     "OrderDate = @OrderDate, " +
                     "CompleteDate = @CompleteDate, " +
                     "IsApproved = @IsApproved " +
@@ -1738,7 +1738,7 @@ namespace EliteBlindsAPI.Business
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@CustomerID", MySqlDbType.Int32).Value = instance.CustomerID;
-                    command.Parameters.Add("@OrderType", MySqlDbType.Int32).Value = instance.OrderType;
+                    command.Parameters.Add("@OrderTypeID", MySqlDbType.Int32).Value = instance.OrderTypeID;
                     command.Parameters.Add("@OrderDate", MySqlDbType.DateTime).Value = instance.OrderDate;
                     command.Parameters.Add("@CompleteDate", MySqlDbType.DateTime).Value = instance.CompleteDate;
                     command.Parameters.Add("@IsApproved", MySqlDbType.Bit).Value = instance.IsApproved;
@@ -1846,7 +1846,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, OrderType,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder" +
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, OrderTypeID,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder" +
                     " " + strFilterBy + " " + strOrderBy, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -1856,7 +1856,7 @@ namespace EliteBlindsAPI.Business
                             {
                                 UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 CustomerID = reader.SafeGetInt32("CustomerID"),
-                                OrderType = reader.SafeGetInt32("OrderType"),
+                                OrderTypeID = reader.SafeGetInt32("OrderTypeID"),
                                 OrderDate = reader.SafeGetDateTime("OrderDate"),
                                 CompleteDate = reader.SafeGetDateTime("CompleteDate"),
                                 IsApproved = reader.SafeGetBoolean("IsApproved")
@@ -1890,17 +1890,17 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO Fabric (UtilityOrderID, FabricType, ColorID, FabricSize, Boxes) " +
-                           "VALUES (@UtilityOrderID, @FabricType, @ColorID, @FabricSize, @Boxes); " +
+                string query = "INSERT INTO Fabric (UtilityOrderID, FabricType, ColorID, SizeID, Boxes) " +
+                           "VALUES (@UtilityOrderID, @FabricType, @ColorID, @SizeID, @Boxes); " +
                             "SELECT LAST_INSERT_ID();";
 
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@UtilityOrderID", MySqlDbType.Int32).Value = instance.UtilityOrderID;
-                    command.Parameters.Add("@FabricType", MySqlDbType.Int32).Value = instance.FabricType;
+                    command.Parameters.Add("@FabricType", MySqlDbType.VarString).Value = instance.FabricType;
                     command.Parameters.Add("@ColorID", MySqlDbType.Int32).Value = instance.ColorID;
-                    command.Parameters.Add("@FabricSize", MySqlDbType.Int32).Value = instance.FabricSize;
+                    command.Parameters.Add("@SizeID", MySqlDbType.Int32).Value = instance.SizeID;
                     command.Parameters.Add("@Boxes", MySqlDbType.Int32).Value = instance.Boxes;
 
                     int RetVal = Convert.ToInt32(command.ExecuteScalar());
@@ -1976,7 +1976,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, FabricID, FabricType, ColorID, FabricSize, Boxes FROM Fabric Where FabricID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, FabricID, FabricType, ColorID, SizeID, Boxes FROM Fabric Where FabricID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -1985,11 +1985,11 @@ namespace EliteBlindsAPI.Business
                             returnValue = new Fabric()
                             {
                                 FabricID = reader.SafeGetInt32("FabricID"),
-                                FabricType = reader.SafeGetInt32("FabricType"),
+                                FabricType = reader.SafeGetString("FabricType"),
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 Boxes = reader.SafeGetInt32("Boxes"),
                                 UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
-                                FabricSize = reader.SafeGetInt32("FabricSize")
+                                SizeID = reader.SafeGetInt32("SizeID")
                             };
                         }
                     }
@@ -2021,7 +2021,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, FabricID, FabricType, ColorID, FabricSize, Boxes FROM Fabric", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, FabricID, FabricType, ColorID, SizeID, Boxes FROM Fabric", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2029,11 +2029,11 @@ namespace EliteBlindsAPI.Business
                             returnValue.Add(new Fabric()
                             {
                                 FabricID = reader.SafeGetInt32("FabricID"),
-                                FabricType = reader.SafeGetInt32("FabricType"),
+                                FabricType = reader.SafeGetString("FabricType"),
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 Boxes = reader.SafeGetInt32("Boxes"),
-                                FabricSize = reader.SafeGetInt32("FabricSize")
+                                SizeID = reader.SafeGetInt32("SizeID")
                             });
                     }
                 }
@@ -2064,7 +2064,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, FabricID, FabricType, ColorID, FabricSize, Boxes FROM Fabric WHERE UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, FabricID, FabricType, ColorID, SizeID, Boxes FROM Fabric WHERE UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2072,11 +2072,11 @@ namespace EliteBlindsAPI.Business
                             returnValue.Add(new Fabric()
                             {
                                 FabricID = reader.SafeGetInt32("FabricID"),
-                                FabricType = reader.SafeGetInt32("FabricType"),
+                                FabricType = reader.SafeGetString("FabricType"),
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 Boxes = reader.SafeGetInt32("Boxes"),
-                                FabricSize = reader.SafeGetInt32("FabricSize")
+                                SizeID = reader.SafeGetInt32("SizeID")
                             });
                     }
                 }
@@ -2109,14 +2109,14 @@ namespace EliteBlindsAPI.Business
                     "FabricType = @FabricType, " +
                     "ColorID = @ColorID," +
                     "Boxes = @Boxes," +
-                    "FabricSize = @FabricSize " +
+                    "SizeID = @SizeID " +
                     "WHERE FabricID = @FabricID";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
-                    command.Parameters.Add("@FabricType", MySqlDbType.Int32).Value = instance.FabricType;
+                    command.Parameters.Add("@FabricType", MySqlDbType.VarString).Value = instance.FabricType;
                     command.Parameters.Add("@ColorID", MySqlDbType.Int32).Value = instance.ColorID;
-                    command.Parameters.Add("@FabricSize", MySqlDbType.Int32).Value = instance.FabricSize;
+                    command.Parameters.Add("@SizeID", MySqlDbType.Int32).Value = instance.SizeID;
                     command.Parameters.Add("@FabricID", MySqlDbType.Int32).Value = instance.FabricID;
                     command.Parameters.Add("@Boxes", MySqlDbType.Int32).Value = instance.Boxes;
 
@@ -2158,7 +2158,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO RollerBlinds (Description, Profile, RollerColor, DLXCODE, PCSCTN, MOQ) " +
+                string query = "INSERT INTO RollerBlindType (Description, Profile, RollerColor, DLXCODE, PCSCTN, MOQ) " +
                            "VALUES (@Description, @Profile, @RollerColor, @DLXCODE, @PCSCTN, @MOQ); " +
                             "SELECT LAST_INSERT_ID();";
                 
@@ -2208,7 +2208,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("DELETE FROM RollerBlinds WHERE RollerBlindsID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM RollerBlindType WHERE RollerBlindsID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int rows = command.ExecuteNonQuery();
                     if (rows <= 0)
@@ -2244,7 +2244,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT RollerBlindTypeID, Description, Profile, RollerColor, DLXCODE, PCSCTN, MOQ FROM RollerBlinds Where RollerBlindTypeID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT RollerBlindTypeID, Description, Profile, RollerColor, DLXCODE, PCSCTN, MOQ FROM RollerBlindType Where RollerBlindTypeID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2290,7 +2290,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT RollerBlindTypeID, Description, Profile, RollerColor, DLXCODE, PCSCTN, MOQ FROM RollerBlinds", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT RollerBlindTypeID, Description, Profile, RollerColor, DLXCODE, PCSCTN, MOQ FROM RollerBlindType", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2332,7 +2332,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE RollerBlinds SET " +
+                string query = "UPDATE RollerBlindType SET " +
                     "Description = @Description, " +
                     "Profile = @Profile," +
                     "RollerColor = @RollerColor," +
@@ -2646,15 +2646,15 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO Valance (MaterialID, ColorID, Size, UtilityOrderID, Boxes) " +
-                           "VALUES (@MaterialID, @ColorID, @Size, @UtilityOrderID, @Boxes); " +
+                string query = "INSERT INTO Valance (MaterialID, ColorID, SizeID, UtilityOrderID, Boxes) " +
+                           "VALUES (@MaterialID, @ColorID, @SizeID, @UtilityOrderID, @Boxes); " +
                             "SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@MaterialID", MySqlDbType.Int32).Value = instance.MaterialID;
                     command.Parameters.Add("@ColorID", MySqlDbType.Int32).Value = instance.ColorID;
-                    command.Parameters.Add("@Size", MySqlDbType.VarString).Value = instance.Size;
+                    command.Parameters.Add("@SizeID", MySqlDbType.Int32).Value = instance.SizeID;
                     command.Parameters.Add("@UtilityOrderID", MySqlDbType.VarString).Value = instance.UtilityOrderID;
                     command.Parameters.Add("@Boxes", MySqlDbType.VarString).Value = instance.Boxes;
 
@@ -2731,7 +2731,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT ValanceID, MaterialID, ColorID, Size, UtilityOrderID, Boxes FROM Valance Where ValanceID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT ValanceID, MaterialID, ColorID, SizeID, UtilityOrderID, Boxes FROM Valance Where ValanceID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2744,7 +2744,7 @@ namespace EliteBlindsAPI.Business
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 Boxes = reader.SafeGetInt32("Boxes"),
-                                Size = reader.SafeGetString("Size")
+                                SizeID = reader.SafeGetInt32("SizeID")
                             };
                         }
                     }
@@ -2776,7 +2776,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT ValanceID, MaterialID, ColorID, Size, UtilityOrderID, Boxes FROM Valance", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT ValanceID, MaterialID, ColorID, SizeID, UtilityOrderID, Boxes FROM Valance", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2788,7 +2788,7 @@ namespace EliteBlindsAPI.Business
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 Boxes = reader.SafeGetInt32("Boxes"),
-                                Size = reader.SafeGetString("Size")
+                                SizeID = reader.SafeGetInt32("SizeID")
                             });
                     }
                 }
@@ -2819,7 +2819,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT ValanceID, MaterialID, ColorID, Size, UtilityOrderID, Boxes FROM Valance WHERE UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT ValanceID, MaterialID, ColorID, SizeID, UtilityOrderID, Boxes FROM Valance WHERE UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2831,7 +2831,7 @@ namespace EliteBlindsAPI.Business
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 Boxes = reader.SafeGetInt32("Boxes"),
-                                Size = reader.SafeGetString("Size")
+                                SizeID = reader.SafeGetInt32("SizeID")
                             });
                     }
                 }
@@ -2865,14 +2865,14 @@ namespace EliteBlindsAPI.Business
                     "ColorID = @ColorID," +
                     "UtilityOrderID = @UtilityOrderID," +
                     "Boxes = @Boxes," +
-                    "Size = @Size " +
+                    "SizeID = @SizeID " +
                     "WHERE ValanceID = @ValanceID";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@MaterialID", MySqlDbType.Int32).Value = instance.MaterialID;
                     command.Parameters.Add("@ColorID", MySqlDbType.Int32).Value = instance.ColorID;
-                    command.Parameters.Add("@Size", MySqlDbType.VarString).Value = instance.Size;
+                    command.Parameters.Add("@SizeID", MySqlDbType.VarString).Value = instance.SizeID;
                     command.Parameters.Add("@ValanceID", MySqlDbType.Int32).Value = instance.ValanceID;
                     command.Parameters.Add("@UtilityOrderID", MySqlDbType.VarString).Value = instance.UtilityOrderID;
                     command.Parameters.Add("@Boxes", MySqlDbType.VarString).Value = instance.Boxes;
@@ -2915,15 +2915,15 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO BottomRail (MaterialID, ColorID, Size, UtilityOrderID, Boxes) " +
-                           "VALUES (@MaterialID, @ColorID, @Size, @UtilityOrderID, @Boxes); " +
+                string query = "INSERT INTO BottomRail (MaterialID, ColorID, SizeID, UtilityOrderID, Boxes) " +
+                           "VALUES (@MaterialID, @ColorID, @SizeID, @UtilityOrderID, @Boxes); " +
                             "SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@MaterialID", MySqlDbType.Int32).Value = instance.MaterialID;
                     command.Parameters.Add("@ColorID", MySqlDbType.Int32).Value = instance.ColorID;
-                    command.Parameters.Add("@Size", MySqlDbType.VarString).Value = instance.Size;
+                    command.Parameters.Add("@SizeID", MySqlDbType.Int32).Value = instance.SizeID;
                     command.Parameters.Add("@UtilityOrderID", MySqlDbType.VarString).Value = instance.UtilityOrderID;
                     command.Parameters.Add("@Boxes", MySqlDbType.VarString).Value = instance.Boxes;
 
@@ -3000,7 +3000,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT BottomRailID, MaterialID, ColorID, Size, UtilityOrderID, Boxes FROM BottomRail Where BottomRailID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT BottomRailID, MaterialID, ColorID, SizeID, UtilityOrderID, Boxes FROM BottomRail Where BottomRailID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3013,7 +3013,7 @@ namespace EliteBlindsAPI.Business
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 Boxes = reader.SafeGetInt32("Boxes"),
-                                Size = reader.SafeGetString("Size")
+                                SizeID = reader.SafeGetInt32("SizeID")
                             };
                         }
                     }
@@ -3045,7 +3045,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT BottomRailID, MaterialID, ColorID, Size, UtilityOrderID, Boxes FROM BottomRail", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT BottomRailID, MaterialID, ColorID, SizeID, UtilityOrderID, Boxes FROM BottomRail", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3057,7 +3057,7 @@ namespace EliteBlindsAPI.Business
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 Boxes = reader.SafeGetInt32("Boxes"),
-                                Size = reader.SafeGetString("Size")
+                                SizeID = reader.SafeGetInt32("SizeID")
                             });
                     }
                 }
@@ -3088,7 +3088,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT BottomRailID, MaterialID, ColorID, Size, UtilityOrderID, Boxes FROM BottomRail WHERE UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT BottomRailID, MaterialID, ColorID, SizeID, UtilityOrderID, Boxes FROM BottomRail WHERE UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3100,7 +3100,7 @@ namespace EliteBlindsAPI.Business
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 Boxes = reader.SafeGetInt32("Boxes"),
-                                Size = reader.SafeGetString("Size")
+                                SizeID = reader.SafeGetInt32("SizeID")
                             });
                     }
                 }
@@ -3134,14 +3134,14 @@ namespace EliteBlindsAPI.Business
                     "ColorID = @ColorID," +
                     "UtilityOrderID = @UtilityOrderID," +
                     "Boxes = @Boxes," +
-                    "Size = @Size " +
+                    "SizeID = @SizeID " +
                     "WHERE BottomRailID = @BottomRailID";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@MaterialID", MySqlDbType.Int32).Value = instance.MaterialID;
                     command.Parameters.Add("@ColorID", MySqlDbType.Int32).Value = instance.ColorID;
-                    command.Parameters.Add("@Size", MySqlDbType.VarString).Value = instance.Size;
+                    command.Parameters.Add("@SizeID", MySqlDbType.Int32).Value = instance.SizeID;
                     command.Parameters.Add("@BottomRailID", MySqlDbType.Int32).Value = instance.BottomRailID;
                     command.Parameters.Add("@UtilityOrderID", MySqlDbType.VarString).Value = instance.UtilityOrderID;
                     command.Parameters.Add("@Boxes", MySqlDbType.VarString).Value = instance.Boxes;
@@ -3373,6 +3373,7 @@ namespace EliteBlindsAPI.Business
 
             return returnValue;
         }
+
         public override SlatStyle Update(SlatStyle instance, out Exception exError)
         {
             exError = null;
@@ -4561,7 +4562,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT SizeID, SizeDesc, `For` FROM Size", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT SizeID, SizeDesc, `For` FROM SizeID", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {

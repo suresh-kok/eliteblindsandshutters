@@ -150,9 +150,9 @@ namespace EliteBlindsAPI.Models
             set { _IsNew = value; }
         }
 
-        private int _Fault;
+        private string _Fault;
 
-        public int Fault
+        public string Fault
         {
             get { return _Fault; }
             set { _Fault = value; }
@@ -182,21 +182,38 @@ namespace EliteBlindsAPI.Models
             set { _Reference = value; }
         }
 
-        private int _OrderType;
+        private int _OrderTypeID;
 
-        public int OrderType
+        public int OrderTypeID
         {
-            get { return _OrderType; }
-            set { _OrderType = value; }
+            get { return _OrderTypeID; }
+            set { _OrderTypeID = value; }
         }
 
-        private string _OrderStatus;
+        private string _OrderTypeName;
 
-        public string OrderStatus
+        public string OrderTypeName
         {
-            get { return _OrderStatus; }
-            set { _OrderStatus = value; }
+            get { return _OrderTypeName; }
+            set { _OrderTypeName = value; }
         }
+
+        private int _OrderStatusID;
+
+        public int OrderStatusID
+        {
+            get { return _OrderStatusID; }
+            set { _OrderStatusID = value; }
+        }
+
+        private string _OrderStatusName;
+
+        public string OrderStatusName
+        {
+            get { return _OrderStatusName; }
+            set { _OrderStatusName = value; }
+        }
+
 
         private DateTime _OrderDate;
 
@@ -262,9 +279,17 @@ namespace EliteBlindsAPI.Models
             set { _BlindTypeID = value; }
         }
 
-        private int _Transport;
+        private string _BlindTypeName;
 
-        public int Transport
+        public string BlindTypeName
+        {
+            get { return _BlindTypeName; }
+            set { _BlindTypeName = value; }
+        }
+
+        private string _Transport;
+
+        public string Transport
         {
             get { return _Transport; }
             set { _Transport = value; }
@@ -370,12 +395,28 @@ namespace EliteBlindsAPI.Models
             set { _SlatStyleID = value; }
         }
 
+        private string _SlatStyleName;
+
+        public string SlatStyleName
+        {
+            get { return _SlatStyleName; }
+            set { _SlatStyleName = value; }
+        }
+
         private int _CordStyleID;
 
         public int CordStyleID
         {
             get { return _CordStyleID; }
             set { _CordStyleID = value; }
+        }
+
+        private string _CordStyleName;
+
+        public string CordStyleName
+        {
+            get { return _CordStyleName; }
+            set { _CordStyleName = value; }
         }
 
         private bool _ReturnRequired;
@@ -386,9 +427,9 @@ namespace EliteBlindsAPI.Models
             set { _ReturnRequired = value; }
         }
 
-        private bool _MountType;
+        private string _MountType;
 
-        public bool MountType
+        public string MountType
         {
             get { return _MountType; }
             set { _MountType = value; }
@@ -410,25 +451,33 @@ namespace EliteBlindsAPI.Models
             set { _ControlID = value; }
         }
 
-        private int _ControlStyle;
+        private string _ControlName;
 
-        public int ControlStyle
+        public string ControlName
+        {
+            get { return _ControlName; }
+            set { _ControlName = value; }
+        }
+
+        private string _ControlStyle;
+
+        public string ControlStyle
         {
             get { return _ControlStyle; }
             set { _ControlStyle = value; }
         }
 
-        private int _OpeningStyle;
+        private string _OpeningStyle;
 
-        public int OpeningStyle
+        public string OpeningStyle
         {
             get { return _OpeningStyle; }
             set { _OpeningStyle = value; }
         }
         
-        private int _PelmetStyle;
+        private string _PelmetStyle;
 
-        public int PelmetStyle
+        public string PelmetStyle
         {
             get { return _PelmetStyle; }
             set { _PelmetStyle = value; }
@@ -442,6 +491,14 @@ namespace EliteBlindsAPI.Models
             set { _ColorID = value; }
         }
 
+        private string _ColorName;
+
+        public string ColorName
+        {
+            get { return _ColorName; }
+            set { _ColorName = value; }
+        }
+
         private int _MaterialID;
 
         public int MaterialID
@@ -450,9 +507,17 @@ namespace EliteBlindsAPI.Models
             set { _MaterialID = value; }
         }
 
-        private bool _Roll;
+        private string _MaterialName;
 
-        public bool Roll
+        public string MaterialName
+        {
+            get { return _MaterialName; }
+            set { _MaterialName = value; }
+        }
+
+        private string _Roll;
+
+        public string Roll
         {
             get { return _Roll; }
             set { _Roll = value; }
@@ -494,12 +559,20 @@ namespace EliteBlindsAPI.Models
             set { _CustomerID = value; }
         }
 
-        private int _OrderType;
+        private int _OrderTypeID;
 
-        public int OrderType
+        public int OrderTypeID
         {
-            get { return _OrderType; }
-            set { _OrderType = value; }
+            get { return _OrderTypeID; }
+            set { _OrderTypeID = value; }
+        }
+
+        private string _OrderTypeName;
+
+        public string OrderTypeName
+        {
+            get { return _OrderTypeName; }
+            set { _OrderTypeName = value; }
         }
 
         private DateTime _OrderDate;
@@ -545,9 +618,9 @@ namespace EliteBlindsAPI.Models
             set { _UtilityOrderID = value; }
         }
 
-        private int _FabricType;
+        private string _FabricType;
 
-        public int FabricType
+        public string FabricType
         {
             get { return _FabricType; }
             set { _FabricType = value; }
@@ -561,12 +634,28 @@ namespace EliteBlindsAPI.Models
             set { _ColorID = value; }
         }
 
-        private int _FabricSize;
+        private string _ColorName;
 
-        public int FabricSize
+        public string ColorName
         {
-            get { return _FabricSize; }
-            set { _FabricSize = value; }
+            get { return _ColorName; }
+            set { _ColorName = value; }
+        }
+
+        private int _SizeID;
+
+        public int SizeID
+        {
+            get { return _SizeID; }
+            set { _SizeID = value; }
+        }
+
+        private string _SizeValue;
+
+        public string SizeValue
+        {
+            get { return _SizeValue; }
+            set { _SizeValue = value; }
         }
 
         private int _Boxes;
@@ -641,6 +730,14 @@ namespace EliteBlindsAPI.Models
             set { _MaterialID = value; }
         }
 
+        private string _MaterialName;
+
+        public string MaterialName
+        {
+            get { return _MaterialName; }
+            set { _MaterialName = value; }
+        }
+
         private int _ColorID;
 
         public int ColorID
@@ -649,12 +746,28 @@ namespace EliteBlindsAPI.Models
             set { _ColorID = value; }
         }
 
-        private string _Size;
+        private string _ColorName;
 
-        public string Size
+        public string ColorName
         {
-            get { return _Size; }
-            set { _Size = value; }
+            get { return _ColorName; }
+            set { _ColorName = value; }
+        }
+
+        private int _SizeID;
+
+        public int SizeID
+        {
+            get { return _SizeID; }
+            set { _SizeID = value; }
+        }
+
+        private string _SizeVal;
+
+        public string SizeVal
+        {
+            get { return _SizeVal; }
+            set { _SizeVal = value; }
         }
 
         private int _Boxes;
@@ -693,6 +806,14 @@ namespace EliteBlindsAPI.Models
             set { _MaterialID = value; }
         }
 
+        private string _MaterialName;
+
+        public string MaterialName
+        {
+            get { return _MaterialName; }
+            set { _MaterialName = value; }
+        }
+
         private int _ColorID;
 
         public int ColorID
@@ -701,12 +822,28 @@ namespace EliteBlindsAPI.Models
             set { _ColorID = value; }
         }
 
-        private string _Size;
+        private string _ColorName;
 
-        public string Size
+        public string ColorName
         {
-            get { return _Size; }
-            set { _Size = value; }
+            get { return _ColorName; }
+            set { _ColorName = value; }
+        }
+
+        private int _SizeID;
+
+        public int SizeID
+        {
+            get { return _SizeID; }
+            set { _SizeID = value; }
+        }
+
+        private string _SizeVal;
+
+        public string SizeVal
+        {
+            get { return _SizeVal; }
+            set { _SizeVal = value; }
         }
 
         private int _Boxes;

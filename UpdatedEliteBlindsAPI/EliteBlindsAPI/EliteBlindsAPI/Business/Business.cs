@@ -550,7 +550,7 @@ namespace EliteBlindsAPI.Business
                 "</thead>");
 
             strOrder.AppendLine("<tr>");
-            strOrder.AppendLine("<td>" + OrderObj.OrderStatus + "</td>");
+            strOrder.AppendLine("<td>" + OrderObj.OrderStatusName + "</td>");
             strOrder.AppendLine("<td>" + OrderObj.OrderNumber + "</td>");
             strOrder.AppendLine("<td>" + OrderObj.OrderDate + "</td>");
             strOrder.AppendLine("<td>" + OrderObj.NumbOfBlinds + "</td>");
@@ -570,9 +570,8 @@ namespace EliteBlindsAPI.Business
             #region Order Details
             List<OrderDetail> OrderDetailsObj = GetOrderDetails(OrderObj.OrderID);
 
-            switch (OrderObj.OrderType)
+            switch (OrderObj.OrderTypeID)
             {
-
                 case 1:
                     //Venetian
                     strOrderDetails.AppendLine("<table style='width: 100%'>" +
@@ -600,7 +599,7 @@ namespace EliteBlindsAPI.Business
                         strOrderDetails.AppendLine("<td>" + GetCordStyle(item.CordStyleID).CordStyleDesc + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.Width + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.SplPelmetWidth + "</td>");
-                        strOrderDetails.AppendLine("<td>" + (item.MountType ? "In" : "Out") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.MountType + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.Height + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.ReadyMadeSize + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.WidthMadeBy + "</td>");
@@ -633,8 +632,8 @@ namespace EliteBlindsAPI.Business
                         strOrderDetails.AppendLine("<td>" + item.Height + "</td>");
                         strOrderDetails.AppendLine("<td>" + GetMaterial(item.MaterialID).MaterialDesc + "</td>");
                         strOrderDetails.AppendLine("<td>" + GetColors(item.ColorID).ColorsDesc + "</td>");
-                        strOrderDetails.AppendLine("<td>" + (item.ControlStyle == 1 ? "Left" : "Right") + "</td>");
-                        strOrderDetails.AppendLine("<td>" + (item.MountType ? "In" : "Out") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.ControlStyle + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.MountType + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.SquareMeter + "</td>");
                         strOrderDetails.AppendLine("<td>" + ConfigurationManager.AppSettings["WebLink"].ToString() + "/GetOrderDetail/" + OrderObj.OrderID + "</td>");
                         strOrderDetails.AppendLine("</tr>");
@@ -665,10 +664,10 @@ namespace EliteBlindsAPI.Business
                         strOrderDetails.AppendLine("<td>" + GetMaterial(item.MaterialID).MaterialDesc + "</td>");
                         strOrderDetails.AppendLine("<td>" + GetColors(item.ColorID).ColorsDesc + "</td>");
                         strOrderDetails.AppendLine("<td>" + GetControl(item.ControlID).ControlDesc + "</td>");
-                        strOrderDetails.AppendLine("<td>" + (item.ControlStyle == 1 ? "Left" : "Right") + "</td>");
-                        strOrderDetails.AppendLine("<td>" + (item.OpeningStyle == 1 ? "Left" : "Right") + "</td>");
-                        strOrderDetails.AppendLine("<td>" + (item.PelmetStyle == 1 ? "Left" : "Right") + "</td>");
-                        strOrderDetails.AppendLine("<td>" + (item.MountType ? "In" : "Out") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.ControlStyle + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.OpeningStyle + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.PelmetStyle + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.MountType + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.Width + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.Height + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.ReadyMadeSize + "</td>");
@@ -702,7 +701,7 @@ namespace EliteBlindsAPI.Business
                         strOrderDetails.AppendLine("<td>" + GetMaterial(item.MaterialID).MaterialDesc + "</td>");
                         strOrderDetails.AppendLine("<td>" + GetColors(item.ColorID).ColorsDesc + "</td>");
                         strOrderDetails.AppendLine("<td>" + GetControl(item.ControlID).ControlDesc + "</td>");
-                        strOrderDetails.AppendLine("<td>" + (item.MountType ? "In" : "Out") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.MountType + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.Width + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.Height + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.SplPelmetWidth + "</td>");
@@ -736,7 +735,7 @@ namespace EliteBlindsAPI.Business
                         strOrderDetails.AppendLine("<td>" + GetMaterial(item.MaterialID).MaterialDesc + "</td>");
                         strOrderDetails.AppendLine("<td>" + GetColors(item.ColorID).ColorsDesc + "</td>");
                         strOrderDetails.AppendLine("<td>" + GetControl(item.ControlID).ControlDesc + "</td>");
-                        strOrderDetails.AppendLine("<td>" + (item.MountType ? "In" : "Out") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.MountType + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.Width + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.Height + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.ReadyMadeSize + "</td>");
@@ -768,8 +767,8 @@ namespace EliteBlindsAPI.Business
                         strOrderDetails.AppendLine("<td>" + GetMaterial(item.MaterialID).MaterialDesc + "</td>");
                         strOrderDetails.AppendLine("<td>" + GetColors(item.ColorID).ColorsDesc + "</td>");
                         strOrderDetails.AppendLine("<td>" + GetControl(item.ControlID).ControlDesc + "</td>");
-                        strOrderDetails.AppendLine("<td>" + (item.ControlStyle == 1 ? "Left" : "Right") + "</td>");
-                        strOrderDetails.AppendLine("<td>" + (item.MountType ? "In" : "Out") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.ControlStyle + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.MountType + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.Width + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.Height + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.ReadyMadeSize + "</td>");
@@ -802,9 +801,9 @@ namespace EliteBlindsAPI.Business
                         strOrderDetails.AppendLine("<td>" + GetMaterial(item.MaterialID).MaterialDesc + "</td>");
                         strOrderDetails.AppendLine("<td>" + GetColors(item.ColorID).ColorsDesc + "</td>");
                         strOrderDetails.AppendLine("<td>" + GetControl(item.ControlID).ControlDesc + "</td>");
-                        strOrderDetails.AppendLine("<td>" + (item.ControlStyle == 1 ? "Left" : "Right") + "</td>");
-                        strOrderDetails.AppendLine("<td>" + (item.Roll ? "Standard" : "Reverse") + "</td>");
-                        strOrderDetails.AppendLine("<td>" + (item.MountType ? "In" : "Out") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.ControlStyle + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.Roll + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.MountType + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.Width + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.Height + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.ReadyMadeSize + "</td>");
@@ -836,8 +835,8 @@ namespace EliteBlindsAPI.Business
                         strOrderDetails.AppendLine("<td>" + GetMaterial(item.MaterialID).MaterialDesc + "</td>");
                         strOrderDetails.AppendLine("<td>" + GetColors(item.ColorID).ColorsDesc + "</td>");
                         strOrderDetails.AppendLine("<td>" + GetControl(item.ControlID).ControlDesc + "</td>");
-                        strOrderDetails.AppendLine("<td>" + (item.ControlStyle == 1 ? "Left" : "Right") + "</td>");
-                        strOrderDetails.AppendLine("<td>" + (item.MountType ? "In" : "Out") + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.ControlStyle + "</td>");
+                        strOrderDetails.AppendLine("<td>" + item.MountType + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.Width + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.Height + "</td>");
                         strOrderDetails.AppendLine("<td>" + item.ReadyMadeSize + "</td>");
@@ -884,7 +883,7 @@ namespace EliteBlindsAPI.Business
                 "</thead>");
 
             strUtilityOrder.AppendLine("<tr>");
-            strUtilityOrder.AppendLine("<td>" + UtilityOrderObj.OrderType + "</td>");
+            strUtilityOrder.AppendLine("<td>" + UtilityOrderObj.OrderTypeName + "</td>");
             strUtilityOrder.AppendLine("<td>" + UtilityOrderObj.UtilityOrderNumber + "</td>");
             strUtilityOrder.AppendLine("<td>" + UtilityOrderObj.OrderDate + "</td>");
             strUtilityOrder.AppendLine("<td>" + UtilityOrderObj.CompleteDate + "</td>");
@@ -894,7 +893,7 @@ namespace EliteBlindsAPI.Business
 
             #region Utility Order Details
 
-            switch (UtilityOrderObj.OrderType)
+            switch (UtilityOrderObj.OrderTypeID)
             {
 
                 case 9:
@@ -913,9 +912,9 @@ namespace EliteBlindsAPI.Business
                     foreach (var item in FabricDetailsObj)
                     {
                         strUtilityOrder.AppendLine("<tr>");
-                        strUtilityOrder.AppendLine("<td>" + (item.FabricType == 1 ? "Roller" : "Vertical") + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + item.FabricType + "</td>");
                         strUtilityOrder.AppendLine("<td>" + GetColors(item.ColorID).ColorsDesc + "</td>");
-                        strUtilityOrder.AppendLine("<td>" + GetSize(item.FabricSize).SizeDesc + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + GetSize(item.SizeID).SizeDesc + "</td>");
                         strUtilityOrder.AppendLine("<td>" + item.Boxes + "</td>");
                         strUtilityOrder.AppendLine("<td>" + ConfigurationManager.AppSettings["WebLink"].ToString() + "/GetFabric/" + item.FabricID + "</td>");
                         strUtilityOrder.AppendLine("</tr>");
@@ -970,7 +969,7 @@ namespace EliteBlindsAPI.Business
                         strUtilityOrder.AppendLine("<tr>");
                         strUtilityOrder.AppendLine("<td>" + GetMaterial(item.MaterialID).MaterialDesc + "</td>");
                         strUtilityOrder.AppendLine("<td>" + GetColors(item.ColorID).ColorsDesc + "</td>");
-                        strUtilityOrder.AppendLine("<td>" + item.Size + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + item.SizeID + "</td>");
                         strUtilityOrder.AppendLine("<td>" + item.Boxes + "</td>");
                         strUtilityOrder.AppendLine("<td>" + ConfigurationManager.AppSettings["WebLink"].ToString() + "/GetValance/" + item.ValanceID + "</td>");
                         strUtilityOrder.AppendLine("</tr>");
@@ -994,7 +993,7 @@ namespace EliteBlindsAPI.Business
                         strUtilityOrder.AppendLine("<tr>");
                         strUtilityOrder.AppendLine("<td>" + GetMaterial(item.MaterialID).MaterialDesc + "</td>");
                         strUtilityOrder.AppendLine("<td>" + GetColors(item.ColorID).ColorsDesc + "</td>");
-                        strUtilityOrder.AppendLine("<td>" + item.Size + "</td>");
+                        strUtilityOrder.AppendLine("<td>" + item.SizeID + "</td>");
                         strUtilityOrder.AppendLine("<td>" + item.Boxes + "</td>");
                         strUtilityOrder.AppendLine("<td>" + ConfigurationManager.AppSettings["WebLink"].ToString() + "/GetValance/" + item.BottomRailID + "</td>");
                         strUtilityOrder.AppendLine("</tr>");
