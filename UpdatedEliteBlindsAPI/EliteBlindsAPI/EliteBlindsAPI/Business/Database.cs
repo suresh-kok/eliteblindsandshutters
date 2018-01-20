@@ -640,7 +640,11 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, OrderTypeID,OrderStatusID,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes,IsApproved FROM `Order` Where OrderID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, Order.OrderTypeID,OrderTypeDesc,Order.OrderStatusID,OrderStatusDesc,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,Order.BlindTypeID,BlindTypeDesc,Transport,OrderM2,Notes,IsApproved FROM `Order` " +
+                    "LEFT JOIN ordertype ON ordertype.OrderTypeID = Order.OrderTypeID " +
+                    "LEFT JOIN orderstatus ON orderstatus.orderstatusID = Order.orderstatusID " +
+                    "LEFT JOIN BlindType ON BlindType.BlindTypeID = Order.BlindTypeID " +
+                    "Where OrderID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -668,7 +672,10 @@ namespace EliteBlindsAPI.Business
                                 Transport = reader.SafeGetString("Transport"),
                                 OrderM2 = reader.SafeGetDouble("OrderM2"),
                                 Notes = reader.SafeGetString("Notes"),
-                                IsApproved = reader.SafeGetBoolean("IsApproved")
+                                IsApproved = reader.SafeGetBoolean("IsApproved"),
+                                BlindTypeName = reader.SafeGetString("BlindTypeDesc"),
+                                OrderStatusName = reader.SafeGetString("OrderStatusDesc"),
+                                OrderTypeName = reader.SafeGetString("OrderTypeDesc")
                             };
                         }
                     }
@@ -700,7 +707,10 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, OrderTypeID,OrderStatusID,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes,IsApproved FROM `Order`", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, Order.OrderTypeID,OrderTypeDesc,Order.OrderStatusID,OrderStatusDesc,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,Order.BlindTypeID,BlindTypeDesc,Transport,OrderM2,Notes,IsApproved FROM `Order` " +
+                    "LEFT JOIN ordertype ON ordertype.OrderTypeID = Order.OrderTypeID " +
+                    "LEFT JOIN orderstatus ON orderstatus.orderstatusID = Order.orderstatusID " +
+                    "LEFT JOIN BlindType ON BlindType.BlindTypeID = Order.BlindTypeID " , (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -727,7 +737,10 @@ namespace EliteBlindsAPI.Business
                                 Transport = reader.SafeGetString("Transport"),
                                 OrderM2 = reader.SafeGetDouble("OrderM2"),
                                 Notes = reader.SafeGetString("Notes"),
-                                IsApproved = reader.SafeGetBoolean("IsApproved")
+                                IsApproved = reader.SafeGetBoolean("IsApproved"),
+                                BlindTypeName = reader.SafeGetString("BlindTypeDesc"),
+                                OrderStatusName = reader.SafeGetString("OrderStatusDesc"),
+                                OrderTypeName = reader.SafeGetString("OrderTypeDesc")
                             });
                     }
                 }
@@ -840,7 +853,11 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,IsNew,Fault,Evidence, Company, Reference, OrderTypeID,OrderStatusID,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes,IsApproved FROM `Order` WHERE OrderID IN (@OrderIDs)", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, Order.OrderTypeID,OrderTypeDesc,Order.OrderStatusID,OrderStatusDesc,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,Order.BlindTypeID,BlindTypeDesc,Transport,OrderM2,Notes,IsApproved FROM `Order` " +
+                    "LEFT JOIN ordertype ON ordertype.OrderTypeID = Order.OrderTypeID " +
+                    "LEFT JOIN orderstatus ON orderstatus.orderstatusID = Order.orderstatusID " +
+                    "LEFT JOIN BlindType ON BlindType.BlindTypeID = Order.BlindTypeID " +
+                    "WHERE OrderID IN (@OrderIDs)", (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@OrderIDs", MySqlDbType.VarString).Value = string.Join(",", IDs.ToArray());
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -867,7 +884,10 @@ namespace EliteBlindsAPI.Business
                                 Transport = reader.SafeGetString("Transport"),
                                 OrderM2 = reader.SafeGetDouble("OrderM2"),
                                 Notes = reader.SafeGetString("Notes"),
-                                IsApproved = reader.SafeGetBoolean("IsApproved")
+                                IsApproved = reader.SafeGetBoolean("IsApproved"),
+                                BlindTypeName = reader.SafeGetString("BlindTypeDesc"),
+                                OrderStatusName = reader.SafeGetString("OrderStatusDesc"),
+                                OrderTypeName = reader.SafeGetString("OrderTypeDesc")
                             });
                     }
                 }
@@ -913,7 +933,10 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,IsNew,Fault,Evidence, Company, Reference, OrderTypeID,OrderStatusID,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes,IsApproved FROM `Order`" +
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, Order.OrderTypeID,OrderTypeDesc,Order.OrderStatusID,OrderStatusDesc,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,Order.BlindTypeID,BlindTypeDesc,Transport,OrderM2,Notes,IsApproved FROM `Order` " +
+                    "LEFT JOIN ordertype ON ordertype.OrderTypeID = Order.OrderTypeID " +
+                    "LEFT JOIN orderstatus ON orderstatus.orderstatusID = Order.orderstatusID " +
+                    "LEFT JOIN BlindType ON BlindType.BlindTypeID = Order.BlindTypeID " +
                     " " + strFilterBy , (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -940,7 +963,10 @@ namespace EliteBlindsAPI.Business
                                 Transport = reader.SafeGetString("Transport"),
                                 OrderM2 = reader.SafeGetDouble("OrderM2"),
                                 Notes = reader.SafeGetString("Notes"),
-                                IsApproved = reader.SafeGetBoolean("IsApproved")
+                                IsApproved = reader.SafeGetBoolean("IsApproved"),
+                                BlindTypeName = reader.SafeGetString("BlindTypeDesc"),
+                                OrderStatusName = reader.SafeGetString("OrderStatusDesc"),
+                                OrderTypeName = reader.SafeGetString("OrderTypeDesc")
                             });
                     }
                 }
@@ -971,7 +997,11 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, OrderTypeID,OrderStatusID,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes,IsApproved FROM `Order` WHERE CustomerID = @CustomerID ", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, Order.OrderTypeID,OrderTypeDesc,Order.OrderStatusID,OrderStatusDesc,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,Order.BlindTypeID,BlindTypeDesc,Transport,OrderM2,Notes,IsApproved FROM `Order` " +
+                    "LEFT JOIN ordertype ON ordertype.OrderTypeID = Order.OrderTypeID " +
+                    "LEFT JOIN orderstatus ON orderstatus.orderstatusID = Order.orderstatusID " +
+                    "LEFT JOIN BlindType ON BlindType.BlindTypeID = Order.BlindTypeID " + 
+                    "WHERE CustomerID = @CustomerID ", (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@CustomerID", MySqlDbType.Int32).Value = ID;
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -999,7 +1029,10 @@ namespace EliteBlindsAPI.Business
                                 Transport = reader.SafeGetString("Transport"),
                                 OrderM2 = reader.SafeGetDouble("OrderM2"),
                                 Notes = reader.SafeGetString("Notes"),
-                                IsApproved = reader.SafeGetBoolean("IsApproved")
+                                IsApproved = reader.SafeGetBoolean("IsApproved"),
+                                BlindTypeName = reader.SafeGetString("BlindTypeDesc"),
+                                OrderStatusName = reader.SafeGetString("OrderStatusDesc"),
+                                OrderTypeName = reader.SafeGetString("OrderTypeDesc")
                             });
                     }
                 }
@@ -1156,7 +1189,10 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, OrderTypeID,OrderStatusID,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes,IsApproved FROM `Order`" +
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, Order.OrderTypeID,OrderTypeDesc,Order.OrderStatusID,OrderStatusDesc,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,Order.BlindTypeID,BlindTypeDesc,Transport,OrderM2,Notes,IsApproved FROM `Order` " +
+                    "LEFT JOIN ordertype ON ordertype.OrderTypeID = Order.OrderTypeID " +
+                    "LEFT JOIN orderstatus ON orderstatus.orderstatusID = Order.orderstatusID " +
+                    "LEFT JOIN BlindType ON BlindType.BlindTypeID = Order.BlindTypeID " +
                     " " + strFilterBy + " " + strOrderBy, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -1184,7 +1220,10 @@ namespace EliteBlindsAPI.Business
                                 Transport = reader.SafeGetString("Transport"),
                                 OrderM2 = reader.SafeGetDouble("OrderM2"),
                                 Notes = reader.SafeGetString("Notes"),
-                                IsApproved = reader.SafeGetBoolean("IsApproved")
+                                IsApproved = reader.SafeGetBoolean("IsApproved"),
+                                BlindTypeName = reader.SafeGetString("BlindTypeDesc"),
+                                OrderStatusName = reader.SafeGetString("OrderStatusDesc"),
+                                OrderTypeName = reader.SafeGetString("OrderTypeDesc")
                             });
                     }
                 }
@@ -1316,7 +1355,13 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderDetailID, OrderID, Width,Height, SplPelmetWidth, WidthMadeBy, HeightMadeBy, QualityCheckedBy,SlatStyleID,CordStyleID,ReturnRequired,MountType,SquareMeter,ControlID,ControlStyle,OpeningStyle,PelmetStyle,ColorID,MaterialID,Roll,ReadyMadeSize FROM OrderDetail Where OrderDetailID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderDetailID, OrderID, Width,Height, SplPelmetWidth, WidthMadeBy, HeightMadeBy, QualityCheckedBy,OrderDetail.SlatStyleID,SlatStyledesc,OrderDetail.CordStyleID,CordStyleDesc,ReturnRequired,MountType,SquareMeter,OrderDetail.ControlID,ControlDesc,ControlStyle,OpeningStyle,PelmetStyle,OrderDetail.ColorID,ColorsDesc,OrderDetail.MaterialID,MaterialDesc,Roll,ReadyMadeSize FROM OrderDetail " +
+                                        "LEFT JOIN SlatStyle ON SlatStyle.SlatStyleID = OrderDetail.SlatStyleID " +
+                                        "LEFT JOIN CordStyle ON CordStyle.CordStyleID = OrderDetail.CordStyleID " +
+                                        "LEFT JOIN Control ON Control.ControlID = OrderDetail.ControlID " +
+                                        "LEFT JOIN Colors ON Colors.ColorsID = OrderDetail.ColorID " +
+                                        "LEFT JOIN Material ON Material.MaterialID = OrderDetail.MaterialID " +
+                                        "Where OrderDetailID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -1343,7 +1388,12 @@ namespace EliteBlindsAPI.Business
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 MaterialID = reader.SafeGetInt32("MaterialID"),
                                 Roll = reader.SafeGetString("Roll"),
-                                ReadyMadeSize = reader.SafeGetDouble("ReadyMadeSize")
+                                ReadyMadeSize = reader.SafeGetDouble("ReadyMadeSize"),
+                                ColorName = reader.SafeGetString("ColorsDesc"),
+                                ControlName = reader.SafeGetString("ControlDesc"),
+                                CordStyleName = reader.SafeGetString("CordStyleDesc"),
+                                MaterialName = reader.SafeGetString("MaterialDesc"),
+                                SlatStyleName = reader.SafeGetString("SlatStyleDesc")
                             };
                         }
                     }
@@ -1375,7 +1425,12 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderDetailID, OrderID, Width,Height, SplPelmetWidth, WidthMadeBy, HeightMadeBy, QualityCheckedBy,SlatStyleID,CordStyleID,ReturnRequired,MountType,SquareMeter,ControlID,ControlStyle,OpeningStyle,PelmetStyle,ColorID,MaterialID,Roll,ReadyMadeSize FROM OrderDetail ", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderDetailID, OrderID, Width,Height, SplPelmetWidth, WidthMadeBy, HeightMadeBy, QualityCheckedBy,OrderDetail.SlatStyleID,SlatStyledesc,OrderDetail.CordStyleID,CordStyleDesc,ReturnRequired,MountType,SquareMeter,OrderDetail.ControlID,ControlDesc,ControlStyle,OpeningStyle,PelmetStyle,OrderDetail.ColorID,ColorsDesc,OrderDetail.MaterialID,MaterialDesc,Roll,ReadyMadeSize FROM OrderDetail " +
+                                        "LEFT JOIN SlatStyle ON SlatStyle.SlatStyleID = OrderDetail.SlatStyleID " +
+                                        "LEFT JOIN CordStyle ON CordStyle.CordStyleID = OrderDetail.CordStyleID " +
+                                        "LEFT JOIN Control ON Control.ControlID = OrderDetail.ControlID " +
+                                        "LEFT JOIN Colors ON Colors.ColorsID = OrderDetail.ColorID " +
+                                        "LEFT JOIN Material ON Material.MaterialID = OrderDetail.MaterialID " , (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -1401,7 +1456,12 @@ namespace EliteBlindsAPI.Business
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 MaterialID = reader.SafeGetInt32("MaterialID"),
                                 Roll = reader.SafeGetString("Roll"),
-                                ReadyMadeSize = reader.SafeGetDouble("ReadyMadeSize")
+                                ReadyMadeSize = reader.SafeGetDouble("ReadyMadeSize"),
+                                ColorName = reader.SafeGetString("ColorsDesc"),
+                                ControlName = reader.SafeGetString("ControlDesc"),
+                                CordStyleName = reader.SafeGetString("CordStyleDesc"),
+                                MaterialName = reader.SafeGetString("MaterialDesc"),
+                                SlatStyleName = reader.SafeGetString("SlatStyleDesc")
                             });
                     }
                 }
@@ -1432,7 +1492,13 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderDetailID, OrderID, Width,Height, SplPelmetWidth, WidthMadeBy, HeightMadeBy, QualityCheckedBy,SlatStyleID,CordStyleID,ReturnRequired,MountType,SquareMeter,ControlID,ControlStyle,OpeningStyle,PelmetStyle,ColorID,MaterialID,Roll,ReadyMadeSize FROM OrderDetail WHERE OrderDetailID IN (@OrderDetailID)", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderDetailID, OrderID, Width,Height, SplPelmetWidth, WidthMadeBy, HeightMadeBy, QualityCheckedBy,OrderDetail.SlatStyleID,SlatStyledesc,OrderDetail.CordStyleID,CordStyleDesc,ReturnRequired,MountType,SquareMeter,OrderDetail.ControlID,ControlDesc,ControlStyle,OpeningStyle,PelmetStyle,OrderDetail.ColorID,ColorsDesc,OrderDetail.MaterialID,MaterialDesc,Roll,ReadyMadeSize FROM OrderDetail " +
+                                        "LEFT JOIN SlatStyle ON SlatStyle.SlatStyleID = OrderDetail.SlatStyleID " +
+                                        "LEFT JOIN CordStyle ON CordStyle.CordStyleID = OrderDetail.CordStyleID " +
+                                        "LEFT JOIN Control ON Control.ControlID = OrderDetail.ControlID " +
+                                        "LEFT JOIN Colors ON Colors.ColorsID = OrderDetail.ColorID " +
+                                        "LEFT JOIN Material ON Material.MaterialID = OrderDetail.MaterialID " + 
+                                        "WHERE OrderDetailID IN (@OrderDetailID)", (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@OrderDetailIDs", MySqlDbType.VarString).Value = string.Join(",", IDs.ToArray());
 
@@ -1460,7 +1526,12 @@ namespace EliteBlindsAPI.Business
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 MaterialID = reader.SafeGetInt32("MaterialID"),
                                 Roll = reader.SafeGetString("Roll"),
-                                ReadyMadeSize = reader.SafeGetDouble("ReadyMadeSize")
+                                ReadyMadeSize = reader.SafeGetDouble("ReadyMadeSize"),
+                                ColorName = reader.SafeGetString("ColorsDesc"),
+                                ControlName = reader.SafeGetString("ControlDesc"),
+                                CordStyleName = reader.SafeGetString("CordStyleDesc"),
+                                MaterialName = reader.SafeGetString("MaterialDesc"),
+                                SlatStyleName = reader.SafeGetString("SlatStyleDesc")
                             });
                     }
                 }
@@ -1491,7 +1562,13 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderDetailID, OrderID, Width,Height, SplPelmetWidth, WidthMadeBy, HeightMadeBy, QualityCheckedBy,SlatStyleID,CordStyleID,ReturnRequired,MountType,SquareMeter,ControlID,ControlStyle,OpeningStyle,PelmetStyle,ColorID,MaterialID,Roll,ReadyMadeSize FROM OrderDetail WHERE OrderID IN (@OrderIDs)", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderDetailID, OrderID, Width,Height, SplPelmetWidth, WidthMadeBy, HeightMadeBy, QualityCheckedBy,OrderDetail.SlatStyleID,SlatStyledesc,OrderDetail.CordStyleID,CordStyleDesc,ReturnRequired,MountType,SquareMeter,OrderDetail.ControlID,ControlDesc,ControlStyle,OpeningStyle,PelmetStyle,OrderDetail.ColorID,ColorsDesc,OrderDetail.MaterialID,MaterialDesc,Roll,ReadyMadeSize FROM OrderDetail " +
+                                        "LEFT JOIN SlatStyle ON SlatStyle.SlatStyleID = OrderDetail.SlatStyleID " +
+                                        "LEFT JOIN CordStyle ON CordStyle.CordStyleID = OrderDetail.CordStyleID " +
+                                        "LEFT JOIN Control ON Control.ControlID = OrderDetail.ControlID " +
+                                        "LEFT JOIN Colors ON Colors.ColorsID = OrderDetail.ColorID " +
+                                        "LEFT JOIN Material ON Material.MaterialID = OrderDetail.MaterialID " +
+                                        "WHERE OrderID IN (@OrderIDs)", (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@OrderIDs", MySqlDbType.VarString).Value = string.Join(",", IDs.ToArray());
 
@@ -1519,7 +1596,12 @@ namespace EliteBlindsAPI.Business
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 MaterialID = reader.SafeGetInt32("MaterialID"),
                                 Roll = reader.SafeGetString("Roll"),
-                                ReadyMadeSize = reader.SafeGetDouble("ReadyMadeSize")
+                                ReadyMadeSize = reader.SafeGetDouble("ReadyMadeSize"),
+                                ColorName = reader.SafeGetString("ColorsDesc"),
+                                ControlName = reader.SafeGetString("ControlDesc"),
+                                CordStyleName = reader.SafeGetString("CordStyleDesc"),
+                                MaterialName = reader.SafeGetString("MaterialDesc"),
+                                SlatStyleName = reader.SafeGetString("SlatStyleDesc")
                             });
                     }
                 }
@@ -1717,7 +1799,9 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, OrderTypeID,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder Where UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, UtilityOrder.OrderTypeID, OrderTypeDesc,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder " +
+                                                            "LEFT JOIN OrderType ON OrderType.OrderTypeID = UtilityOrder.OrderTypeID " +
+                                                            "Where UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -1730,7 +1814,8 @@ namespace EliteBlindsAPI.Business
                                 OrderTypeID = reader.SafeGetInt32("OrderTypeID"),
                                 OrderDate = reader.SafeGetDateTime("OrderDate"),
                                 CompleteDate = reader.SafeGetDateTime("CompleteDate"),
-                                IsApproved = reader.SafeGetBoolean("IsApproved")
+                                IsApproved = reader.SafeGetBoolean("IsApproved"),
+                                OrderTypeName = reader.SafeGetString("OrderTypeDesc")
                             };
                         }
                     }
@@ -1762,7 +1847,8 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, OrderTypeID,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, UtilityOrder.OrderTypeID, OrderTypeDesc,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder " +
+                                                                "LEFT JOIN OrderType ON OrderType.OrderTypeID = UtilityOrder.OrderTypeID " , (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -1774,7 +1860,8 @@ namespace EliteBlindsAPI.Business
                                 OrderTypeID = reader.SafeGetInt32("OrderTypeID"),
                                 OrderDate = reader.SafeGetDateTime("OrderDate"),
                                 CompleteDate = reader.SafeGetDateTime("CompleteDate"),
-                                IsApproved = reader.SafeGetBoolean("IsApproved")
+                                IsApproved = reader.SafeGetBoolean("IsApproved"),
+                                OrderTypeName = reader.SafeGetString("OrderTypeDesc")
                             });
                     }
                 }
@@ -1805,7 +1892,9 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, OrderTypeID,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder WHERE CustomerID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, UtilityOrder.OrderTypeID, OrderTypeDesc,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder " +
+                                                                "LEFT JOIN OrderType ON OrderType.OrderTypeID = UtilityOrder.OrderTypeID " +
+                                                                "WHERE CustomerID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -1817,7 +1906,8 @@ namespace EliteBlindsAPI.Business
                                 OrderTypeID = reader.SafeGetInt32("OrderTypeID"),
                                 OrderDate = reader.SafeGetDateTime("OrderDate"),
                                 CompleteDate = reader.SafeGetDateTime("CompleteDate"),
-                                IsApproved = reader.SafeGetBoolean("IsApproved")
+                                IsApproved = reader.SafeGetBoolean("IsApproved"),
+                                OrderTypeName = reader.SafeGetString("OrderTypeDesc")
                             });
                     }
                 }
@@ -1863,8 +1953,9 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, OrderTypeID,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder" +
-                " " + strFilterBy, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, UtilityOrder.OrderTypeID, OrderTypeDesc,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder" +
+                                                                "LEFT JOIN OrderType ON OrderType.OrderTypeID = UtilityOrder.OrderTypeID " +
+                                                                " " + strFilterBy, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -1876,7 +1967,8 @@ namespace EliteBlindsAPI.Business
                                 OrderTypeID = reader.SafeGetInt32("OrderTypeID"),
                                 OrderDate = reader.SafeGetDateTime("OrderDate"),
                                 CompleteDate = reader.SafeGetDateTime("CompleteDate"),
-                                IsApproved = reader.SafeGetBoolean("IsApproved")
+                                IsApproved = reader.SafeGetBoolean("IsApproved"),
+                                OrderTypeName = reader.SafeGetString("OrderTypeDesc")
                             });
                     }
                 }
@@ -2070,8 +2162,9 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, OrderTypeID,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder" +
-                    " " + strFilterBy + " " + strOrderBy, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, UtilityOrder.OrderTypeID, OrderTypeDesc,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder" +
+                                                                "LEFT JOIN OrderType ON OrderType.OrderTypeID = UtilityOrder.OrderTypeID " +
+                                                                " " + strFilterBy + " " + strOrderBy, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2083,7 +2176,8 @@ namespace EliteBlindsAPI.Business
                                 OrderTypeID = reader.SafeGetInt32("OrderTypeID"),
                                 OrderDate = reader.SafeGetDateTime("OrderDate"),
                                 CompleteDate = reader.SafeGetDateTime("CompleteDate"),
-                                IsApproved = reader.SafeGetBoolean("IsApproved")
+                                IsApproved = reader.SafeGetBoolean("IsApproved"),
+                                OrderTypeName = reader.SafeGetString("OrderTypeDesc")
                             });
                     }
                 }
@@ -2200,7 +2294,10 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, FabricID, FabricType, ColorID, SizeID, Boxes FROM Fabric Where FabricID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, FabricID, FabricType, Fabric.ColorID, ColorsDesc, Fabric.SizeID, SizeDesc, Boxes FROM Fabric " +
+                                                                "LEFT JOIN Size ON Size.SizeID = Fabric.SizeID " +
+                                                                "LEFT JOIN Colors ON Colors.ColorsID = Fabric.ColorID " +
+                                                                "Where FabricID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2213,7 +2310,9 @@ namespace EliteBlindsAPI.Business
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 Boxes = reader.SafeGetInt32("Boxes"),
                                 UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
-                                SizeID = reader.SafeGetInt32("SizeID")
+                                SizeID = reader.SafeGetInt32("SizeID"),
+                                ColorName = reader.SafeGetString("ColorsDesc"),
+                                SizeValue = reader.SafeGetString("SizeDesc"),
                             };
                         }
                     }
@@ -2245,7 +2344,9 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, FabricID, FabricType, ColorID, SizeID, Boxes FROM Fabric", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, FabricID, FabricType, Fabric.ColorID, ColorsDesc, Fabric.SizeID, SizeDesc, Boxes FROM Fabric " +
+                                                "LEFT JOIN Size ON Size.SizeID = Fabric.SizeID " +
+                                                "LEFT JOIN Colors ON Colors.ColorsID = Fabric.ColorID " , (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2257,7 +2358,9 @@ namespace EliteBlindsAPI.Business
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 Boxes = reader.SafeGetInt32("Boxes"),
-                                SizeID = reader.SafeGetInt32("SizeID")
+                                SizeID = reader.SafeGetInt32("SizeID"),
+                                ColorName = reader.SafeGetString("ColorsDesc"),
+                                SizeValue = reader.SafeGetString("SizeDesc"),
                             });
                     }
                 }
@@ -2288,7 +2391,10 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, FabricID, FabricType, ColorID, SizeID, Boxes FROM Fabric WHERE UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, FabricID, FabricType, Fabric.ColorID, ColorsDesc, Fabric.SizeID, SizeDesc, Boxes FROM Fabric " +
+                                 "LEFT JOIN Size ON Size.SizeID = Fabric.SizeID " +
+                                 "LEFT JOIN Colors ON Colors.ColorsID = Fabric.ColorID " +
+                                 "WHERE UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2300,7 +2406,9 @@ namespace EliteBlindsAPI.Business
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 Boxes = reader.SafeGetInt32("Boxes"),
-                                SizeID = reader.SafeGetInt32("SizeID")
+                                SizeID = reader.SafeGetInt32("SizeID"),
+                                ColorName = reader.SafeGetString("ColorsDesc"),
+                                SizeValue = reader.SafeGetString("SizeDesc"),
                             });
                     }
                 }
@@ -2955,7 +3063,11 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT ValanceID, MaterialID, ColorID, SizeID, UtilityOrderID, Boxes FROM Valance Where ValanceID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT ValanceID, Valance.MaterialID, Valance.ColorID, Valance.SizeID, UtilityOrderID, Boxes, ColorsDesc,MaterialDesc,SizeDesc FROM Valance" +
+                    "LEFT JOIN Size ON Size.SizeID = Valance.SizeID " +
+                    "LEFT JOIN Material ON Size.MaterialID = Valance.MaterialID " +
+                    "LEFT JOIN Colors ON Colors.ColorsID = Valance.ColorID " +
+                    "Where ValanceID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2968,7 +3080,10 @@ namespace EliteBlindsAPI.Business
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 Boxes = reader.SafeGetInt32("Boxes"),
-                                SizeID = reader.SafeGetInt32("SizeID")
+                                SizeID = reader.SafeGetInt32("SizeID"),
+                                ColorName = reader.SafeGetString("ColorsDesc"),
+                                MaterialName = reader.SafeGetString("MaterialDesc"),
+                                SizeVal = reader.SafeGetString("SizeDesc")
                             };
                         }
                     }
@@ -3000,7 +3115,10 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT ValanceID, MaterialID, ColorID, SizeID, UtilityOrderID, Boxes FROM Valance", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT ValanceID, Valance.MaterialID, Valance.ColorID, Valance.SizeID, UtilityOrderID, Boxes, ColorsDesc,MaterialDesc,SizeDesc FROM Valance" +
+                    "LEFT JOIN Size ON Size.SizeID = Valance.SizeID " +
+                    "LEFT JOIN Material ON Size.MaterialID = Valance.MaterialID " +
+                    "LEFT JOIN Colors ON Colors.ColorsID = Valance.ColorID " , (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3012,7 +3130,10 @@ namespace EliteBlindsAPI.Business
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 Boxes = reader.SafeGetInt32("Boxes"),
-                                SizeID = reader.SafeGetInt32("SizeID")
+                                SizeID = reader.SafeGetInt32("SizeID"),
+                                ColorName = reader.SafeGetString("ColorsDesc"),
+                                MaterialName = reader.SafeGetString("MaterialDesc"),
+                                SizeVal = reader.SafeGetString("SizeDesc")
                             });
                     }
                 }
@@ -3043,7 +3164,11 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT ValanceID, MaterialID, ColorID, SizeID, UtilityOrderID, Boxes FROM Valance WHERE UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT ValanceID, Valance.MaterialID, Valance.ColorID, Valance.SizeID, UtilityOrderID, Boxes, ColorsDesc,MaterialDesc,SizeDesc FROM Valance" +
+                    "LEFT JOIN Size ON Size.SizeID = Valance.SizeID " +
+                    "LEFT JOIN Material ON Size.MaterialID = Valance.MaterialID " +
+                    "LEFT JOIN Colors ON Colors.ColorsID = Valance.ColorID " + 
+                    "WHERE UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3055,7 +3180,10 @@ namespace EliteBlindsAPI.Business
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 Boxes = reader.SafeGetInt32("Boxes"),
-                                SizeID = reader.SafeGetInt32("SizeID")
+                                SizeID = reader.SafeGetInt32("SizeID"),
+                                ColorName = reader.SafeGetString("ColorsDesc"),
+                                MaterialName = reader.SafeGetString("MaterialDesc"),
+                                SizeVal = reader.SafeGetString("SizeDesc")
                             });
                     }
                 }
@@ -3224,7 +3352,11 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT BottomRailID, MaterialID, ColorID, SizeID, UtilityOrderID, Boxes FROM BottomRail Where BottomRailID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT BottomRailID, MaterialID, ColorID, SizeID, UtilityOrderID, Boxes, ColorsDesc, MaterialDesc, SizeDesc FROM BottomRail " +
+                                                                "LEFT JOIN Size ON Size.SizeID = BottomRail.SizeID " +
+                                                                "LEFT JOIN Material ON Size.MaterialID = BottomRail.MaterialID " +
+                                                                "LEFT JOIN Colors ON Colors.ColorsID = BottomRail.ColorID " +
+                                                                " Where BottomRailID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3237,7 +3369,10 @@ namespace EliteBlindsAPI.Business
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 Boxes = reader.SafeGetInt32("Boxes"),
-                                SizeID = reader.SafeGetInt32("SizeID")
+                                SizeID = reader.SafeGetInt32("SizeID"),
+                                ColorName = reader.SafeGetString("ColorsDesc"),
+                                MaterialName = reader.SafeGetString("MaterialDesc"),
+                                SizeVal = reader.SafeGetString("SizeDesc")
                             };
                         }
                     }
@@ -3269,7 +3404,10 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT BottomRailID, MaterialID, ColorID, SizeID, UtilityOrderID, Boxes FROM BottomRail", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT BottomRailID, MaterialID, ColorID, SizeID, UtilityOrderID, Boxes, ColorsDesc, MaterialDesc, SizeDesc FROM BottomRail " +
+                                                "LEFT JOIN Size ON Size.SizeID = BottomRail.SizeID " +
+                                                "LEFT JOIN Material ON Size.MaterialID = BottomRail.MaterialID " +
+                                                "LEFT JOIN Colors ON Colors.ColorsID = BottomRail.ColorID " , (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3281,7 +3419,10 @@ namespace EliteBlindsAPI.Business
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 Boxes = reader.SafeGetInt32("Boxes"),
-                                SizeID = reader.SafeGetInt32("SizeID")
+                                SizeID = reader.SafeGetInt32("SizeID"),
+                                ColorName = reader.SafeGetString("ColorsDesc"),
+                                MaterialName = reader.SafeGetString("MaterialDesc"),
+                                SizeVal = reader.SafeGetString("SizeDesc")
                             });
                     }
                 }
@@ -3312,7 +3453,11 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT BottomRailID, MaterialID, ColorID, SizeID, UtilityOrderID, Boxes FROM BottomRail WHERE UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT BottomRailID, MaterialID, ColorID, SizeID, UtilityOrderID, Boxes, ColorsDesc, MaterialDesc, SizeDesc FROM BottomRail " +
+                                                "LEFT JOIN Size ON Size.SizeID = BottomRail.SizeID " +
+                                                "LEFT JOIN Material ON Size.MaterialID = BottomRail.MaterialID " +
+                                                "LEFT JOIN Colors ON Colors.ColorsID = BottomRail.ColorID " +
+                                                "WHERE UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3324,7 +3469,10 @@ namespace EliteBlindsAPI.Business
                                 ColorID = reader.SafeGetInt32("ColorID"),
                                 UtilityOrderID = reader.SafeGetInt32("UtilityOrderID"),
                                 Boxes = reader.SafeGetInt32("Boxes"),
-                                SizeID = reader.SafeGetInt32("SizeID")
+                                SizeID = reader.SafeGetInt32("SizeID"),
+                                ColorName = reader.SafeGetString("ColorsDesc"),
+                                MaterialName = reader.SafeGetString("MaterialDesc"),
+                                SizeVal = reader.SafeGetString("SizeDesc")
                             });
                     }
                 }

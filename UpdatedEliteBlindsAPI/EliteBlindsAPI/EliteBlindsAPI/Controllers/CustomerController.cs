@@ -19,14 +19,22 @@ namespace EliteBlindsAPI.Controllers
         [Route("GetCustomer")]
         public string GetCustomer()
         {
-            var json = new JavaScriptSerializer().Serialize(BusinessObj.GetCustomers());
+            var json = JsonConvert.SerializeObject(BusinessObj.GetCustomers(), Formatting.Indented,
+                       new JsonSerializerSettings
+                       {
+                           DateFormatHandling = DateFormatHandling.IsoDateFormat
+                       });
             return json ;
         }
         
         [Route("GetCustomer/{CustId}")]
         public string GetCustomer(int CustId)
         {
-            var json = new JavaScriptSerializer().Serialize(BusinessObj.GetCustomer(CustId));
+            var json = JsonConvert.SerializeObject(BusinessObj.GetCustomer(CustId), Formatting.Indented,
+              new JsonSerializerSettings
+              {
+                  DateFormatHandling = DateFormatHandling.IsoDateFormat
+              });
             return json;
         }
 
@@ -76,35 +84,55 @@ namespace EliteBlindsAPI.Controllers
         [Route("SearchOrders/{CustId}/{FilterBy}/{SearchCriteria}/{OrderBy}")]
         public string GetSearchOrders(int CustId,string FilterBy, string SearchCriteria, string OrderBy)
         {
-            var json = new JavaScriptSerializer().Serialize(BusinessObj.GetCustOrders(CustId,FilterBy, SearchCriteria,OrderBy));
+            var json = JsonConvert.SerializeObject(BusinessObj.GetCustOrders(CustId, FilterBy, SearchCriteria, OrderBy), Formatting.Indented,
+                         new JsonSerializerSettings
+                         {
+                             DateFormatHandling = DateFormatHandling.IsoDateFormat
+                         });
             return json;
         }
 
         [Route("SearchUtilityOrders/{CustId}/{FilterBy}/{SearchCriteria}/{OrderBy}")]
         public string GetSearchUtilityOrders(int CustId, string FilterBy, string SearchCriteria, string OrderBy)
         {
-            var json = new JavaScriptSerializer().Serialize(BusinessObj.GetCustomerUtilityOrders(CustId, FilterBy, SearchCriteria, OrderBy));
+            var json = JsonConvert.SerializeObject(BusinessObj.GetCustomerUtilityOrders(CustId, FilterBy, SearchCriteria, OrderBy), Formatting.Indented,
+                         new JsonSerializerSettings
+                         {
+                             DateFormatHandling = DateFormatHandling.IsoDateFormat
+                         });
             return json;
         }
 
         [Route("GetOrder/{OrderID}")]
         public string GetOrder(int OrderID)
         {
-            var json = new JavaScriptSerializer().Serialize(BusinessObj.GetOrder(OrderID));
+            var json = JsonConvert.SerializeObject(BusinessObj.GetOrder(OrderID), Formatting.Indented,
+                         new JsonSerializerSettings
+                         {
+                             DateFormatHandling = DateFormatHandling.IsoDateFormat
+                         });
             return json;
         }
 
-        [Route("GetOrderDetails/{OrderDetailsID}")]
+        [Route("GetOrderDetail/{OrderDetailsID}")]
         public string GetOrderDetail(int OrderDetailsID)
         {
-            var json = new JavaScriptSerializer().Serialize(BusinessObj.GetOrderDetail(OrderDetailsID));
+            var json = JsonConvert.SerializeObject(BusinessObj.GetOrderDetail(OrderDetailsID), Formatting.Indented,
+                         new JsonSerializerSettings
+                         {
+                             DateFormatHandling = DateFormatHandling.IsoDateFormat
+                         });
             return json;
         }
 
         [Route("GetOrderDetails/{OrderID}")]
         public string GetOrderDetails(int OrderID)
         {
-            var json = new JavaScriptSerializer().Serialize(BusinessObj.GetOrderDetails(OrderID));
+            var json = JsonConvert.SerializeObject(BusinessObj.GetOrderDetails(OrderID), Formatting.Indented,
+                         new JsonSerializerSettings
+                         {
+                             DateFormatHandling = DateFormatHandling.IsoDateFormat
+                         });
             return json;
         }
 
@@ -118,28 +146,44 @@ namespace EliteBlindsAPI.Controllers
         [Route("GetUtilityOrder/{OrderID}")]
         public string GetUtilityOrder(int OrderID)
         {
-            var json = new JavaScriptSerializer().Serialize(BusinessObj.GetUtilityOrder(OrderID));
+            var json = JsonConvert.SerializeObject(BusinessObj.GetUtilityOrder(OrderID), Formatting.Indented,
+                         new JsonSerializerSettings
+                         {
+                             DateFormatHandling = DateFormatHandling.IsoDateFormat
+                         });
             return json;
         }
 
         [Route("GetUtilityOrders/{CustID}")]
         public string GetUtilityOrders(int CustId)
         {
-            var json = new JavaScriptSerializer().Serialize(BusinessObj.GetUtilityOrders(CustId));
+            var json = JsonConvert.SerializeObject(BusinessObj.GetUtilityOrders(CustId), Formatting.Indented,
+                         new JsonSerializerSettings
+                         {
+                             DateFormatHandling = DateFormatHandling.IsoDateFormat
+                         });
             return json;
         }
 
         [Route("GetUtilityOrderDetails/{CustID}")]
         public string GetUtilityOrderDetail(int CustID)
         {
-            var json = new JavaScriptSerializer().Serialize(BusinessObj.GetCustomerUtilityOrders(CustID, "","", ""));
+            var json = JsonConvert.SerializeObject(BusinessObj.GetCustomerUtilityOrders(CustID, "", "", ""), Formatting.Indented,
+                         new JsonSerializerSettings
+                         {
+                             DateFormatHandling = DateFormatHandling.IsoDateFormat
+                         });
             return json;
         }
 
         [Route("GetAllCustomerOrders/{CustID}")]
         public string GetAllCustomerOrders(int CustID)
         {
-            var json = new JavaScriptSerializer().Serialize(BusinessObj.GetAllCustomerOrders(CustID));
+            var json = JsonConvert.SerializeObject(BusinessObj.GetAllCustomerOrders(CustID), Formatting.Indented,
+                         new JsonSerializerSettings
+                         {
+                             DateFormatHandling = DateFormatHandling.IsoDateFormat
+                         });
             return json;
         }
 
