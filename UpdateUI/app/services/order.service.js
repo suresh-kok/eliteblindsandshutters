@@ -45,6 +45,12 @@ var OrderMiscService = /** @class */ (function () {
         var headers = new http_1.HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
         return this.http.post(this.rootUrl + "OrderDetails", JSON.stringify(orderDetails), { headers: headers });
     };
+    OrderMiscService.prototype.GetOrders = function (CustomerID, FilterBy, SearchCriteria, OrderBy) {
+        return this.http.get(this.rootUrl + "SearchOrders/" + CustomerID + "/" + FilterBy + "/" + SearchCriteria + "/" + OrderBy);
+    };
+    OrderMiscService.prototype.GetOrderDetails = function (OrderId) {
+        return this.http.get(this.rootUrl + "GetOrderDetail/" + OrderId);
+    };
     OrderMiscService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.HttpClient])
