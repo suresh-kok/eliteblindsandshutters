@@ -1,0 +1,66 @@
+<ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" #home [class.disabled]="enableCheckOut" id="homeTab"
+           data-toggle="tab" href="#newOrder">New Order</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" #details [class.disabled]="enableCheckOut" id="orderDetailsTab" data-toggle="tab" href="#orderDetails">Order Details</a>
+        </li>
+        <!-- <li class="nav-item"  [class.active]="enableCheckOut" >
+                <a #extra class="nav-link" id="extraTab" data-toggle="tab" href="#extraDetails">Extra Information</a>
+              </li> -->
+        
+</ul>
+<div id="myTabContent" class="tab-content">
+<div id="newOrder">
+        <form>
+                <fieldset>
+                  <legend>Add Items to your order</legend>
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                                <label for="width">Width</label>
+                                <input type="text" class="form-control"  name="width" id="width" placeholder="Width">
+                                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                              </div>
+                              <div class="form-group">
+                                <label for="height">Height</label>
+                                <input type="text" class="form-control" name="height" id="height" placeholder="Height">
+                              </div>
+                              <div class="form-group">
+                                    <label for="material">Material</label>
+                                    <select class="form-control" name="material" id="material">
+                                      <option>Blockout(colorfull world)</option>
+                                      <option>Sunscreen(deluxeview)</option>
+                                      <option>Blockout(opera)</option>
+                                      <option>Translucent(opera)</option>
+                                    </select>
+                                </div> 
+                                <div class="form-group">
+                                        <label for="color">color</label>
+                                        <select class="form-control" name="color" id="color">
+                                          <option>Alaskan Snow(Ice)</option>
+                                          <option>California Cream(Syllabub)</option>
+                                          <option>Santa Monica Seashell(Moon)</option>
+                                          <option>Caribbean Cream(Loft)</option>
+                                        </select>
+                                    </div> 
+                                    <div class="form-group">
+                                            <label for="control">Control</label>
+                                            <select class="form-control" name="control" id="control">
+                                              <option>Left</option>
+                                              <option>Right</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                                <label for="mount">Mount</label>
+                                                <select class="form-control" name="mount" id="mount">
+                                                  <option>In</option>
+                                                  <option>Out</option>
+                                                </select>
+                                            </div>  
+                                            <button class="btn btn-primary">Add Item</button>                         
+                  </div>
+                </fieldset>
+                </form>
+</div>
+</div>

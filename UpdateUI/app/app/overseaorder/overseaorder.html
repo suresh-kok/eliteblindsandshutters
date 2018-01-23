@@ -1,0 +1,194 @@
+<div *ngIf="!OrderConfirmed">
+<ul class="nav nav-tabs">
+        <li class="nav-item">
+                <a class="nav-link active" #basic [class.disabled]="enableCheckOut" id="basicTab" data-toggle="tab" href="#basic">Basic Information</a>
+              </li>
+        <li class="nav-item">
+          <a class="nav-link active" #home [class.disabled]="enableCheckOut" id="homeTab" data-toggle="tab" href="#home">Add Items</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" #details [class.disabled]="enableCheckOut" id="orderDetailsTab" data-toggle="tab" href="#orderDetails">Order Details</a>
+        </li>
+        <li class="nav-item"  [class.active]="enableCheckOut" >
+                <a #extra class="nav-link" id="extraTab" data-toggle="tab" href="#extraDetails">Extra Information</a>
+              </li>
+        
+</ul>
+<div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade" id="basic">
+    <order-type [order]="3" (notify)='onNotify($event)'></order-type>
+        </div>
+        <div class="tab-pane fade" id="home">
+                        <form>
+                                <fieldset>
+                                  <legend>Add Items to your order</legend>
+                                  <div class="row">
+                                      <div class="pull-right">
+                                      <button (click)="AddItem()" class="btn btn-primary">Add Item</button>
+                                      <button  (click)="Proceed()" class="btn btn-primary">View Order</button>
+                                    </div>
+                                    </div>
+                                  <div class="row">
+                                  <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                                <label for="width">Width</label>
+                                                <input type="text" class="form-control" [(ngModel)]="OrderDetail.Width"  name="width" id="width" placeholder="Width">
+                                                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="height">Height</label>
+                                                <input type="text" class="form-control" [(ngModel)]="OrderDetail.Height" name="height" id="height" placeholder="Height">
+                                              </div>
+                                              <div class="form-group" *ngIf="OrderInitiation.BlindTypeID=='2'">
+                                                    <label for="pelmetWidth">Special Pelmet Width</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="OrderDetail.SplPelmetWidth" name="pelmetWidth" id="pelmetWidth" placeholder="Pelmet Width">
+                                                  </div>  
+                                                  <div class="form-group" *ngIf="cordStyles">
+                                                        <label for="cordStyle">Cord Style</label>
+                                                        <select class="form-control" name="cordStyle" [(ngModel)]="OrderDetail.CordStyleID" (change)="onCordChange()" id="cordStyle">
+                                                                <option selected value="0">Select Cord Style</option>
+                                                         <option *ngFor="let cord of cordStyles" value="{{cord.CordStyleID}}">{{cord.CordStyleDesc}}</option>
+                                                        </select>
+                                                      </div>
+                                                      <div class="form-group" *ngIf="OrderInitiation.BlindTypeID=='2'">
+                                                            <label for="returnRequired">Return Required</label>
+                                                            <select   name="returnRequired"  [(ngModel)]="OrderDetail.ReturnRequired" (change)="onReturnChange()"  class="form-control" id="returnRequired">
+                                                              <option value="true">Yes</option>
+                                                              <option value="false">No</option>
+                                                            </select>
+                                                          </div>            
+                                              <div class="form-group" *ngIf="materialList">
+                                                    <label for="material">Material</label>
+                                                    <select class="form-control" (change)="OnMaterialChange()" [(ngModel)]="OrderDetail.MaterialID" name="material" id="material">
+                                                      <option selected value="0">Select Material</option>
+                                                      <option *ngFor="let item of materialList" value="{{item.MaterialID}}">{{item.MaterialDesc}}</option>
+                                                    </select>
+                                                </div> 
+                       
+                                  </div>
+<div class="col-lg-6 col-md-6">
+        <div class="form-group" *ngIf="colors">
+                <label for="color">color</label>
+                <select class="form-control" (change)="onColorChange()" [(ngModel)]="OrderDetail.ColorID" name="color" id="color">
+                  <option selected value="0">Select Color</option>
+                  <option *ngFor="let item of colors" value="{{item.ColorsID}}">{{item.ColorsDesc}}</option>
+                </select>
+            </div> 
+            <div class="form-group" *ngIf="controls">
+                    <label for="control">Control</label>
+                    <select class="form-control" (change)="onControlChange()" [(ngModel)]="OrderDetail.ControlID" name="control" id="control">
+                      <option selected value="0">Select Control</option>
+                      <option *ngFor="let item of controls" value="{{item.ControlID}}">{{item.ControlDesc}}</option>
+                    </select>
+                </div>
+        <div class="form-group" *ngIf="OrderInitiation.BlindTypeID!='2'">
+                        <label for="control">Control Style</label>
+                        <select class="form-control" [(ngModel)]="OrderDetail.ControlStyle" name="controlStyle" id="controlStyle">
+                          <option>Left</option>
+                          <option>Right</option>
+                        </select>
+        </div>
+        <div class="form-group" *ngIf="OrderInitiation.BlindTypeID=='1'">
+                <label for="control">Opening Style</label>
+                <select class="form-control" [(ngModel)]="OrderDetail.OpeningStyle" name="openingStyle" id="openingStyle">
+                  <option>Left</option>
+                  <option>Right</option>
+                </select>
+</div>
+<div class="form-group"  *ngIf="OrderInitiation.BlindTypeID=='1'">
+        <label for="control">Pelmet Style</label>
+        <select class="form-control"  [(ngModel)]="OrderDetail.PelmetStyle"  name="pelmetStyle" id="pelmetStyle">
+          <option>Left</option>
+          <option>Right</option>
+        </select>
+</div>
+                <div class="form-group">
+                        <label for="mount">Mount</label>
+                        <select class="form-control"  [(ngModel)]="OrderDetail.MountType" (change)="onMountChange()" name="mount" id="mount">
+                                <option value="true">In</option>
+                                <option value="false">Out</option>
+                        </select>
+                    </div>  
+                    <div class="form-group" *ngIf="OrderInitiation.BlindTypeID=='5'">
+                            <label for="roll">Roll</label>
+                            <select class="form-control" [(ngModel)]="OrderDetail.RollText" name="roll" id="roll">
+                              <option>Standard</option>
+                              <option>Reverse</option>
+                            </select>
+                        </div>  
+
+</div>
+</div>
+                                </fieldset>
+                                </form>
+             
+        </div>
+
+<div class="tab-pane fade" id="orderDetails">
+        <div class="row">
+                <div class="col-lg-offset-10 col-md-offset-10">
+                    <button (click)="OrderConfirm()" class="btn btn-primary">Confirm Order</button>
+                </div>
+            </div>
+<div class="row">
+<table class="table table-responsive table-condensed table-hover">
+<thead>
+    <tr class="table-info">
+        <th>Material</th>
+        <th>Color</th>
+        <th>Control</th>
+        <th *ngIf="OrderInitiation.BlindTypeID!='2'">Control Style</th>
+        <th *ngIf="OrderInitiation.BlindTypeID=='5'">Roll</th>
+        <th *ngIf="OrderInitiation.BlindTypeID=='1'">Opening Style</th>
+        <th *ngIf="OrderInitiation.BlindTypeID=='1'">Pelmet</th>
+        <th>Mount</th>
+        <th>Make Width</th>
+        <th>Make Height</th>
+        <th *ngIf="OrderInitiation.BlindTypeID=='2'">Special Pelmet Width</th>
+        <th *ngIf="OrderInitiation.BlindTypeID=='2'">Cord Style</th>
+        <th *ngIf="OrderInitiation.BlindTypeID=='2'">Return Required</th>
+        <th>Ready Made Size</th>
+        <th>Square Meter</th>
+        <th>Delete</th>
+    </tr>
+</thead>
+<tbody>
+    <tr *ngFor="let item of OrderDetails">
+        <td>{{item.MaterialText}}</td>
+        <td>{{item.ColorText}}</td>
+        <td>{{item.ControlText}}</td>
+        <td *ngIf="OrderInitiation.BlindTypeID=='1'">{{item.ControlStyle}}</td>
+        <td *ngIf="OrderInitiation.BlindTypeID=='5'">{{item.RollText}</td>
+        <td *ngIf="OrderInitiation.BlindTypeID=='1'">{{item.OpeningStyle}}</td>
+        <td *ngIf="OrderInitiation.BlindTypeID=='1'">{{item.PelmetStyle}}</td>
+        <td>{{item.MountTypeText}}</td>
+        <td>{{item.Width}}</td>
+        <td>{{item.Height}}</td>
+        <td *ngIf="OrderInitiation.BlindTypeID=='2'">{{item.SplPelmetWidth}}</td>
+        <td *ngIf="OrderInitiation.BlindTypeID=='2'">{{item.cordStyleText}}</td>
+        <td *ngIf="OrderInitiation.BlindTypeID=='2'">{{item.ReturnRequiredText}}</td>
+        <td>{{item.ReadyMadeSize}}</td>
+        <td>{{item.SquareMeter}}</td>
+        <td><a (click)="Delete(item)">Delete</a></td>
+
+    </tr>
+</tbody>
+</table>
+</div>
+    </div>
+    <div class="tab-pane fade" id="extraDetails">
+            <div class="row">
+                    <div class="form-group">
+                          <label for="info">Extra Information</label>
+                          <textarea class="form-control" name="info" [(ngModel)]="OrderInitiation.Notes" id="info" placeholder=""></textarea>
+                    </div>
+                    <div class="form-group">
+                          <button class="btn btn-primary" (click)="SaveOrder()">Submit Order</button>
+                    </div>
+                  </div>
+    </div>
+</div>
+</div>
+<div *ngIf="OrderConfirmed">
+        <overseaorder-list [orderPlaced]="true" [orderDetails]="OrderDetails" [orderInitiate]="OrderInitiation"></overseaorder-list>
+    </div>
