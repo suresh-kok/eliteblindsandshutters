@@ -51,5 +51,11 @@ export class OrderMiscService {
     {
         return this.http.get(this.rootUrl+"GetOrderDetails/"+OrderId);
     }
+    ApproveOrder(OrderId){
+      return this.http.get(this.rootUrl+"ApproveOrders/"+OrderId);
+    }
+    ChangeOrderStatus(OrderID, Status){
+      return this.http.get(this.rootUrl+"ChangeOrderStatus/"+OrderID+"/"+Status);
+    }
 
 }

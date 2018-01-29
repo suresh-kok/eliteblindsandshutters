@@ -1,10 +1,39 @@
 <h3>
     Welcome to ELITE BLINDS & SHUTTERS
 </h3>
+<div class="row" *ngIf="!ViewDetailsBool">
+    <div class="col-lg-5 col-md-5">
+        <div class="form-group">
+            <label for="searchBy">Search By</label>
+            <select class="form-control" [(ngModel)]="Criteria" name="searchBy" id="searchBy">
+                <option selected value="select">Select Criteria</option>
+                <option value="company">Company</option>
+                <option value="ordertype">Order Type</option>
+                <option value="orderstatus">Order Status</option>
+                <option value="completedate">Completed Date</option>
+                <option value="deliverydate">Delivery Date</option>
+                <option value="departuredate">Departure Date</option>
+                <option value="arrivaldate">Arrival Date</option>
+                <!-- <option value="isapproved">Approved</option> -->
+            </select>
+      </div>
+    </div>
+    <div class="col-lg-5 col-md-5">
+        <div class="form-group">
+            <label for="criteria">Search Value</label>
+            <input type="text" class="form-control" name="criteria" [(ngModel)]="Value" id="criteria" placeholder="Value"/>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group">
+        <button class="btn btn-primary" style="margin-top:1.6em;" (click)="Search()"  >Search</button>
+    </div>
+    </div>
+</div>
 <div class="row" *ngIf="!ViewDetailsBool" style="height:auto;overflow-y:auto;">
     <h5>Order Information</h5>
     <div class="col-lg-12 col-md-12">
-    <table  class="table table-condensed table-striped table-hover">
+    <table *ngIf="OrderInfoList"  class="table table-condensed table-striped table-hover">
             <thead>
                 <tr class="table-info">
                         <th>Details</th>
@@ -31,23 +60,40 @@
                             <td>{{OrderInfo.OrderTypeName}}</td>
                         <td>{{OrderInfo.OrderID}}</td>
                       
-                        <td>{{OrderInfo.OrderDate | date}}</td>
+                        <td>{{OrderInfo.OrderDate | DefaultDate | date}}</td>
                         <td>{{OrderInfo.NumbOfBlinds}}</td>
                         <td>{{OrderInfo.Company}}</td>
                         <td>{{OrderInfo.Reference}}</td>
                         <td>{{OrderInfo.ConsignNoteNum}}</td>
-                        <td>{{OrderInfo.CompleteDate | date}}</td>
-                        <td>{{OrderInfo.DeliveryDate | date}}</td>
-                        <td>{{OrderInfo.DepartureDate | date}}</td>
-                        <td>{{OrderInfo.ArrivalDate | date}}</td>
+                        <td>{{OrderInfo.CompleteDate | DefaultDate | date}}</td>
+                        <td>{{OrderInfo.DeliveryDate | DefaultDate | date}}</td>
+                        <td>{{OrderInfo.DepartureDate | DefaultDate | date}}</td>
+                        <td>{{OrderInfo.ArrivalDate | DefaultDate | date}}</td>
                         <td>{{OrderInfo.OrderM2}}</td>
                       
                     </tr>
             </tbody>
     </table>
+    <div class="alert alert-info" *ngIf="!OrderInfoList">No Records Found</div>
 </div>
 </div>
 <div class="row" *ngIf="ViewDetailsBool">
+<div class="row">
     <button class="btn btn-primary" (click)="ReturnToAllOrders()">Back to Orders</button>
-    <order-list [orderPlaced]="false" [orderDetails]="OrderDetails" [orderInitiate]="OrderItem"></order-list>
+    <button class="btn btn-success" (click)="Approve(OrderItem.OrderID)" *ngIf="RoleID!=4">Approve</button>
+    <button class="btn btn-danger" (click)="Reject(OrderItem.OrderID)" *ngIf="RoleID!=4">Reject</button>
+</div>
+    <!-- <div class="row" *ngIf="RoleID!=4">
+<div class="form-group">
+    <label for="roleComments">Comments</label>
+    <textarea id="roleComments" name="roleComments" class="form-control" title="Approval Comments"></textarea>
+</div>
+<button class="btn btn-success" >Approve</button>
+<button class="btn btn-danger" >Reject</button>
+    </div> -->
+    <div class="">
+    <order-list *ngIf="OrderItem.OrderTypeID==1" [orderPlaced]="false" [orderDetails]="OrderDetails" [orderInitiate]="OrderItem"></order-list>
+    <overseaorder-list *ngIf="OrderItem.OrderTypeID>=3 && OrderItem.OrderTypeID <=9" [orderPlaced]="false" [orderDetails]="OrderDetails" [orderInitiate]="OrderItem"></overseaorder-list>
+    <rollerorder-list *ngIf="OrderItem.OrderTypeID==2" [orderPlaced]="false" [orderDetails]="OrderDetails" [orderInitiate]="OrderItem"></rollerorder-list>
+</div>
 </div>

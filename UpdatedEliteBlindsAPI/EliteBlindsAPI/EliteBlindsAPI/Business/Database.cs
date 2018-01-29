@@ -533,8 +533,8 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO `Order` (CustomerID, IsNew,Fault,Evidence, Company, Reference, OrderType,OrderStatusID,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes) " +
-                           "VALUES (@CustomerID, @IsNew, @Fault,@Evidence, @Company, @Reference, @OrderType, @OrderStatusID, @OrderDate, @NumbOfBlinds, @ConsignNoteNum, @CompleteDate, @DeliveryDate, @DepartureDate, @ArrivalDate, @OrderM2,@Notes); " +
+                string query = "INSERT INTO `Order` (CustomerID, IsNew,Fault,Evidence, Company, Reference, OrderTypeID,OrderStatusID,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes) " +
+                           "VALUES (@CustomerID, @IsNew, @Fault,@Evidence, @Company, @Reference, @OrderTypeID, @OrderStatusID, @OrderDate, @NumbOfBlinds, @ConsignNoteNum, @CompleteDate, @DeliveryDate, @DepartureDate, @ArrivalDate,@BlindTypeID,@Transport, @OrderM2,@Notes); " +
                            "SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
@@ -915,13 +915,13 @@ namespace EliteBlindsAPI.Business
                 switch (RoleID)
                 {
                     case 1:
-                        strFilterBy = " WHERE OrderStatusID IN (1,2,3) ";
+                        strFilterBy = " WHERE `Order`.OrderStatusID IN (1,2) ";
                         break;
                     case 2:
-                        strFilterBy = " WHERE OrderStatusID = 3";
+                        strFilterBy = " WHERE `Order`.OrderStatusID = 3";
                         break;
                     case 3:
-                        strFilterBy = " WHERE OrderStatusID = 4";
+                        strFilterBy = " WHERE `Order`.OrderStatusID = 4";
                         break;
                     default:
                         break;
@@ -1062,14 +1062,14 @@ namespace EliteBlindsAPI.Business
                     this.Connection.Open();
 
                 string query = "UPDATE `Order` SET " +
-                    "IsApproved = 'True' " +
-                    "WHERE OrderID IN (@OrderIDs)";
+                    "IsApproved = 1 " +
+                    "WHERE OrderID="+OrderIDs[0];
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
-                    command.Parameters.Add("@OrderIDs", MySqlDbType.VarString).Value = OrderIDs;
+                    //command.Parameters.Add("@OrderIDs", MySqlDbType.Int32).Value = OrderIDs[0];
 
-                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
+                    int RetVal = command.ExecuteNonQuery();
 
                     if (RetVal <= 0)
                     {
@@ -1106,16 +1106,16 @@ namespace EliteBlindsAPI.Business
                     this.Connection.Open();
 
                 string query = "UPDATE `Order` SET " +
-                    "OrderStatusID = @OrderStatusID " +
-                    "WHERE OrderID IN (@OrderIDs)";
+                    "OrderStatusID = " +StatusID +
+                    " WHERE OrderID="+OrderIDs[0];
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
-                    command.Parameters.Add("@OrderIDs", MySqlDbType.VarString).Value = OrderIDs;
-                    command.Parameters.Add("@OrderStatusID", MySqlDbType.Int32).Value = StatusID;
+                    //command.Parameters.Add("@OrderIDs", MySqlDbType.VarString).Value = OrderIDs;
+                   // command.Parameters.Add("@OrderStatusID", MySqlDbType.Int32).Value = StatusID;
 
 
-                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
+                    int RetVal =command.ExecuteNonQuery();
 
                     if (RetVal <= 0)
                     {
@@ -1153,10 +1153,10 @@ namespace EliteBlindsAPI.Business
                         strFilterBy = " WHERE company = '" + SearchCriteria + "' ";
                         break;
                     case "ordertype":
-                        strFilterBy = " WHERE ordertype = '" + SearchCriteria + "' ";
+                        strFilterBy = " WHERE OrderTypeDesc = '" + SearchCriteria + "' ";
                         break;
                     case "orderstatus":
-                        strFilterBy = " WHERE orderstatus = '" + SearchCriteria + "' ";
+                        strFilterBy = " WHERE OrderStatusDesc = '" + SearchCriteria + "' ";
                         break;
                     case "completedate":
                         strFilterBy = " WHERE completedate = '" + SearchCriteria + "' ";
@@ -1255,8 +1255,8 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO OrderDetail (OrderID, Width,Height, SplPelmetWidth, WidthMadeBy, HeightMadeBy, QualityCheckedBy,SlatStyleID,CordStyleID,ReturnRequired,MountType,SquareMeter) " +
-                           "VALUES (@OrderID, @Width,@Height, @SplPelmetWidth, @WidthMadeBy, @HeightMadeBy, @QualityCheckedBy,@SlatStyleID,@CordStyleID,@ReturnRequired,@MountType,@SquareMeter); " +
+                string query = "INSERT INTO OrderDetail (OrderID, Width,Height, SplPelmetWidth, WidthMadeBy, HeightMadeBy, QualityCheckedBy,SlatStyleID,CordStyleID,ReturnRequired,MountType,SquareMeter,ControlID,ControlStyle,OpeningStyle,PelmetStyle,ColorID,MaterialID,Roll,ReadyMadeSize) " +
+                           "VALUES (@OrderID, @Width,@Height, @SplPelmetWidth, @WidthMadeBy, @HeightMadeBy, @QualityCheckedBy,@SlatStyleID,@CordStyleID,@ReturnRequired,@MountType,@SquareMeter,@ControlID,@ControlStyle,@OpeningStyle,@PelmetStyle,@ColorID,@MaterialID,@Roll,@ReadyMadeSize); " +
                             "SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
@@ -1273,14 +1273,14 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@ReturnRequired", MySqlDbType.Bit).Value = instance.ReturnRequired;
                     command.Parameters.Add("@MountType", MySqlDbType.VarString).Value = instance.MountType;
                     command.Parameters.Add("@SquareMeter", MySqlDbType.Double).Value = instance.SquareMeter;
-                    //command.Parameters.Add("@ControlID", MySqlDbType.Int32).Value = instance.ControlID;
-                    //command.Parameters.Add("@ControlStyle", MySqlDbType.VarString).Value = instance.ControlStyle;
-                    //command.Parameters.Add("@OpeningStyle", MySqlDbType.VarString).Value = instance.OpeningStyle;
-                    //command.Parameters.Add("@PelmetStyle", MySqlDbType.VarString).Value = instance.PelmetStyle;
-                    //command.Parameters.Add("@ColorID", MySqlDbType.Int32).Value = instance.ColorID;
-                    //command.Parameters.Add("@MaterialID", MySqlDbType.Int32).Value = instance.MaterialID;
-                    //command.Parameters.Add("@Roll", MySqlDbType.VarString).Value = instance.Roll;
-                    //command.Parameters.Add("@ReadyMadeSize", MySqlDbType.Double).Value = instance.ReadyMadeSize;
+                    command.Parameters.Add("@ControlID", MySqlDbType.Int32).Value = instance.ControlID;
+                    command.Parameters.Add("@ControlStyle", MySqlDbType.VarString).Value = instance.ControlStyle;
+                    command.Parameters.Add("@OpeningStyle", MySqlDbType.VarString).Value = instance.OpeningStyle;
+                    command.Parameters.Add("@PelmetStyle", MySqlDbType.VarString).Value = instance.PelmetStyle;
+                    command.Parameters.Add("@ColorID", MySqlDbType.Int32).Value = instance.ColorID;
+                    command.Parameters.Add("@MaterialID", MySqlDbType.Int32).Value = instance.MaterialID;
+                    command.Parameters.Add("@Roll", MySqlDbType.VarString).Value = instance.Roll;
+                    command.Parameters.Add("@ReadyMadeSize", MySqlDbType.Double).Value = instance.ReadyMadeSize;
 
                     int RetVal = Convert.ToInt32(command.ExecuteScalar());
 

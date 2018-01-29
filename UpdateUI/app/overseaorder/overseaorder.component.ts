@@ -63,7 +63,7 @@ export class OverSeaComponent{
       onControlChange(){
         debugger;
         let text=this.controls.filter(control=>control.ControlID==this.OrderDetail.ControlID);
-        this.OrderDetail.ControlText=text[0].ControlDesc;
+        this.OrderDetail.ControlName=text[0].ControlDesc;
       }
       GetCordStyles(){
         this.orderService.GetCordStyle('OVenetian').subscribe(
@@ -143,18 +143,18 @@ export class OverSeaComponent{
       {
           debugger;
         let cordText=this.cordStyles.filter(cord=>cord.CordStyleID==this.OrderDetail.CordStyleID);
-        this.OrderDetail.cordStyleText=cordText[0].CordStyleDesc;
+        this.OrderDetail.CordStyleName=cordText[0].CordStyleDesc;
       }
       onColorChange()
       {
           debugger;
         let text=this.colors.filter(color=>color.ColorsID==this.OrderDetail.ColorID);
-        this.OrderDetail.ColorText=text[0].ColorsDesc;
+        this.OrderDetail.ColorName=text[0].ColorsDesc;
       }
       OnMaterialChange(){
           debugger;
         let text=this.materialList.filter(material=>material.MaterialID==this.OrderDetail.MaterialID);
-        this.OrderDetail.MaterialText=text[0].MaterialDesc;
+        this.OrderDetail.MaterialName=text[0].MaterialDesc;
       }
       onReturnChange(){
         if(this.OrderDetail.ReturnRequired==true)
@@ -191,10 +191,31 @@ export class OverSeaComponent{
       }
       SaveOrder()
       {
+        switch(this.OrderInitiation.BlindTypeID)
+        {
+            case "1":
+            this.OrderInitiation.OrderTypeID=3;
+              break;
+            case "2":
+            this.OrderInitiation.OrderTypeID=4;
+              break;
+            case "3":
+            this.OrderInitiation.OrderTypeID=5;
+              break;
+            case "4":
+            this.OrderInitiation.OrderTypeID=6;
+              break;
+            case "5":
+            this.OrderInitiation.OrderTypeID=7;
+              break;
+            case "6":
+            this.OrderInitiation.OrderTypeID=8;
+              break;
+        }
         let orderId:any=0;
         debugger;
         this.OrderInitiation.CustomerID=this.service.GetCustomerId();
-        this.OrderInitiation.OrderTypeID=1;
+       
         this.OrderInitiation.OrderDate=new Date();
         this.OrderInitiation.OrderStatusID=1;
         this.OrderInitiation.OrderStatus="IN_Processing";

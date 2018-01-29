@@ -75,13 +75,13 @@ var OrderComponent = /** @class */ (function () {
         var _this = this;
         debugger;
         var cordText = this.cordStyles.filter(function (cord) { return cord.CordStyleID == _this.orderItem.CordStyleID; });
-        this.orderItem.cordStyleText = cordText[0].CordStyleDesc;
+        this.orderItem.CordStyleName = cordText[0].CordStyleDesc;
     };
     OrderComponent.prototype.onSlatChange = function () {
         var _this = this;
         debugger;
         var slatText = this.slatStyles.filter(function (slat) { return slat.SlatStyleID == _this.orderItem.SlatStyleID; });
-        this.orderItem.slatStyleText = slatText[0].SlatStyleDesc;
+        this.orderItem.SlatStyleName = slatText[0].SlatStyleDesc;
     };
     OrderComponent.prototype.onReturnChange = function () {
         if (this.orderItem.ReturnRequired == true)

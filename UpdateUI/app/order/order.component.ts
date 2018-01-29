@@ -88,13 +88,13 @@ export class OrderComponent{
     {
         debugger;
       let cordText=this.cordStyles.filter(cord=>cord.CordStyleID==this.orderItem.CordStyleID);
-      this.orderItem.cordStyleText=cordText[0].CordStyleDesc;
+      this.orderItem.CordStyleName=cordText[0].CordStyleDesc;
     }
     onSlatChange()
     {
         debugger;
       let slatText=this.slatStyles.filter(slat=>slat.SlatStyleID==this.orderItem.SlatStyleID);
-      this.orderItem.slatStyleText=slatText[0].SlatStyleDesc;
+      this.orderItem.SlatStyleName=slatText[0].SlatStyleDesc;
     }
     onReturnChange(){
         if(this.orderItem.ReturnRequired==true)

@@ -54,6 +54,12 @@ var OrderMiscService = /** @class */ (function () {
     OrderMiscService.prototype.GetOrderDetails = function (OrderId) {
         return this.http.get(this.rootUrl + "GetOrderDetails/" + OrderId);
     };
+    OrderMiscService.prototype.ApproveOrder = function (OrderId) {
+        return this.http.get(this.rootUrl + "ApproveOrders/" + OrderId);
+    };
+    OrderMiscService.prototype.ChangeOrderStatus = function (OrderID, Status) {
+        return this.http.get(this.rootUrl + "ChangeOrderStatus/" + OrderID + "/" + Status);
+    };
     OrderMiscService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.HttpClient])

@@ -16,12 +16,14 @@ var home_1 = require("../app/home/home");
 var login_component_1 = require("../app/login/login.component");
 var orderType_component_1 = require("../app/Order/orderType.component");
 var orderlist_component_1 = require("../app/Order/orderlist.component");
+var rollerorderlist_component_1 = require("../app/rollerorder/rollerorderlist.component");
 var fabricutilityorder_component_1 = require("../app/fabricutilityorder/fabricutilityorder.component");
 var app_routing_1 = require("./app.routing");
 var order_component_1 = require("../app/Order/order.component");
 var overseaorder_component_1 = require("../app/overseaorder/overseaorder.component");
 var overseaorderlist_component_1 = require("../app/overseaorder/overseaorderlist.component");
 var rollerorder_component_1 = require("../app/rollerorder/rollerorder.component");
+var defaultdate_pipe_1 = require("../app/pipes/defaultdate.pipe");
 var unauthorised_1 = require("../app/erropages/unauthorised");
 var auth_service_1 = require("../app/services/auth.service");
 var misc_service_1 = require("../app/services/misc.service");
@@ -36,7 +38,7 @@ var AppModule = /** @class */ (function () {
             ],
             declarations: [app_component_1.AppComponent,
                 order_component_1.OrderComponent, orderType_component_1.OrderTypeComponent, home_1.HomeComponent, login_component_1.LoginComponent, orderlist_component_1.OrderListComponent,
-                overseaorder_component_1.OverSeaComponent, overseaorderlist_component_1.OverSeaOrderListComponent, rollerorder_component_1.RollerOrderComponent,
+                overseaorder_component_1.OverSeaComponent, overseaorderlist_component_1.OverSeaOrderListComponent, rollerorder_component_1.RollerOrderComponent, rollerorderlist_component_1.RollerOrderListComponent, defaultdate_pipe_1.DefaultDatePipe,
                 fabricutilityorder_component_1.FabricUtilityComponent, unauthorised_1.NotAuthorisedComponent
             ],
             bootstrap: [app_component_1.AppComponent],

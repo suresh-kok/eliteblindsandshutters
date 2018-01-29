@@ -12,7 +12,7 @@ export class OrderTypeComponent{
     newOrder:OrderInitiation;
     IsRemake:boolean=false;
     blindTypes:any;
-    controls:any;
+  
     constructor(private orderService:OrderMiscService){
      this.newOrder=new OrderInitiation();
     }
@@ -20,6 +20,7 @@ export class OrderTypeComponent{
        this.newOrder.OrderTypeID=this.OrderTypeVal;
        if(this.OrderTypeVal=="3")
        this.GetBlindType();
+       
     }
     orderChange(){
         debugger;

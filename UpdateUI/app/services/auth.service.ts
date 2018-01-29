@@ -61,6 +61,13 @@ logout() {
     }  
     
   }
+  GetCustomerRoleId(){
+    let cust=localStorage.getItem("user");
+    if(cust!=null){
+        let temp=JSON.parse(cust);
+        return temp.RoleID;
+    } 
+  }
     canActivate(){
         if (localStorage.getItem("user") === null){
              this.route.navigate(['/unauthorized']);

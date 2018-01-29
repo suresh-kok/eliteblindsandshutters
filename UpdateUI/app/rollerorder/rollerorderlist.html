@@ -1,0 +1,71 @@
+<div class="row" *ngIf="OrderPlaced">
+        <div class="alert alert-success">
+        <b>Order Complete :</b> You have completed the order , here's your order detail information
+        </div>
+        <!-- <a routerLink="/VenetianOrder">Create New Order</a> -->
+    </div>
+    <div class="row">
+        <h5>Order Information</h5>
+        <table  class="table table-condensed table-striped table-hover">
+                <thead>
+                    <tr class="table-info">
+                        <th>Order Number</th>
+                        <th>Order Date</th>
+                        <th>Number of Blinds</th>
+                        <th>Company</th>
+                        <th>Reference</th>
+                        <th>Consign Note Number</th>
+                        <th>Complete Date</th>
+                        <th>Delivery Date</th>
+                        <th>Order M2</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="OrderInfo">
+                        <tr>
+                                <td>{{OrderInfo.OrderID}}</td>
+                                <td>{{OrderInfo.OrderDate | DefaultDate | date}}</td>
+                            <td>{{OrderInfo.NumbOfBlinds}}</td>
+                            <td>{{OrderInfo.Company}}</td>
+                            <td>{{OrderInfo.Reference}}</td>
+                            <td>{{OrderInfo.ConsignNoteNum}}</td>
+                            <td>{{OrderInfo.CompleteDate | DefaultDate |date }}</td>
+                            <td>{{OrderInfo.DeliveryDate | DefaultDate |date}}</td>
+                            <td>{{OrderInfo.OrderM2}}</td>
+                        </tr>
+                </tbody>
+        </table>
+    </div>
+    <div class="row">
+            <table class="table table-responsive table-condensed table-hover">
+            <thead>
+            <tr class="table-info">
+                <th>Width</th>
+                <th>Height</th>
+                <th>Material</th>
+                <th>Color</th>
+                <th>Control</th>
+                <th>Mount</th>
+                <th>Square Meter</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of OrderDetails">
+                <td>{{item.Width}}</td>
+                <td>{{item.Height}}</td>
+                <td>{{item.MaterialName}}</td>
+                <td>{{item.ColorName}}</td>
+                <td>{{item.ControlName}}</td>
+                <td>{{item.MountTypeText}}</td>
+                <td>{{item.SquareMeter}}</td>
+                <td><a (click)="Delete(item)">Delete</a></td>
+            </tr>
+            </tbody>
+            </table>
+            </div>
+            <div class="row">
+                    <h5>Notes</h5>
+                    <textarea class="form-control" disabled="disabled" name="info" [(ngModel)]="OrderInfo.Notes" id="info" placeholder=""></textarea>
+                </div>
+
+                

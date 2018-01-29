@@ -56,7 +56,7 @@ var OverSeaComponent = /** @class */ (function () {
         var _this = this;
         debugger;
         var text = this.controls.filter(function (control) { return control.ControlID == _this.OrderDetail.ControlID; });
-        this.OrderDetail.ControlText = text[0].ControlDesc;
+        this.OrderDetail.ControlName = text[0].ControlDesc;
     };
     OverSeaComponent.prototype.GetCordStyles = function () {
         var _this = this;
@@ -128,19 +128,19 @@ var OverSeaComponent = /** @class */ (function () {
         var _this = this;
         debugger;
         var cordText = this.cordStyles.filter(function (cord) { return cord.CordStyleID == _this.OrderDetail.CordStyleID; });
-        this.OrderDetail.cordStyleText = cordText[0].CordStyleDesc;
+        this.OrderDetail.CordStyleName = cordText[0].CordStyleDesc;
     };
     OverSeaComponent.prototype.onColorChange = function () {
         var _this = this;
         debugger;
         var text = this.colors.filter(function (color) { return color.ColorsID == _this.OrderDetail.ColorID; });
-        this.OrderDetail.ColorText = text[0].ColorsDesc;
+        this.OrderDetail.ColorName = text[0].ColorsDesc;
     };
     OverSeaComponent.prototype.OnMaterialChange = function () {
         var _this = this;
         debugger;
         var text = this.materialList.filter(function (material) { return material.MaterialID == _this.OrderDetail.MaterialID; });
-        this.OrderDetail.MaterialText = text[0].MaterialDesc;
+        this.OrderDetail.MaterialName = text[0].MaterialDesc;
     };
     OverSeaComponent.prototype.onReturnChange = function () {
         if (this.OrderDetail.ReturnRequired == true)
@@ -172,10 +172,29 @@ var OverSeaComponent = /** @class */ (function () {
     };
     OverSeaComponent.prototype.SaveOrder = function () {
         var _this = this;
+        switch (this.OrderInitiation.BlindTypeID) {
+            case "1":
+                this.OrderInitiation.OrderTypeID = 3;
+                break;
+            case "2":
+                this.OrderInitiation.OrderTypeID = 4;
+                break;
+            case "3":
+                this.OrderInitiation.OrderTypeID = 5;
+                break;
+            case "4":
+                this.OrderInitiation.OrderTypeID = 6;
+                break;
+            case "5":
+                this.OrderInitiation.OrderTypeID = 7;
+                break;
+            case "6":
+                this.OrderInitiation.OrderTypeID = 8;
+                break;
+        }
         var orderId = 0;
         debugger;
         this.OrderInitiation.CustomerID = this.service.GetCustomerId();
-        this.OrderInitiation.OrderTypeID = 1;
         this.OrderInitiation.OrderDate = new Date();
         this.OrderInitiation.OrderStatusID = 1;
         this.OrderInitiation.OrderStatus = "IN_Processing";

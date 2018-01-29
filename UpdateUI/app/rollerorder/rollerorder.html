@@ -1,66 +1,130 @@
+<div *ngIf="!OrderConfirmed">
 <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link active" #home [class.disabled]="enableCheckOut" id="homeTab"
-           data-toggle="tab" href="#newOrder">New Order</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" #details [class.disabled]="enableCheckOut" id="orderDetailsTab" data-toggle="tab" href="#orderDetails">Order Details</a>
-        </li>
-        <!-- <li class="nav-item"  [class.active]="enableCheckOut" >
-                <a #extra class="nav-link" id="extraTab" data-toggle="tab" href="#extraDetails">Extra Information</a>
-              </li> -->
-        
+    <li class="nav-item">
+            <a class="nav-link active" #basic [class.disabled]="enableCheckOut" id="basicTab" data-toggle="tab" href="#basic">Basic Information</a>
+          </li>
+    <li class="nav-item">
+      <a class="nav-link active" #home [class.disabled]="enableCheckOut" id="homeTab" data-toggle="tab" href="#home">Add Items</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" #details [class.disabled]="enableCheckOut" id="orderDetailsTab" data-toggle="tab" href="#orderDetails">Order Details</a>
+    </li>
+    <li class="nav-item"  [class.active]="enableCheckOut" >
+            <a #extra class="nav-link" id="extraTab" data-toggle="tab" href="#extraDetails">Extra Information</a>
+          </li>
+    
 </ul>
 <div id="myTabContent" class="tab-content">
-<div id="newOrder">
+    <div class="tab-pane fade" id="basic">
+        <order-type [order]="2" (notify)='onNotify($event)'></order-type>
+            </div>
+<div class="tab-pane fade" id="home">
         <form>
                 <fieldset>
                   <legend>Add Items to your order</legend>
+                  <div class="row">
+                      <div class="pull-right">
+                      <button (click)="AddItem()" class="btn btn-primary">Add Item</button>
+                      <button  (click)="Proceed()" class="btn btn-primary">View Order</button>
+                    </div>
+                    </div>
                   <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="form-group">
                                 <label for="width">Width</label>
-                                <input type="text" class="form-control"  name="width" id="width" placeholder="Width">
+                                <input type="text" class="form-control" [(ngModel)]="OrderDetail.Width"  name="width" id="width" placeholder="Width">
                                 <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
                               </div>
                               <div class="form-group">
                                 <label for="height">Height</label>
-                                <input type="text" class="form-control" name="height" id="height" placeholder="Height">
+                                <input type="text" class="form-control"  [(ngModel)]="OrderDetail.Height" name="height" id="height" placeholder="Height">
                               </div>
-                              <div class="form-group">
+                              <div class="form-group" *ngIf="materialList">
                                     <label for="material">Material</label>
-                                    <select class="form-control" name="material" id="material">
-                                      <option>Blockout(colorfull world)</option>
-                                      <option>Sunscreen(deluxeview)</option>
-                                      <option>Blockout(opera)</option>
-                                      <option>Translucent(opera)</option>
+                                    <select class="form-control" [(ngModel)]="OrderDetail.MaterialID" (change)="OnMaterialChange()" name="material" id="material">
+                                      <option selected value="0">Select Material</option>
+                                      <option *ngFor="let item of materialList" value="{{item.MaterialID}}">{{item.MaterialDesc}}</option>
                                     </select>
                                 </div> 
-                                <div class="form-group">
-                                        <label for="color">color</label>
-                                        <select class="form-control" name="color" id="color">
-                                          <option>Alaskan Snow(Ice)</option>
-                                          <option>California Cream(Syllabub)</option>
-                                          <option>Santa Monica Seashell(Moon)</option>
-                                          <option>Caribbean Cream(Loft)</option>
-                                        </select>
-                                    </div> 
-                                    <div class="form-group">
-                                            <label for="control">Control</label>
-                                            <select class="form-control" name="control" id="control">
-                                              <option>Left</option>
-                                              <option>Right</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                                <label for="mount">Mount</label>
-                                                <select class="form-control" name="mount" id="mount">
-                                                  <option>In</option>
-                                                  <option>Out</option>
-                                                </select>
-                                            </div>  
-                                            <button class="btn btn-primary">Add Item</button>                         
+                                                       
+                  </div>
+                  <div class="col-lg-6 col-md-6">
+                      <div class="form-group" *ngIf="colors">
+                          <label for="color">Color</label>
+                          <select class="form-control" [(ngModel)]="OrderDetail.ColorID" (change)="onColorChange()" name="color" id="color">
+                              <option selected value="0">Select Color</option>
+                              <option *ngFor="let item of colors" value="{{item.ColorsID}}">{{item.ColorsDesc}}</option>
+                          </select>
+                      </div> 
+                      <div class="form-group" *ngIf="controls">
+                              <label for="control">Control</label>
+                              <select class="form-control" (change)="onControlChange()" [(ngModel)]="OrderDetail.ControlID" name="control" id="control">
+                                  <option selected value="0">Select Control</option>
+                                  <option *ngFor="let item of controls" value="{{item.ControlID}}">{{item.ControlDesc}}</option>
+                                </select>
+                          </div>
+                          <div class="form-group">
+                                  <label for="mount">Mount</label>
+                                  <select class="form-control" name="mount" id="mount">
+                                    <option>In</option>
+                                    <option>Out</option>
+                                  </select>
+                              </div>  
+                           
                   </div>
                 </fieldset>
                 </form>
 </div>
+<div class="tab-pane fade" id="orderDetails">
+    <div class="row">
+            <div class="col-lg-offset-10 col-md-offset-10">
+                <button (click)="OrderConfirm()" class="btn btn-primary">Confirm Order</button>
+            </div>
+        </div>
+<div class="row">
+<table class="table table-responsive table-condensed table-hover">
+<thead>
+<tr class="table-info">
+    <th>Width</th>
+    <th>Height</th>
+    <th>Material</th>
+    <th>Color</th>
+    <th>Control</th>
+    <th>Mount</th>
+    <th>Square Meter</th>
+    <th>Delete</th>
+</tr>
+</thead>
+<tbody>
+<tr *ngFor="let item of OrderDetails">
+    <td>{{item.Width}}</td>
+    <td>{{item.Height}}</td>
+    <td>{{item.MaterialName}}</td>
+    <td>{{item.ColorName}}</td>
+    <td>{{item.ControlName}}</td>
+    <td>{{item.MountTypeText}}</td>
+    <td>{{item.SquareMeter}}</td>
+    <td><a (click)="Delete(item)">Delete</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="tab-pane fade" id="extraDetails">
+    <div class="row">
+            <div class="form-group">
+                  <label for="info">Extra Information</label>
+                  <textarea class="form-control" name="info" [(ngModel)]="OrderInitiation.Notes" id="info" placeholder=""></textarea>
+            </div>
+            <div class="form-group">
+                  <button class="btn btn-primary" (click)="SaveOrder()">Submit Order</button>
+            </div>
+          </div>
+</div>
+</div>
+</div>
+<div *ngIf="OrderConfirmed">
+    <rollerorder-list [orderPlaced]="true" [orderDetails]="OrderDetails" [orderInitiate]="OrderInitiation"></rollerorder-list>
+    <div class="row">
+        <button class="btn btn-primary pull-right" (click)="NewOrder()">Create New Order</button>
+    </div>
 </div>

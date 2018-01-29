@@ -53,6 +53,13 @@ var AuthenticationService = /** @class */ (function () {
             return temp.CustomerID;
         }
     };
+    AuthenticationService.prototype.GetCustomerRoleId = function () {
+        var cust = localStorage.getItem("user");
+        if (cust != null) {
+            var temp = JSON.parse(cust);
+            return temp.RoleID;
+        }
+    };
     AuthenticationService.prototype.canActivate = function () {
         if (localStorage.getItem("user") === null) {
             this.route.navigate(['/unauthorized']);

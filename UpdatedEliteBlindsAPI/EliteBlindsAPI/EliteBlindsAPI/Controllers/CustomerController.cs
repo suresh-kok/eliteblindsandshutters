@@ -224,25 +224,28 @@ namespace EliteBlindsAPI.Controllers
             BusinessObj.DeleteUtilityOrder(UtilityOrderID);
         }
 
-        [HttpPost]
-        [Route("ApproveOrders/{OrderIDs}")]
-        public bool ApproveOrders([FromBody]List<int> OrderIDs)
+        [HttpGet]
+        [Route("ApproveOrders/{OrderID}")]
+        public bool ApproveOrders(int OrderID)
         {
+            List<int> OrderIDs = new List<int> { OrderID };
             return BusinessObj.ApproveOrders(OrderIDs);
         }
 
-        [HttpPost]
-        [Route("ApproveUtilityOrders/{OrderIDs}")]
-        public bool ApproveUtilityOrders([FromBody]List<int> OrderIDs)
+        //[HttpPost]
+        [Route("ApproveUtilityOrders/{OrderID}")]
+        public bool ApproveUtilityOrders(int OrderID)
         {
+            List<int> OrderIDs = new List<int> { OrderID };
             return BusinessObj.ApproveUtilityOrders(OrderIDs);
         }
 
-        [HttpPost]
-        [Route("ChangeOrderStatus/{OrderIDs}/{Status}")]
-        public bool ChangeOrderStatus([FromBody]List<int> OrderIDs, int StatusID)
+        [HttpGet]
+        [Route("ChangeOrderStatus/{OrderID}/{Status}")]
+        public bool ChangeOrderStatus(int OrderID, int Status)
         {
-            return BusinessObj.ChangeOrderStatus(OrderIDs, StatusID);
+            List<int> OrderIDs = new List<int> { OrderID };
+            return BusinessObj.ChangeOrderStatus(OrderIDs, Status);
         }
 
         [HttpPost]
