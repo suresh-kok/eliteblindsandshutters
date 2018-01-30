@@ -1,0 +1,91 @@
+<!-- <h4>Place your order</h4> -->
+<div *ngIf="!OrderConfirmed">
+<ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" #home [class.disabled]="enableCheckOut" id="homeTab" data-toggle="tab" href="#home">Add Valances</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" #details [class.disabled]="enableCheckOut" id="orderDetailsTab" data-toggle="tab" href="#orderDetails">Order Details</a>
+        </li>
+        
+</ul>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade" id="basic">
+<order-type [order]="1" (notify)='onNotify($event)'></order-type>
+    </div>
+<div class="tab-pane fade" id="home">
+        <form>
+                <fieldset>
+                  <legend>Add Valance</legend>
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label for="Material">MATERIAL</label>
+					<select (change)="onMaterialChange()"  name="Material" [(ngModel)]="Valance.Material" class="form-control" id="Material">
+						<option  *ngFor="list of Materials" value="{{Material.MaterialID}}">{{Material.MaterialDesc}}</option>   
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="Color">Color</label>
+					<select class="form-control" name="Color" (change)="onColorChange()" [(ngModel)]="Valance.ColorID" id="Color">
+						<option  *ngFor="list of Colors" value="{{Colors.ColorsID}}">{{Colors.ColorsDesc}}</option>   
+					</select>						
+				  </div>
+                  <div class="form-group">
+                        <label for="Size">Size</label>
+						<select class="form-control" name="FabricSize" (change)="onSizeChange()" [(ngModel)]="Valance.SizeID" id="Size">
+							<option  *ngFor="list of Size" value="{{Size.SizeID}}">{{Size.SizeDesc}}</option>   
+						</select>                  
+				  </div>
+                  <div class="form-group">
+                            <label for="Boxes">Boxes</label>
+                            <input type="text" class="form-control" name="Boxes" [(ngModel)]="Valance.Boxes" id="Boxes" placeholder="Boxes">
+                 </div>
+                 
+                  <button  (click)="AddItem()" class="btn btn-primary">Add Item</button>
+                  <button  (click)="Proceed()" class="btn btn-primary">View Order</button>
+                </div>
+                </fieldset>
+             
+            <!-- </div> -->
+        </form>
+</div>
+<div class="tab-pane fade" id="orderDetails">
+        <div class="row">
+                <div class="col-lg-offset-10 col-md-offset-10">
+                    <button (click)="OrderConfirm()" class="btn btn-secondary">Confirm Order</button>
+                </div>
+            </div>
+<div class="row">
+<table class="table table-responsive table-condensed table-hover">
+<thead>
+    <tr class="table-info">
+        <th>Material</th>
+        <th>Color</th>
+        <th>Size</th>
+        <th>Boxes</th>
+    </tr>
+</thead>
+<tbody>
+    <tr *ngFor="let item of OrderDetails">
+        <td>{{item.Material}}</td>
+        <td>{{item.ColorName}}</td>
+        <td>{{item.SizeValue}}</td>
+        <td>{{item.Boxes}}</td>
+        <td><a (click)="Delete(item)">Delete</a></td>
+
+    </tr>
+</tbody>
+</table>
+</div>
+
+</div>
+    <div class="row">
+      <div class="form-group">
+            <button class="btn btn-primary" (click)="SaveOrder()">Submit Order</button>
+      </div>
+    </div>
+</div>
+</div>
+<div *ngIf="OrderConfirmed">
+    <order-list [orderPlaced]="true" [orderDetails]="OrderDetails" [orderInitiate]="OrderInitiation"></order-list>
+</div>

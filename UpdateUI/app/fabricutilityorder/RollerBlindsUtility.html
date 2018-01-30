@@ -1,0 +1,105 @@
+<!-- <h4>Place your order</h4> -->
+<div *ngIf="!OrderConfirmed">
+<ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" #home [class.disabled]="enableCheckOut" id="homeTab" data-toggle="tab" href="#home">Add Roller Blinds Component</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" #details [class.disabled]="enableCheckOut" id="orderDetailsTab" data-toggle="tab" href="#orderDetails">Order Details</a>
+        </li>
+        
+</ul>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade" id="basic">
+<order-type [order]="1" (notify)='onNotify($event)'></order-type>
+    </div>
+<div class="tab-pane fade" id="home">
+        <form>
+                <fieldset>
+                  <legend>Add Roller Blinds Component</legend>
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label for="Description">Description</label>
+						<select (change)="onDescriptionChange()"  name="Description" [(ngModel)]="RollerBlindType.Description" class="form-control" id="Description">
+							<option  *ngFor="list of Roller Blinds" value="{{RollerBlindType.RollerBlindTypeID}}">{{RollerBlindType.Description}}</option>   
+						</select>
+                  </div>
+                  <div class="form-group">
+                    <label for="Profile">Profile</label>
+					<img ng-src="{{RollerBlindType.Profile}}">						
+				  </div>
+                  <div class="form-group">
+                        <label for="Color">COLOR</label>
+						<label for="Color">{{RollerBlindType.Color}}</label>
+				  </div>
+                  <div class="form-group">
+                        <label for="DLXCODE">DLXCODE</label>
+						<label for="DLXCODE">{{RollerBlindType.DLXCODE}}</label>
+				  </div>
+                  <div class="form-group">
+                        <label for="PCSCTN">PCS/CTN</label>
+						<label for="PCSCTN">{{RollerBlindType.PCSCTN}}</label>
+				  </div>
+                  <div class="form-group">
+                        <label for="MOQ">MOQ</label>
+						<label for="MOQ">{{RollerBlindType.MOQ}}</label>
+				  </div>
+                  <div class="form-group">
+                            <label for="Boxes">CNTS</label>
+                            <input type="text" class="form-control" name="Boxes" [(ngModel)]="Fabric.Boxes" id="Boxes" placeholder="Boxes">
+                 </div>
+                 
+                  <button  (click)="AddItem()" class="btn btn-primary">Add Item</button>
+                  <button  (click)="Proceed()" class="btn btn-primary">View Order</button>
+                </div>
+                </fieldset>
+             
+            <!-- </div> -->
+        </form>
+</div>
+<div class="tab-pane fade" id="orderDetails">
+        <div class="row">
+                <div class="col-lg-offset-10 col-md-offset-10">
+                    <button (click)="OrderConfirm()" class="btn btn-secondary">Confirm Order</button>
+                </div>
+            </div>
+<div class="row">
+<table class="table table-responsive table-condensed table-hover">
+<thead>
+    <tr class="table-info">
+        <th>Profile</th>
+        <th>Description</th>
+        <th>Color</th>
+        <th>DLXCODE</th>
+        <th>PCS/CTN</th>
+        <th>MOQ</th>
+        <th>CNTS</th>
+    </tr>
+</thead>
+<tbody>
+    <tr *ngFor="let item of OrderDetails">
+        <td>{{item.Profile}}</td>
+        <td>{{item.Description}}</td>
+        <td>{{item.Color}}</td>
+        <td>{{item.DLXCODE}}</td>
+        <td>{{item.PCSCTN}}</td>
+        <td>{{item.MOQ}}</td>
+        <td>{{item.Boxes}}</td>
+        <td><a (click)="Delete(item)">Delete</a></td>
+
+    </tr>
+</tbody>
+</table>
+</div>
+
+</div>
+    <div class="row">
+      <div class="form-group">
+            <button class="btn btn-primary" (click)="SaveOrder()">Submit Order</button>
+      </div>
+    </div>
+</div>
+</div>
+<div *ngIf="OrderConfirmed">
+    <order-list [orderPlaced]="true" [orderDetails]="OrderDetails" [orderInitiate]="OrderInitiation"></order-list>
+</div>

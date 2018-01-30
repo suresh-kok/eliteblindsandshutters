@@ -11,6 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var auth_service_1 = require("../../app/services/auth.service");
+var orderdata_1 = require("../DataModels/orderdata");
+var orderInitiationData_1 = require("../DataModels/orderInitiationData");
+var order_service_1 = require("../../app/services/order.service");
 var FabricUtilityComponent = /** @class */ (function () {
     function FabricUtilityComponent(authService) {
         this.authService = authService;
