@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,10 +25,10 @@ namespace EliteBlindsAPI.Business
             string uid;
             string password;
 
-            server = "localhost";
-            database = "eliteblinds";
-            uid = "root";
-            password = "abc@123";
+            server = ConfigurationManager.AppSettings["DBserver"];
+            database = ConfigurationManager.AppSettings["database"];
+            uid = ConfigurationManager.AppSettings["DBuid"];
+            password = ConfigurationManager.AppSettings["DBpassword"];
             string connectionString;
             connectionString = "SERVER=" + server + ";" + "DATABASE=" +
                 database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
