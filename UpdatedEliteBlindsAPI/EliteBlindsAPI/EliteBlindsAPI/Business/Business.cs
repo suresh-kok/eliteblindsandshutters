@@ -145,11 +145,12 @@ namespace EliteBlindsAPI.Business
             if (OrderData.OrderID>0)
             {
                 OrderObj = EliteBusinessObj.UpdateOrder(OrderData);
-                SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), CreateOrderMailBody(OrderObj) ,"New Order Has been Created");
+                SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), CreateOrderMailBody(OrderObj) ,"Order Has been Updated");
             }
             else
             {
                 OrderObj = EliteBusinessObj.SaveOrder(OrderData);
+                SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), CreateOrderMailBody(OrderObj), "New Order Has been Created");
             }
             return OrderObj;
         }
@@ -177,11 +178,12 @@ namespace EliteBlindsAPI.Business
             if (OrderData.UtilityOrderID>0)
             {
                 UtilityObj = EliteBusinessObj.UpdateUtilityOrder(OrderData);
-                SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), CreateUtilityOrderMailBody(OrderData) ,"New Utility Order Has been Created");
+                SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), CreateUtilityOrderMailBody(OrderData) ,"Utility Order Has been Updated");
             }
             else
             {
                 UtilityObj = EliteBusinessObj.SaveUtilityOrder(OrderData);
+                SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), CreateUtilityOrderMailBody(OrderData), "New Utility Order Has been Created");
             }
             return UtilityObj;
         }
@@ -205,21 +207,58 @@ namespace EliteBlindsAPI.Business
 
         public Boolean ApproveOrders(List<int> OrderIDs)
         {
-            return EliteBusinessObj.ApproveOrders(OrderIDs);
+            bool res = EliteBusinessObj.ApproveOrders(OrderIDs);
+            if (res)
+            {
+                foreach (var item in OrderIDs)
+                {
+                    var OrderData = GetOrder(item);
+                    SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), CreateOrderMailBody(OrderData), "Order Approved");
+                }
+            }
+            return res;
         }
 
         public Boolean ApproveUtilityOrders(List<int> OrderIDs)
         {
-            return EliteBusinessObj.ApproveUtilityOrders(OrderIDs);
+            bool res = EliteBusinessObj.ApproveUtilityOrders(OrderIDs);
+            if (res)
+            {
+                foreach (var item in OrderIDs)
+                {
+                    var OrderData = GetUtilityOrder(item);
+                    SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), CreateUtilityOrderMailBody(OrderData), "Order Approved");
+                }
+            }
+            return res;
         }
 
         public Boolean ChangeOrderStatus(List<int> OrderIDs, int StatusID)
         {
-            return EliteBusinessObj.ChangeOrderStatus(OrderIDs, StatusID);
+            bool res = EliteBusinessObj.ChangeOrderStatus(OrderIDs, StatusID);
+            if (res)
+            {
+                foreach (var item in OrderIDs)
+                {
+                    var OrderData = GetOrder(item);
+                    SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), CreateOrderMailBody(OrderData), "Order Status Changed");
+                }
+            }
+            return res;
         }
+
         public Boolean ChangeUtilityOrderStatus(List<int> OrderIDs, int StatusID)
         {
-            return EliteBusinessObj.ChangeUtilityOrderStatus(OrderIDs, StatusID);
+            bool res = EliteBusinessObj.ChangeUtilityOrderStatus(OrderIDs, StatusID);
+            if (res)
+            {
+                foreach (var item in OrderIDs)
+                {
+                    var OrderData = GetUtilityOrder(item);
+                    SendMail(ConfigurationManager.AppSettings["OrderNotification"].ToString(), CreateUtilityOrderMailBody(OrderData), "Order Approved");
+                }
+            }
+            return res;
         }
         #endregion
 

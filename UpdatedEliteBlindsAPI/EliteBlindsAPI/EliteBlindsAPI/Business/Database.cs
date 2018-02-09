@@ -23,7 +23,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO Customer (FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,RoleID,IsActive) " +
+                string query = "INSERT INTO customer (FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,RoleID,IsActive) " +
                            "VALUES (@FirstName, @MiddleName,@Lastname, @Email, @Password, @DOB, @Gender,@Mobile,@Address,@City,@Country,@Pincode,@RoleID,0); " +
                            "SELECT LAST_INSERT_ID();";
 
@@ -80,7 +80,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("DELETE FROM Customer WHERE CustomerID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM customer WHERE CustomerID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int rows = command.ExecuteNonQuery();
                     if (rows <= 0)
@@ -116,7 +116,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,RoleID,IsActive FROM Customer Where CustomerID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,RoleID,IsActive FROM customer Where CustomerID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -170,7 +170,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,RoleID,IsActive FROM Customer ", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,RoleID,IsActive FROM customer ", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -222,7 +222,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,RoleID,IsActive FROM Customer WHERE CustomerID IN (@CustomerIDs)", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,RoleID,IsActive FROM customer WHERE CustomerID IN (@CustomerIDs)", (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@CustomerIDs", MySqlDbType.VarString).Value = string.Join(",", IDs.ToArray());
 
@@ -274,7 +274,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE Customer SET " +
+                string query = "UPDATE customer SET " +
                     "FirstName = @FirstName, " +
                     "MiddleName = @MiddleName," +
                     "Lastname = @Lastname," +
@@ -345,7 +345,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,RoleID,IsActive FROM Customer WHERE Email = '" + Email + "' AND Password = '" + Password + "'", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT CustomerID, FirstName, MiddleName,Lastname, Email, Password, DOB, Gender,Mobile,Address,City,Country,Pincode,RoleID,IsActive FROM customer WHERE Email = '" + Email + "' AND Password = '" + Password + "'", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -400,7 +400,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("UPDATE Customer SET Password = '" + Password + "' WHERE Email = '" + Email + "' AND IsActive = 0 ", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("UPDATE customer SET Password = '" + Password + "' WHERE Email = '" + Email + "' AND IsActive = 0 ", (MySqlConnection)this.Connection))
                 {
                     int Rows = Convert.ToInt32(command.ExecuteScalar());
                     returnValue = Rows > 0 ? true : false;
@@ -433,7 +433,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("UPDATE Customer SET IsActive = 0 WHERE Email = '" + Email + "'", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("UPDATE customer SET IsActive = 0 WHERE Email = '" + Email + "'", (MySqlConnection)this.Connection))
                 {
                     int Rows = Convert.ToInt32(command.ExecuteScalar());
                     returnValue = Rows > 0 ? true : false;
@@ -466,7 +466,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT Count(1) FROM Customer WHERE Email = '" + Email + "'", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT Count(1) FROM customer WHERE Email = '" + Email + "'", (MySqlConnection)this.Connection))
                 {
                     int Rows = Convert.ToInt32(command.ExecuteScalar());
                     returnValue = Rows > 0 ? true : false;
@@ -499,7 +499,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("UPDATE Customer SET IsActive = 1 WHERE CustomerID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("UPDATE customer SET IsActive = 1 WHERE CustomerID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int Rows = Convert.ToInt32(command.ExecuteScalar());
                     returnValue = Rows > 0 ? true : false;
@@ -533,7 +533,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO `Order` (CustomerID, IsNew,Fault,Evidence, Company, Reference, OrderTypeID,OrderStatusID,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes) " +
+                string query = "INSERT INTO `order` (CustomerID, IsNew,Fault,Evidence, Company, Reference, OrderTypeID,OrderStatusID,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,BlindTypeID,Transport,OrderM2,Notes) " +
                            "VALUES (@CustomerID, @IsNew, @Fault,@Evidence, @Company, @Reference, @OrderTypeID, @OrderStatusID, @OrderDate, @NumbOfBlinds, @ConsignNoteNum, @CompleteDate, @DeliveryDate, @DepartureDate, @ArrivalDate,@BlindTypeID,@Transport, @OrderM2,@Notes); " +
                            "SELECT LAST_INSERT_ID();";
 
@@ -567,7 +567,7 @@ namespace EliteBlindsAPI.Business
                     }
                     else
                     {
-                        query = "Update `Order` SET OrderNumber = @OrderNumber WHERE OrderID = " + RetVal;
+                        query = "Update `order` SET OrderNumber = @OrderNumber WHERE OrderID = " + RetVal;
                         using (MySqlCommand command1 = new MySqlCommand(query, (MySqlConnection)this.Connection))
                         {
                             command1.Parameters.Add("@OrderNumber", MySqlDbType.VarString).Value = RetVal;
@@ -604,7 +604,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("DELETE FROM `Order` WHERE OrderID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM `order` WHERE OrderID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int rows = command.ExecuteNonQuery();
                     if (rows <= 0)
@@ -640,10 +640,10 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, Order.OrderTypeID,OrderTypeDesc,Order.OrderStatusID,OrderStatusDesc,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,Order.BlindTypeID,BlindTypeDesc,Transport,OrderM2,Notes,IsApproved FROM `Order` " +
-                    "LEFT JOIN ordertype ON ordertype.OrderTypeID = Order.OrderTypeID " +
-                    "LEFT JOIN orderstatus ON orderstatus.orderstatusID = Order.orderstatusID " +
-                    "LEFT JOIN BlindType ON BlindType.BlindTypeID = Order.BlindTypeID " +
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, `order`.OrderTypeID,OrderTypeDesc,`order`.OrderStatusID,OrderStatusDesc,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,`order`.BlindTypeID,BlindTypeDesc,Transport,OrderM2,Notes,IsApproved FROM `order` " +
+                    "LEFT JOIN ordertype ON ordertype.OrderTypeID = `order`.OrderTypeID " +
+                    "LEFT JOIN orderstatus ON orderstatus.orderstatusID = `order`.orderstatusID " +
+                    "LEFT JOIN blindtype ON blindtype.BlindTypeID = `order`.BlindTypeID " +
                     "Where OrderID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -707,10 +707,10 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, Order.OrderTypeID,OrderTypeDesc,Order.OrderStatusID,OrderStatusDesc,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,Order.BlindTypeID,BlindTypeDesc,Transport,OrderM2,Notes,IsApproved FROM `Order` " +
-                    "LEFT JOIN ordertype ON ordertype.OrderTypeID = Order.OrderTypeID " +
-                    "LEFT JOIN orderstatus ON orderstatus.orderstatusID = Order.orderstatusID " +
-                    "LEFT JOIN BlindType ON BlindType.BlindTypeID = Order.BlindTypeID " , (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, `order`.OrderTypeID,OrderTypeDesc,`order`.OrderStatusID,OrderStatusDesc,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,`order`.BlindTypeID,BlindTypeDesc,Transport,OrderM2,Notes,IsApproved FROM `order` " +
+                    "LEFT JOIN ordertype ON ordertype.OrderTypeID = `order`.OrderTypeID " +
+                    "LEFT JOIN orderstatus ON orderstatus.orderstatusID = `order`.orderstatusID " +
+                    "LEFT JOIN blindtype ON blindtype.BlindTypeID = `order`.BlindTypeID " , (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -769,13 +769,13 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE `Order` SET " +
-                    "CustomerID = @CustomerID ," +
+                string query = "UPDATE `order` SET " +
+                    //"CustomerID = @CustomerID ," +
                     "IsNew = @IsNew ," +
                     "Evidence = @Evidence," +
                     "Company = @Company, " +
                     "Reference = @Reference, " +
-                    "OrderTypeID = @OrderTypeID, " +
+                    //"OrderTypeID = @OrderTypeID, " +
                     "OrderStatusID = @OrderStatusID," +
                     "OrderDate = @OrderDate," +
                     "NumbOfBlinds = @NumbOfBlinds," +
@@ -794,7 +794,7 @@ namespace EliteBlindsAPI.Business
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@OrderID", MySqlDbType.Int32).Value = instance.OrderID;
-                    command.Parameters.Add("@CustomerID", MySqlDbType.Int32).Value = instance.CustomerID;
+                    //command.Parameters.Add("@CustomerID", MySqlDbType.Int32).Value = instance.CustomerID;
                     command.Parameters.Add("@IsNew", MySqlDbType.Bit).Value = instance.IsNew;
                     command.Parameters.Add("@Fault", MySqlDbType.VarString).Value = instance.Fault;
                     command.Parameters.Add("@Evidence", MySqlDbType.Bit).Value = instance.Evidence;
@@ -815,7 +815,7 @@ namespace EliteBlindsAPI.Business
                     command.Parameters.Add("@Notes", MySqlDbType.VarString).Value = instance.Notes;
                     command.Parameters.Add("@IsApproved", MySqlDbType.Bit).Value = instance.IsApproved;
 
-                    int RetVal = Convert.ToInt32(command.ExecuteScalar());
+                    int RetVal = Convert.ToInt32(command.ExecuteNonQuery());
 
                     if (RetVal <= 0)
                     {
@@ -853,10 +853,10 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, Order.OrderTypeID,OrderTypeDesc,Order.OrderStatusID,OrderStatusDesc,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,Order.BlindTypeID,BlindTypeDesc,Transport,OrderM2,Notes,IsApproved FROM `Order` " +
-                    "LEFT JOIN ordertype ON ordertype.OrderTypeID = Order.OrderTypeID " +
-                    "LEFT JOIN orderstatus ON orderstatus.orderstatusID = Order.orderstatusID " +
-                    "LEFT JOIN BlindType ON BlindType.BlindTypeID = Order.BlindTypeID " +
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, `order`.OrderTypeID,OrderTypeDesc,`order`.OrderStatusID,OrderStatusDesc,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,`order`.BlindTypeID,BlindTypeDesc,Transport,OrderM2,Notes,IsApproved FROM `order` " +
+                    "LEFT JOIN ordertype ON ordertype.OrderTypeID = `order`.OrderTypeID " +
+                    "LEFT JOIN orderstatus ON orderstatus.orderstatusID = `order`.orderstatusID " +
+                    "LEFT JOIN blindtype ON blindtype.BlindTypeID = `order`.BlindTypeID " +
                     "WHERE OrderID IN (@OrderIDs)", (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@OrderIDs", MySqlDbType.VarString).Value = string.Join(",", IDs.ToArray());
@@ -915,13 +915,13 @@ namespace EliteBlindsAPI.Business
                 switch (RoleID)
                 {
                     case 1:
-                        strFilterBy = " WHERE `Order`.OrderStatusID IN (1,2) ";
+                        strFilterBy = " WHERE `order`.OrderStatusID IN (1,2) ";
                         break;
                     case 2:
-                        strFilterBy = " WHERE `Order`.OrderStatusID = 3";
+                        strFilterBy = " WHERE `order`.OrderStatusID = 3";
                         break;
                     case 3:
-                        strFilterBy = " WHERE `Order`.OrderStatusID = 4";
+                        strFilterBy = " WHERE `order`.OrderStatusID = 4";
                         break;
                     default:
                         break;
@@ -933,10 +933,10 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, Order.OrderTypeID,OrderTypeDesc,Order.OrderStatusID,OrderStatusDesc,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,Order.BlindTypeID,BlindTypeDesc,Transport,OrderM2,Notes,IsApproved FROM `Order` " +
-                    "LEFT JOIN ordertype ON ordertype.OrderTypeID = Order.OrderTypeID " +
-                    "LEFT JOIN orderstatus ON orderstatus.orderstatusID = Order.orderstatusID " +
-                    "LEFT JOIN BlindType ON BlindType.BlindTypeID = Order.BlindTypeID " +
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, `order`.OrderTypeID,OrderTypeDesc,`order`.OrderStatusID,OrderStatusDesc,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,`order`.BlindTypeID,BlindTypeDesc,Transport,OrderM2,Notes,IsApproved FROM `order` " +
+                    "LEFT JOIN ordertype ON ordertype.OrderTypeID = `order`.OrderTypeID " +
+                    "LEFT JOIN orderstatus ON orderstatus.orderstatusID = `order`.orderstatusID " +
+                    "LEFT JOIN blindtype ON blindtype.BlindTypeID = `order`.BlindTypeID " +
                     " " + strFilterBy , (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -997,10 +997,10 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, Order.OrderTypeID,OrderTypeDesc,Order.OrderStatusID,OrderStatusDesc,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,Order.BlindTypeID,BlindTypeDesc,Transport,OrderM2,Notes,IsApproved FROM `Order` " +
-                    "LEFT JOIN ordertype ON ordertype.OrderTypeID = Order.OrderTypeID " +
-                    "LEFT JOIN orderstatus ON orderstatus.orderstatusID = Order.orderstatusID " +
-                    "LEFT JOIN BlindType ON BlindType.BlindTypeID = Order.BlindTypeID " + 
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, `order`.OrderTypeID,OrderTypeDesc,`order`.OrderStatusID,OrderStatusDesc,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,`order`.BlindTypeID,BlindTypeDesc,Transport,OrderM2,Notes,IsApproved FROM `order` " +
+                    "LEFT JOIN ordertype ON ordertype.OrderTypeID = `order`.OrderTypeID " +
+                    "LEFT JOIN orderstatus ON orderstatus.orderstatusID = `order`.orderstatusID " +
+                    "LEFT JOIN blindtype ON blindtype.BlindTypeID = `order`.BlindTypeID " + 
                     "WHERE CustomerID = @CustomerID ", (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@CustomerID", MySqlDbType.Int32).Value = ID;
@@ -1061,7 +1061,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE `Order` SET " +
+                string query = "UPDATE `order` SET " +
                     "IsApproved = 1 " +
                     "WHERE OrderID="+OrderIDs[0];
 
@@ -1105,14 +1105,14 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE `Order` SET " +
-                    "OrderStatusID = " +StatusID +
+                string query = "UPDATE `order` SET " +
+                    " OrderStatusID = " +StatusID +
                     " WHERE OrderID="+OrderIDs[0];
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
-                    //command.Parameters.Add("@OrderIDs", MySqlDbType.VarString).Value = OrderIDs;
-                   // command.Parameters.Add("@OrderStatusID", MySqlDbType.Int32).Value = StatusID;
+                    command.Parameters.Add("@OrderIDs", MySqlDbType.VarString).Value = OrderIDs;
+                    command.Parameters.Add("@OrderStatusID", MySqlDbType.Int32).Value = StatusID;
 
 
                     int RetVal =command.ExecuteNonQuery();
@@ -1179,7 +1179,7 @@ namespace EliteBlindsAPI.Business
 
                 if (!string.IsNullOrWhiteSpace(OrderBy))
                 {
-                    strOrderBy = "Order By " + OrderBy;
+                    strOrderBy = " Order By " + OrderBy;
                 }
 
                 if (this.Connection == null)
@@ -1189,10 +1189,10 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, Order.OrderTypeID,OrderTypeDesc,Order.OrderStatusID,OrderStatusDesc,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,Order.BlindTypeID,BlindTypeDesc,Transport,OrderM2,Notes,IsApproved FROM `Order` " +
-                    "LEFT JOIN ordertype ON ordertype.OrderTypeID = Order.OrderTypeID " +
-                    "LEFT JOIN orderstatus ON orderstatus.orderstatusID = Order.orderstatusID " +
-                    "LEFT JOIN BlindType ON BlindType.BlindTypeID = Order.BlindTypeID " +
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderID,CustomerID,IsNew,Fault,Evidence, Company, Reference, `order`.OrderTypeID,OrderTypeDesc,`order`.OrderStatusID,OrderStatusDesc,OrderDate,NumbOfBlinds,ConsignNoteNum,CompleteDate,DeliveryDate,DepartureDate,ArrivalDate,`order`.BlindTypeID,BlindTypeDesc,Transport,OrderM2,Notes,IsApproved FROM `order` " +
+                    "LEFT JOIN ordertype ON ordertype.OrderTypeID = `order`.OrderTypeID " +
+                    "LEFT JOIN orderstatus ON orderstatus.orderstatusID = `order`.orderstatusID " +
+                    "LEFT JOIN blindtype ON blindtype.BlindTypeID = `order`.BlindTypeID " +
                     " " + strFilterBy + " " + strOrderBy, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -1255,7 +1255,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO OrderDetail (OrderID, Width,Height, SplPelmetWidth, WidthMadeBy, HeightMadeBy, QualityCheckedBy,SlatStyleID,CordStyleID,ReturnRequired,MountType,SquareMeter,ControlID,ControlStyle,OpeningStyle,PelmetStyle,ColorID,MaterialID,Roll,ReadyMadeSize) " +
+                string query = "INSERT INTO orderdetail (OrderID, Width,Height, SplPelmetWidth, WidthMadeBy, HeightMadeBy, QualityCheckedBy,SlatStyleID,CordStyleID,ReturnRequired,MountType,SquareMeter,ControlID,ControlStyle,OpeningStyle,PelmetStyle,ColorID,MaterialID,Roll,ReadyMadeSize) " +
                            "VALUES (@OrderID, @Width,@Height, @SplPelmetWidth, @WidthMadeBy, @HeightMadeBy, @QualityCheckedBy,@SlatStyleID,@CordStyleID,@ReturnRequired,@MountType,@SquareMeter,@ControlID,@ControlStyle,@OpeningStyle,@PelmetStyle,@ColorID,@MaterialID,@Roll,@ReadyMadeSize); " +
                             "SELECT LAST_INSERT_ID();";
 
@@ -1319,7 +1319,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("DELETE FROM OrderDetail WHERE OrderDetailID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM orderdetail WHERE OrderDetailID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int rows = command.ExecuteNonQuery();
                     if (rows <= 0)
@@ -1355,12 +1355,12 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderDetailID, OrderID, Width,Height, SplPelmetWidth, WidthMadeBy, HeightMadeBy, QualityCheckedBy,OrderDetail.SlatStyleID,SlatStyledesc,OrderDetail.CordStyleID,CordStyleDesc,ReturnRequired,MountType,SquareMeter,OrderDetail.ControlID,ControlDesc,ControlStyle,OpeningStyle,PelmetStyle,OrderDetail.ColorID,ColorsDesc,OrderDetail.MaterialID,MaterialDesc,Roll,ReadyMadeSize FROM OrderDetail " +
-                                        "LEFT JOIN SlatStyle ON SlatStyle.SlatStyleID = OrderDetail.SlatStyleID " +
-                                        "LEFT JOIN CordStyle ON CordStyle.CordStyleID = OrderDetail.CordStyleID " +
-                                        "LEFT JOIN Control ON Control.ControlID = OrderDetail.ControlID " +
-                                        "LEFT JOIN Colors ON Colors.ColorsID = OrderDetail.ColorID " +
-                                        "LEFT JOIN Material ON Material.MaterialID = OrderDetail.MaterialID " +
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderDetailID, OrderID, Width,Height, SplPelmetWidth, WidthMadeBy, HeightMadeBy, QualityCheckedBy,OrderDetail.SlatStyleID,SlatStyledesc,OrderDetail.CordStyleID,CordStyleDesc,ReturnRequired,MountType,SquareMeter,OrderDetail.ControlID,ControlDesc,ControlStyle,OpeningStyle,PelmetStyle,OrderDetail.ColorID,ColorsDesc,OrderDetail.MaterialID,MaterialDesc,Roll,ReadyMadeSize FROM orderdetail " +
+                                        "LEFT JOIN slatstyle ON slatstyle.SlatStyleID = OrderDetail.SlatStyleID " +
+                                        "LEFT JOIN cordstyle ON cordstyle.CordStyleID = OrderDetail.CordStyleID " +
+                                        "LEFT JOIN control ON control.ControlID = OrderDetail.ControlID " +
+                                        "LEFT JOIN colors ON colors.ColorsID = OrderDetail.ColorID " +
+                                        "LEFT JOIN material ON material.MaterialID = OrderDetail.MaterialID " +
                                         "Where OrderDetailID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -1425,12 +1425,12 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderDetailID, OrderID, Width,Height, SplPelmetWidth, WidthMadeBy, HeightMadeBy, QualityCheckedBy,OrderDetail.SlatStyleID,SlatStyledesc,OrderDetail.CordStyleID,CordStyleDesc,ReturnRequired,MountType,SquareMeter,OrderDetail.ControlID,ControlDesc,ControlStyle,OpeningStyle,PelmetStyle,OrderDetail.ColorID,ColorsDesc,OrderDetail.MaterialID,MaterialDesc,Roll,ReadyMadeSize FROM OrderDetail " +
-                                        "LEFT JOIN SlatStyle ON SlatStyle.SlatStyleID = OrderDetail.SlatStyleID " +
-                                        "LEFT JOIN CordStyle ON CordStyle.CordStyleID = OrderDetail.CordStyleID " +
-                                        "LEFT JOIN Control ON Control.ControlID = OrderDetail.ControlID " +
-                                        "LEFT JOIN Colors ON Colors.ColorsID = OrderDetail.ColorID " +
-                                        "LEFT JOIN Material ON Material.MaterialID = OrderDetail.MaterialID " , (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderDetailID, OrderID, Width,Height, SplPelmetWidth, WidthMadeBy, HeightMadeBy, QualityCheckedBy,OrderDetail.SlatStyleID,SlatStyledesc,OrderDetail.CordStyleID,CordStyleDesc,ReturnRequired,MountType,SquareMeter,OrderDetail.ControlID,ControlDesc,ControlStyle,OpeningStyle,PelmetStyle,OrderDetail.ColorID,ColorsDesc,OrderDetail.MaterialID,MaterialDesc,Roll,ReadyMadeSize FROM orderdetail " +
+                                        "LEFT JOIN slatstyle ON slatstyle.SlatStyleID = OrderDetail.SlatStyleID " +
+                                        "LEFT JOIN cordstyle ON cordstyle.CordStyleID = OrderDetail.CordStyleID " +
+                                        "LEFT JOIN control ON control.ControlID = OrderDetail.ControlID " +
+                                        "LEFT JOIN colors ON colors.ColorsID = OrderDetail.ColorID " +
+                                        "LEFT JOIN material ON material.MaterialID = OrderDetail.MaterialID " , (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -1492,12 +1492,12 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderDetailID, OrderID, Width,Height, SplPelmetWidth, WidthMadeBy, HeightMadeBy, QualityCheckedBy,OrderDetail.SlatStyleID,SlatStyledesc,OrderDetail.CordStyleID,CordStyleDesc,ReturnRequired,MountType,SquareMeter,OrderDetail.ControlID,ControlDesc,ControlStyle,OpeningStyle,PelmetStyle,OrderDetail.ColorID,ColorsDesc,OrderDetail.MaterialID,MaterialDesc,Roll,ReadyMadeSize FROM OrderDetail " +
-                                        "LEFT JOIN SlatStyle ON SlatStyle.SlatStyleID = OrderDetail.SlatStyleID " +
-                                        "LEFT JOIN CordStyle ON CordStyle.CordStyleID = OrderDetail.CordStyleID " +
-                                        "LEFT JOIN Control ON Control.ControlID = OrderDetail.ControlID " +
-                                        "LEFT JOIN Colors ON Colors.ColorsID = OrderDetail.ColorID " +
-                                        "LEFT JOIN Material ON Material.MaterialID = OrderDetail.MaterialID " + 
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderDetailID, OrderID, Width,Height, SplPelmetWidth, WidthMadeBy, HeightMadeBy, QualityCheckedBy,OrderDetail.SlatStyleID,SlatStyledesc,OrderDetail.CordStyleID,CordStyleDesc,ReturnRequired,MountType,SquareMeter,OrderDetail.ControlID,ControlDesc,ControlStyle,OpeningStyle,PelmetStyle,OrderDetail.ColorID,ColorsDesc,OrderDetail.MaterialID,MaterialDesc,Roll,ReadyMadeSize FROM orderdetail " +
+                                        "LEFT JOIN slatstyle ON slatstyle.SlatStyleID = OrderDetail.SlatStyleID " +
+                                        "LEFT JOIN cordstyle ON cordstyle.CordStyleID = OrderDetail.CordStyleID " +
+                                        "LEFT JOIN control ON control.ControlID = OrderDetail.ControlID " +
+                                        "LEFT JOIN colors ON colors.ColorsID = OrderDetail.ColorID " +
+                                        "LEFT JOIN material ON material.MaterialID = OrderDetail.MaterialID " + 
                                         "WHERE OrderDetailID IN (@OrderDetailID)", (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@OrderDetailIDs", MySqlDbType.VarString).Value = string.Join(",", IDs.ToArray());
@@ -1562,12 +1562,12 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderDetailID, OrderID, Width,Height, SplPelmetWidth, WidthMadeBy, HeightMadeBy, QualityCheckedBy,OrderDetail.SlatStyleID,SlatStyledesc,OrderDetail.CordStyleID,CordStyleDesc,ReturnRequired,MountType,SquareMeter,OrderDetail.ControlID,ControlDesc,ControlStyle,OpeningStyle,PelmetStyle,OrderDetail.ColorID,ColorsDesc,OrderDetail.MaterialID,MaterialDesc,Roll,ReadyMadeSize FROM OrderDetail " +
-                                        "LEFT JOIN SlatStyle ON SlatStyle.SlatStyleID = OrderDetail.SlatStyleID " +
-                                        "LEFT JOIN CordStyle ON CordStyle.CordStyleID = OrderDetail.CordStyleID " +
-                                        "LEFT JOIN Control ON Control.ControlID = OrderDetail.ControlID " +
-                                        "LEFT JOIN Colors ON Colors.ColorsID = OrderDetail.ColorID " +
-                                        "LEFT JOIN Material ON Material.MaterialID = OrderDetail.MaterialID " +
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderDetailID, OrderID, Width,Height, SplPelmetWidth, WidthMadeBy, HeightMadeBy, QualityCheckedBy,OrderDetail.SlatStyleID,SlatStyledesc,OrderDetail.CordStyleID,CordStyleDesc,ReturnRequired,MountType,SquareMeter,OrderDetail.ControlID,ControlDesc,ControlStyle,OpeningStyle,PelmetStyle,OrderDetail.ColorID,ColorsDesc,OrderDetail.MaterialID,MaterialDesc,Roll,ReadyMadeSize FROM orderdetail " +
+                                        "LEFT JOIN slatstyle ON slatstyle.SlatStyleID = OrderDetail.SlatStyleID " +
+                                        "LEFT JOIN cordstyle ON cordstyle.CordStyleID = OrderDetail.CordStyleID " +
+                                        "LEFT JOIN control ON control.ControlID = OrderDetail.ControlID " +
+                                        "LEFT JOIN colors ON colors.ColorsID = OrderDetail.ColorID " +
+                                        "LEFT JOIN material ON material.MaterialID = OrderDetail.MaterialID " +
                                         "WHERE OrderID IN (@OrderIDs)", (MySqlConnection)this.Connection))
                 {
                     command.Parameters.Add("@OrderIDs", MySqlDbType.VarString).Value = string.Join(",", IDs.ToArray());
@@ -1630,7 +1630,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE OrderDetail SET " +
+                string query = "UPDATE orderdetail SET " +
                     "OrderID = @OrderID," +
                     "Width = @Width," +
                     "Height = @Height," +
@@ -1715,7 +1715,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO UtilityOrder (CustomerID, OrderTypeID, OrderDate, CompleteDate) " +
+                string query = "INSERT INTO utilityorder (CustomerID, OrderTypeID, OrderDate, CompleteDate) " +
                            "VALUES (@CustomerID, @OrderTypeID, @OrderDate, @CompleteDate); " +
                             "SELECT LAST_INSERT_ID();";
 
@@ -1763,7 +1763,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("DELETE FROM UtilityOrder WHERE UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM utilityorder WHERE UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int rows = command.ExecuteNonQuery();
                     if (rows <= 0)
@@ -1799,8 +1799,8 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, UtilityOrder.OrderTypeID, OrderTypeDesc,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder " +
-                                                            "LEFT JOIN OrderType ON OrderType.OrderTypeID = UtilityOrder.OrderTypeID " +
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, `utilityorder`.OrderTypeID, OrderTypeDesc,  OrderDate, CompleteDate, IsApproved FROM utilityorder " +
+                                                            "LEFT JOIN ordertype ON ordertype.OrderTypeID = `utilityorder`.OrderTypeID " +
                                                             "Where UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -1847,8 +1847,8 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, UtilityOrder.OrderTypeID, OrderTypeDesc,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder " +
-                                                                "LEFT JOIN OrderType ON OrderType.OrderTypeID = UtilityOrder.OrderTypeID " , (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, `utilityorder`.OrderTypeID, OrderTypeDesc,  OrderDate, CompleteDate, IsApproved FROM utilityorder " +
+                                                                "LEFT JOIN ordertype ON ordertype.OrderTypeID = `utilityorder`.OrderTypeID " , (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -1892,8 +1892,8 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, UtilityOrder.OrderTypeID, OrderTypeDesc,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder " +
-                                                                "LEFT JOIN OrderType ON OrderType.OrderTypeID = UtilityOrder.OrderTypeID " +
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, `utilityorder`.OrderTypeID, OrderTypeDesc,  OrderDate, CompleteDate, IsApproved FROM utilityorder " +
+                                                                "LEFT JOIN ordertype ON ordertype.OrderTypeID = `utilityorder`.OrderTypeID " +
                                                                 "WHERE CustomerID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -1953,8 +1953,8 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, UtilityOrder.OrderTypeID, OrderTypeDesc,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder" +
-                                                                "LEFT JOIN OrderType ON OrderType.OrderTypeID = UtilityOrder.OrderTypeID " +
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, `utilityorder`.OrderTypeID, OrderTypeDesc,  OrderDate, CompleteDate, IsApproved FROM utilityorder" +
+                                                                "LEFT JOIN ordertype ON ordertype.OrderTypeID = `utilityorder`.OrderTypeID " +
                                                                 " " + strFilterBy, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -1997,8 +1997,8 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE UtilityOrder SET " +
-                    "CustomerID = @CustomerID, " +
+                string query = "UPDATE utilityorder SET " +
+                    //"CustomerID = @CustomerID, " +
                     "OrderTypeID = @OrderTypeID," +
                     "OrderDate = @OrderDate, " +
                     "CompleteDate = @CompleteDate, " +
@@ -2007,7 +2007,7 @@ namespace EliteBlindsAPI.Business
 
                 using (MySqlCommand command = new MySqlCommand(query, (MySqlConnection)this.Connection))
                 {
-                    command.Parameters.Add("@CustomerID", MySqlDbType.Int32).Value = instance.CustomerID;
+                    //command.Parameters.Add("@CustomerID", MySqlDbType.Int32).Value = instance.CustomerID;
                     command.Parameters.Add("@OrderTypeID", MySqlDbType.Int32).Value = instance.OrderTypeID;
                     command.Parameters.Add("@OrderDate", MySqlDbType.DateTime).Value = instance.OrderDate;
                     command.Parameters.Add("@CompleteDate", MySqlDbType.DateTime).Value = instance.CompleteDate;
@@ -2050,7 +2050,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE `UtilityOrder` SET " +
+                string query = "UPDATE `utilityorder` SET " +
                     "IsApproved = 'True' " +
                     "WHERE UtilityOrderID IN (@OrderIDs)";
 
@@ -2094,7 +2094,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE `UtilityOrder` SET " +
+                string query = "UPDATE `utilityorder` SET " +
                     "OrderStatusID = @OrderStatusID " +
                     "WHERE UtilityOrder IN (@OrderIDs)";
 
@@ -2152,7 +2152,7 @@ namespace EliteBlindsAPI.Business
 
                 if (!string.IsNullOrWhiteSpace(OrderBy))
                 {
-                    strOrderBy = "Order By " + OrderBy;
+                    strOrderBy = " Order By " + OrderBy;
                 }
 
                 if (this.Connection == null)
@@ -2162,8 +2162,8 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, UtilityOrder.OrderTypeID, OrderTypeDesc,  OrderDate, CompleteDate, IsApproved FROM UtilityOrder" +
-                                                                "LEFT JOIN OrderType ON OrderType.OrderTypeID = UtilityOrder.OrderTypeID " +
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, CustomerID, `utilityorder`.OrderTypeID, OrderTypeDesc,  OrderDate, CompleteDate, IsApproved FROM utilityorder" +
+                                                                "LEFT JOIN ordertype ON ordertype.OrderTypeID = `utilityorder`.OrderTypeID " +
                                                                 " " + strFilterBy + " " + strOrderBy, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -2208,7 +2208,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO Fabric (UtilityOrderID, FabricType, ColorID, SizeID, Boxes) " +
+                string query = "INSERT INTO fabric (UtilityOrderID, FabricType, ColorID, SizeID, Boxes) " +
                            "VALUES (@UtilityOrderID, @FabricType, @ColorID, @SizeID, @Boxes); " +
                             "SELECT LAST_INSERT_ID();";
 
@@ -2258,7 +2258,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("DELETE FROM Fabric WHERE FabricID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM fabric WHERE FabricID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int rows = command.ExecuteNonQuery();
                     if (rows <= 0)
@@ -2294,9 +2294,9 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, FabricID, FabricType, Fabric.ColorID, ColorsDesc, Fabric.SizeID, SizeDesc, Boxes FROM Fabric " +
-                                                                "LEFT JOIN Size ON Size.SizeID = Fabric.SizeID " +
-                                                                "LEFT JOIN Colors ON Colors.ColorsID = Fabric.ColorID " +
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, FabricID, FabricType, fabric.ColorID, ColorsDesc, fabric.SizeID, SizeDesc, Boxes FROM fabric " +
+                                                                "LEFT JOIN size ON size.SizeID = fabric.SizeID " +
+                                                                "LEFT JOIN colors ON colors.ColorsID = fabric.ColorID " +
                                                                 "Where FabricID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -2344,9 +2344,9 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, FabricID, FabricType, Fabric.ColorID, ColorsDesc, Fabric.SizeID, SizeDesc, Boxes FROM Fabric " +
-                                                "LEFT JOIN Size ON Size.SizeID = Fabric.SizeID " +
-                                                "LEFT JOIN Colors ON Colors.ColorsID = Fabric.ColorID " , (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, FabricID, FabricType, fabric.ColorID, ColorsDesc, fabric.SizeID, SizeDesc, Boxes FROM fabric " +
+                                                "LEFT JOIN size ON size.SizeID = fabric.SizeID " +
+                                                "LEFT JOIN colors ON colors.ColorsID = fabric.ColorID " , (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2391,9 +2391,9 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, FabricID, FabricType, Fabric.ColorID, ColorsDesc, Fabric.SizeID, SizeDesc, Boxes FROM Fabric " +
-                                 "LEFT JOIN Size ON Size.SizeID = Fabric.SizeID " +
-                                 "LEFT JOIN Colors ON Colors.ColorsID = Fabric.ColorID " +
+                using (MySqlCommand command = new MySqlCommand("SELECT UtilityOrderID, FabricID, FabricType, fabric.ColorID, ColorsDesc, fabric.SizeID, SizeDesc, Boxes FROM fabric " +
+                                 "LEFT JOIN size ON size.SizeID = fabric.SizeID " +
+                                 "LEFT JOIN colors ON colors.ColorsID = fabric.ColorID " +
                                  "WHERE UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -2437,7 +2437,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE Fabric SET " +
+                string query = "UPDATE fabric SET " +
                     "FabricType = @FabricType, " +
                     "ColorID = @ColorID," +
                     "Boxes = @Boxes," +
@@ -2490,7 +2490,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO RollerBlindType (Description, Profile, RollerColor, DLXCODE, PCSCTN, MOQ) " +
+                string query = "INSERT INTO rollerblindtype (Description, Profile, RollerColor, DLXCODE, PCSCTN, MOQ) " +
                            "VALUES (@Description, @Profile, @RollerColor, @DLXCODE, @PCSCTN, @MOQ); " +
                             "SELECT LAST_INSERT_ID();";
                 
@@ -2540,7 +2540,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("DELETE FROM RollerBlindType WHERE RollerBlindsID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM rollerblindtype WHERE RollerBlindsID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int rows = command.ExecuteNonQuery();
                     if (rows <= 0)
@@ -2576,7 +2576,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT RollerBlindTypeID, Description, Profile, RollerColor, DLXCODE, PCSCTN, MOQ FROM RollerBlindType Where RollerBlindTypeID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT RollerBlindTypeID, Description, Profile, RollerColor, DLXCODE, PCSCTN, MOQ FROM rollerblindtype Where RollerBlindTypeID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2622,7 +2622,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT RollerBlindTypeID, Description, Profile, RollerColor, DLXCODE, PCSCTN, MOQ FROM RollerBlindType", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT RollerBlindTypeID, Description, Profile, RollerColor, DLXCODE, PCSCTN, MOQ FROM rollerblindtype", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2664,7 +2664,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE RollerBlindType SET " +
+                string query = "UPDATE rollerblindtype SET " +
                     "Description = @Description, " +
                     "Profile = @Profile," +
                     "RollerColor = @RollerColor," +
@@ -2721,7 +2721,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO RollerBlinds (UtilityOrderID, RollerBlindTypeID, Boxes) " +
+                string query = "INSERT INTO rollerblinds (UtilityOrderID, RollerBlindTypeID, Boxes) " +
                            "VALUES (@UtilityOrderID, @RollerBlindTypeID, @Boxes); " +
                             "SELECT LAST_INSERT_ID();";
 
@@ -2768,7 +2768,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("DELETE FROM RollerBlinds WHERE RollerBlindsID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM rollerblinds WHERE RollerBlindsID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int rows = command.ExecuteNonQuery();
                     if (rows <= 0)
@@ -2804,7 +2804,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT RollerBlindsID, UtilityOrderID, RollerBlindTypeID, Boxes FROM RollerBlinds Where RollerBlindsID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT RollerBlindsID, UtilityOrderID, RollerBlindTypeID, Boxes FROM rollerblinds Where RollerBlindsID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2847,7 +2847,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT RollerBlindsID, UtilityOrderID, RollerBlindTypeID, Boxes FROM RollerBlinds", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT RollerBlindsID, UtilityOrderID, RollerBlindTypeID, Boxes FROM rollerblinds", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2888,7 +2888,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT RollerBlindsID, UtilityOrderID, RollerBlindTypeID, Boxes FROM RollerBlinds WHERE UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT RollerBlindsID, UtilityOrderID, RollerBlindTypeID, Boxes FROM rollerblinds WHERE UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -2927,7 +2927,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE RollerBlinds SET " +
+                string query = "UPDATE rollerblinds SET " +
                     "UtilityOrderID = @UtilityOrderID, " +
                     "RollerBlindTypeID = @RollerBlindTypeID " +
                     "Boxes = @Boxes " +
@@ -2978,7 +2978,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO Valance (MaterialID, ColorID, SizeID, UtilityOrderID, Boxes) " +
+                string query = "INSERT INTO valance (MaterialID, ColorID, SizeID, UtilityOrderID, Boxes) " +
                            "VALUES (@MaterialID, @ColorID, @SizeID, @UtilityOrderID, @Boxes); " +
                             "SELECT LAST_INSERT_ID();";
 
@@ -3027,7 +3027,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("DELETE FROM Valance WHERE ValanceID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM valance WHERE ValanceID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int rows = command.ExecuteNonQuery();
                     if (rows <= 0)
@@ -3063,10 +3063,10 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT ValanceID, Valance.MaterialID, Valance.ColorID, Valance.SizeID, UtilityOrderID, Boxes, ColorsDesc,MaterialDesc,SizeDesc FROM Valance" +
-                    "LEFT JOIN Size ON Size.SizeID = Valance.SizeID " +
-                    "LEFT JOIN Material ON Size.MaterialID = Valance.MaterialID " +
-                    "LEFT JOIN Colors ON Colors.ColorsID = Valance.ColorID " +
+                using (MySqlCommand command = new MySqlCommand("SELECT ValanceID, valance.MaterialID, valance.ColorID, valance.SizeID, UtilityOrderID, Boxes, ColorsDesc,MaterialDesc,SizeDesc FROM valance" +
+                    "LEFT JOIN size ON size.SizeID = valance.SizeID " +
+                    "LEFT JOIN material ON size.MaterialID = valance.MaterialID " +
+                    "LEFT JOIN colors ON colors.ColorsID = valance.ColorID " +
                     "Where ValanceID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -3115,10 +3115,10 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT ValanceID, Valance.MaterialID, Valance.ColorID, Valance.SizeID, UtilityOrderID, Boxes, ColorsDesc,MaterialDesc,SizeDesc FROM Valance" +
-                    "LEFT JOIN Size ON Size.SizeID = Valance.SizeID " +
-                    "LEFT JOIN Material ON Size.MaterialID = Valance.MaterialID " +
-                    "LEFT JOIN Colors ON Colors.ColorsID = Valance.ColorID " , (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT ValanceID, valance.MaterialID, valance.ColorID, valance.SizeID, UtilityOrderID, Boxes, ColorsDesc,MaterialDesc,SizeDesc FROM valance" +
+                    "LEFT JOIN size ON size.SizeID = valance.SizeID " +
+                    "LEFT JOIN material ON size.MaterialID = valance.MaterialID " +
+                    "LEFT JOIN colors ON colors.ColorsID = valance.ColorID " , (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3164,10 +3164,10 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT ValanceID, Valance.MaterialID, Valance.ColorID, Valance.SizeID, UtilityOrderID, Boxes, ColorsDesc,MaterialDesc,SizeDesc FROM Valance" +
-                    "LEFT JOIN Size ON Size.SizeID = Valance.SizeID " +
-                    "LEFT JOIN Material ON Size.MaterialID = Valance.MaterialID " +
-                    "LEFT JOIN Colors ON Colors.ColorsID = Valance.ColorID " + 
+                using (MySqlCommand command = new MySqlCommand("SELECT ValanceID, valance.MaterialID, valance.ColorID, valance.SizeID, UtilityOrderID, Boxes, ColorsDesc,MaterialDesc,SizeDesc FROM valance" +
+                    "LEFT JOIN size ON size.SizeID = valance.SizeID " +
+                    "LEFT JOIN material ON size.MaterialID = valance.MaterialID " +
+                    "LEFT JOIN colors ON colors.ColorsID = valance.ColorID " + 
                     "WHERE UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -3212,7 +3212,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE Valance SET " +
+                string query = "UPDATE valance SET " +
                     "MaterialID = @MaterialID, " +
                     "ColorID = @ColorID," +
                     "UtilityOrderID = @UtilityOrderID," +
@@ -3267,7 +3267,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO BottomRail (MaterialID, ColorID, SizeID, UtilityOrderID, Boxes) " +
+                string query = "INSERT INTO bottomrail (MaterialID, ColorID, SizeID, UtilityOrderID, Boxes) " +
                            "VALUES (@MaterialID, @ColorID, @SizeID, @UtilityOrderID, @Boxes); " +
                             "SELECT LAST_INSERT_ID();";
 
@@ -3316,7 +3316,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("DELETE FROM BottomRail WHERE BottomRailID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM bottomrail WHERE BottomRailID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int rows = command.ExecuteNonQuery();
                     if (rows <= 0)
@@ -3352,10 +3352,10 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT BottomRailID, MaterialID, ColorID, SizeID, UtilityOrderID, Boxes, ColorsDesc, MaterialDesc, SizeDesc FROM BottomRail " +
-                                                                "LEFT JOIN Size ON Size.SizeID = BottomRail.SizeID " +
-                                                                "LEFT JOIN Material ON Size.MaterialID = BottomRail.MaterialID " +
-                                                                "LEFT JOIN Colors ON Colors.ColorsID = BottomRail.ColorID " +
+                using (MySqlCommand command = new MySqlCommand("SELECT BottomRailID, MaterialID, ColorID, SizeID, UtilityOrderID, Boxes, ColorsDesc, MaterialDesc, SizeDesc FROM bottomrail " +
+                                                                "LEFT JOIN size ON size.SizeID = bottomrail.SizeID " +
+                                                                "LEFT JOIN material ON size.MaterialID = bottomrail.MaterialID " +
+                                                                "LEFT JOIN colors ON colors.ColorsID = bottomrail.ColorID " +
                                                                 " Where BottomRailID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -3404,10 +3404,10 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT BottomRailID, MaterialID, ColorID, SizeID, UtilityOrderID, Boxes, ColorsDesc, MaterialDesc, SizeDesc FROM BottomRail " +
-                                                "LEFT JOIN Size ON Size.SizeID = BottomRail.SizeID " +
-                                                "LEFT JOIN Material ON Size.MaterialID = BottomRail.MaterialID " +
-                                                "LEFT JOIN Colors ON Colors.ColorsID = BottomRail.ColorID " , (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT BottomRailID, MaterialID, ColorID, SizeID, UtilityOrderID, Boxes, ColorsDesc, MaterialDesc, SizeDesc FROM bottomrail " +
+                                                "LEFT JOIN size ON size.SizeID = bottomrail.SizeID " +
+                                                "LEFT JOIN material ON size.MaterialID = bottomrail.MaterialID " +
+                                                "LEFT JOIN colors ON colors.ColorsID = bottomrail.ColorID " , (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3453,10 +3453,10 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT BottomRailID, MaterialID, ColorID, SizeID, UtilityOrderID, Boxes, ColorsDesc, MaterialDesc, SizeDesc FROM BottomRail " +
-                                                "LEFT JOIN Size ON Size.SizeID = BottomRail.SizeID " +
-                                                "LEFT JOIN Material ON Size.MaterialID = BottomRail.MaterialID " +
-                                                "LEFT JOIN Colors ON Colors.ColorsID = BottomRail.ColorID " +
+                using (MySqlCommand command = new MySqlCommand("SELECT BottomRailID, MaterialID, ColorID, SizeID, UtilityOrderID, Boxes, ColorsDesc, MaterialDesc, SizeDesc FROM bottomrail " +
+                                                "LEFT JOIN size ON size.SizeID = bottomrail.SizeID " +
+                                                "LEFT JOIN material ON size.MaterialID = bottomrail.MaterialID " +
+                                                "LEFT JOIN colors ON colors.ColorsID = bottomrail.ColorID " +
                                                 "WHERE UtilityOrderID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -3501,7 +3501,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE BottomRail SET " +
+                string query = "UPDATE bottomrail SET " +
                     "MaterialID = @MaterialID, " +
                     "ColorID = @ColorID," +
                     "UtilityOrderID = @UtilityOrderID," +
@@ -3556,7 +3556,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO SlatStyle (SlatStyleDesc,For) " +
+                string query = "INSERT INTO slatstyle (SlatStyleDesc,For) " +
                            "VALUES (@SlatStyleDesc,@For); " +
                             "SELECT LAST_INSERT_ID();";
 
@@ -3602,7 +3602,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("DELETE FROM SlatStyle WHERE SlatStyleID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM slatstyle WHERE SlatStyleID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int rows = command.ExecuteNonQuery();
                     if (rows <= 0)
@@ -3638,7 +3638,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT SlatStyleID, SlatStyleDesc, `For` FROM SlatStyle Where SlatStyleID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT SlatStyleID, SlatStyleDesc, `For` FROM slatstyle Where SlatStyleID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3680,7 +3680,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT SlatStyleID, SlatStyleDesc, `For` FROM SlatStyle", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT SlatStyleID, SlatStyleDesc, `For` FROM slatstyle", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3720,7 +3720,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT SlatStyleID, SlatStyleDesc, `For` FROM SlatStyle WHERE `For` = '" + For + "'", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT SlatStyleID, SlatStyleDesc, `For` FROM slatstyle WHERE `For` = '" + For + "'", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3758,7 +3758,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE SlatStyle SET " +
+                string query = "UPDATE slatstyle SET " +
                     "SlatStyleDesc = @SlatStyleDesc," +
                     "`For` = @For " +
                     "WHERE SlatStyleID = @SlatStyleID";
@@ -3807,7 +3807,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO CordStyle (CordStyleDesc, `For`) " +
+                string query = "INSERT INTO cordstyle (CordStyleDesc, `For`) " +
                            "VALUES (@CordStyleDesc, @For); "+
                             "SELECT LAST_INSERT_ID();";
 
@@ -3853,7 +3853,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("DELETE FROM CordStyle WHERE CordStyleID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM cordstyle WHERE CordStyleID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int rows = command.ExecuteNonQuery();
                     if (rows <= 0)
@@ -3889,7 +3889,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT CordStyleID, CordStyleDesc, `For` FROM CordStyle Where CordStyleID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT CordStyleID, CordStyleDesc, `For` FROM cordstyle Where CordStyleID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3931,7 +3931,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT CordStyleID, CordStyleDesc, `For` FROM CordStyle", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT CordStyleID, CordStyleDesc, `For` FROM cordstyle", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -3971,7 +3971,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT CordStyleID, CordStyleDesc, `For` FROM CordStyle WHERE `For` = '" + For + "'", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT CordStyleID, CordStyleDesc, `For` FROM cordstyle WHERE `For` = '" + For + "'", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -4009,7 +4009,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE CordStyle SET " +
+                string query = "UPDATE cordstyle SET " +
                     "CordStyleDesc = @CordStyleDesc," +
                     "`For` = @For " +
                     "WHERE CordStyleID = @CordStyleID";
@@ -4058,7 +4058,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO Control (ControlDesc, `For`) " +
+                string query = "INSERT INTO control (ControlDesc, `For`) " +
                            "VALUES (@ControlDesc, @For); "+
                             "SELECT LAST_INSERT_ID();";
 
@@ -4104,7 +4104,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("DELETE FROM Control WHERE ControlID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM control WHERE ControlID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int rows = command.ExecuteNonQuery();
                     if (rows <= 0)
@@ -4140,7 +4140,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT ControlID, ControlDesc, `For` FROM Control Where ControlID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT ControlID, ControlDesc, `For` FROM control Where ControlID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -4182,7 +4182,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT ControlID, ControlDesc, `For` FROM Control", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT ControlID, ControlDesc, `For` FROM control", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -4222,7 +4222,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT ControlID, ControlDesc, `For` FROM Control WHERE `For` = '" + For + "'", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT ControlID, ControlDesc, `For` FROM control WHERE `For` = '" + For + "'", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -4247,6 +4247,7 @@ namespace EliteBlindsAPI.Business
 
             return returnValue;
         }
+
         public override Control Update(Control instance, out Exception exError)
         {
             exError = null;
@@ -4259,7 +4260,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE Control SET " +
+                string query = "UPDATE control SET " +
                     "ControlDesc = @ControlDesc," +
                     "`For` = @For " +
                     "WHERE ControlID = @ControlID";
@@ -4308,7 +4309,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO Material (MaterialDesc, `For`) " +
+                string query = "INSERT INTO material (MaterialDesc, `For`) " +
                            "VALUES (@MaterialDesc, @For); "+
                             "SELECT LAST_INSERT_ID();";
 
@@ -4354,7 +4355,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("DELETE FROM Material WHERE MaterialID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM material WHERE MaterialID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int rows = command.ExecuteNonQuery();
                     if (rows <= 0)
@@ -4390,7 +4391,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT MaterialID, MaterialDesc, `For` FROM Material Where MaterialID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT MaterialID, MaterialDesc, `For` FROM material Where MaterialID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -4432,7 +4433,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT MaterialID, MaterialDesc, `For` FROM Material", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT MaterialID, MaterialDesc, `For` FROM material", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -4472,7 +4473,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT MaterialID, MaterialDesc, `For` FROM Material WHERE `For` = '" + For + "'", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT MaterialID, MaterialDesc, `For` FROM material WHERE `For` = '" + For + "'", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -4510,7 +4511,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE Material SET " +
+                string query = "UPDATE material SET " +
                     "MaterialDesc = @MaterialDesc," +
                     "`For` = @For " +
                     "WHERE MaterialID = @MaterialID";
@@ -4559,7 +4560,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO Colors (ColorsDesc, `For`) " +
+                string query = "INSERT INTO colors (ColorsDesc, `For`) " +
                            "VALUES (@ColorsDesc, @For); "+
                             "SELECT LAST_INSERT_ID();";
                 
@@ -4605,7 +4606,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("DELETE FROM Colors WHERE ColorID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM colors WHERE ColorID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int rows = command.ExecuteNonQuery();
                     if (rows <= 0)
@@ -4641,7 +4642,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT ColorsID, ColorsDesc, `For` FROM Colors Where ColorsID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT ColorsID, ColorsDesc, `For` FROM colors Where ColorsID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -4683,7 +4684,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT ColorsID, ColorsDesc, `For` FROM Colors", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT ColorsID, ColorsDesc, `For` FROM colors", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -4723,7 +4724,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT ColorsID, ColorsDesc, `For` FROM Colors WHERE `For` = '" + For + "'", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT ColorsID, ColorsDesc, `For` FROM colors WHERE `For` = '" + For + "'", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -4761,7 +4762,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE Colors SET " +
+                string query = "UPDATE colors SET " +
                     "ColorsDesc = @ColorsDesc," +
                     "`For` = @For " +
                     "WHERE ColorsID = @ColorsID";
@@ -4810,7 +4811,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO Size (SizeDesc, `For`) " +
+                string query = "INSERT INTO size (SizeDesc, `For`) " +
                            "VALUES (@SizeDesc, @For); "+
                             "SELECT LAST_INSERT_ID();";
 
@@ -4856,7 +4857,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("DELETE FROM Size WHERE ColorID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM size WHERE ColorID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int rows = command.ExecuteNonQuery();
                     if (rows <= 0)
@@ -4892,7 +4893,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT SizeID, SizeDesc, `For` FROM Size Where SizeID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT SizeID, SizeDesc, `For` FROM size Where SizeID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -4934,7 +4935,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT SizeID, SizeDesc, `For` FROM SizeID", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT SizeID, SizeDesc, `For` FROM size", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -4974,7 +4975,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT SizeID, SizeDesc, `For` FROM Size WHERE `For` = '" + For + "'", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT SizeID, SizeDesc, `For` FROM size WHERE `For` = '" + For + "'", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -5012,7 +5013,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE Size SET " +
+                string query = "UPDATE size SET " +
                     "SizeDesc = @SizeDesc," +
                     "`For` = @For " +
                     "WHERE SizeID = @SizeID";
@@ -5061,7 +5062,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO BlindType (BlindTypeDesc, Val) " +
+                string query = "INSERT INTO blindtype (BlindTypeDesc, Val) " +
                            "VALUES (@BlindTypeDesc, @Val); " +
                             "SELECT LAST_INSERT_ID();";
 
@@ -5107,7 +5108,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("DELETE FROM BlindType WHERE ColorID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM blindtype WHERE ColorID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int rows = command.ExecuteNonQuery();
                     if (rows <= 0)
@@ -5143,7 +5144,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT BlindTypeID, BlindTypeDesc, Val FROM BlindType Where BlindTypeID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT BlindTypeID, BlindTypeDesc, Val FROM blindtype Where BlindTypeID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -5185,7 +5186,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT BlindTypeID, BlindTypeDesc, Val FROM BlindType", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT BlindTypeID, BlindTypeDesc, Val FROM blindtype", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -5223,7 +5224,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE BlindType SET " +
+                string query = "UPDATE blindtype SET " +
                     "BlindTypeDesc = @BlindTypeDesc," +
                     "Val = @Val " +
                     "WHERE BlindTypeID = @BlindTypeID";
@@ -5273,7 +5274,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO OrderType (OrderTypeDesc) " +
+                string query = "INSERT INTO ordertype (OrderTypeDesc) " +
                            "VALUES (@OrderTypeDesc); " +
                             "SELECT LAST_INSERT_ID();";
 
@@ -5318,7 +5319,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("DELETE FROM OrderType WHERE ColorID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM ordertype WHERE ColorID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int rows = command.ExecuteNonQuery();
                     if (rows <= 0)
@@ -5354,7 +5355,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderTypeID, OrderTypeDesc FROM OrderType Where OrderTypeID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderTypeID, OrderTypeDesc FROM ordertype Where OrderTypeID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -5395,7 +5396,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderTypeID, OrderTypeDesc FROM OrderType", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderTypeID, OrderTypeDesc FROM ordertype", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -5432,7 +5433,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE OrderType SET " +
+                string query = "UPDATE ordertype SET " +
                     "OrderTypeDesc = @OrderTypeDesc" +
                     "WHERE OrderTypeID = @OrderTypeID";
 
@@ -5480,7 +5481,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO OrderStatus (OrderStatusDesc) " +
+                string query = "INSERT INTO orderstatus (OrderStatusDesc) " +
                            "VALUES (@OrderStatusDesc); " +
                             "SELECT LAST_INSERT_ID();";
 
@@ -5525,7 +5526,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("DELETE FROM OrderStatus WHERE ColorID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM orderstatus WHERE ColorID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int rows = command.ExecuteNonQuery();
                     if (rows <= 0)
@@ -5561,7 +5562,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderStatusID, OrderStatusDesc FROM OrderStatus Where OrderStatusID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderStatusID, OrderStatusDesc FROM orderstatus Where OrderStatusID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -5602,7 +5603,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT OrderStatusID, OrderStatusDesc FROM OrderStatus", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT OrderStatusID, OrderStatusDesc FROM orderstatus", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -5639,7 +5640,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE OrderStatus SET " +
+                string query = "UPDATE orderstatus SET " +
                     "OrderStatusDesc = @OrderStatusDesc" +
                     "WHERE OrderStatusID = @OrderStatusID";
 
@@ -5686,7 +5687,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "INSERT INTO EliteRoles (EliteRolesDesc) " +
+                string query = "INSERT INTO eliteroles (EliteRolesDesc) " +
                            "VALUES (@EliteRolesDesc); " +
                             "SELECT LAST_INSERT_ID();";
 
@@ -5731,7 +5732,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("DELETE FROM EliteRoles WHERE ColorID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("DELETE FROM eliteroles WHERE ColorID = " + ID, (MySqlConnection)this.Connection))
                 {
                     int rows = command.ExecuteNonQuery();
                     if (rows <= 0)
@@ -5767,7 +5768,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT EliteRolesID, EliteRolesDesc FROM EliteRoles Where EliteRolesID = " + ID, (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT EliteRolesID, EliteRolesDesc FROM eliteroles Where EliteRolesID = " + ID, (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -5808,7 +5809,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("SELECT EliteRolesID, EliteRolesDesc FROM EliteRoles", (MySqlConnection)this.Connection))
+                using (MySqlCommand command = new MySqlCommand("SELECT EliteRolesID, EliteRolesDesc FROM eliteroles", (MySqlConnection)this.Connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -5845,7 +5846,7 @@ namespace EliteBlindsAPI.Business
                 else if (this.Connection != null && this.Connection.State != ConnectionState.Open)
                     this.Connection.Open();
 
-                string query = "UPDATE EliteRoles SET " +
+                string query = "UPDATE eliteroles SET " +
                     "EliteRolesDesc = @EliteRolesDesc" +
                     "WHERE EliteRolesID = @EliteRolesID";
 

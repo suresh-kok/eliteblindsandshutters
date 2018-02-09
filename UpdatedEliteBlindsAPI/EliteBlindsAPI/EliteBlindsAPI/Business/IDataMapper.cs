@@ -37,7 +37,7 @@ namespace EliteBlindsAPI.Business
 
             if (Connection == null)
                 throw new ArgumentNullException("A valid database connection is required");
-            
+
         }
 
         /// <summary>
